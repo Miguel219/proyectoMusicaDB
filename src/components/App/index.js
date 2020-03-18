@@ -7,6 +7,7 @@ import * as selectors from '../../reducers';
 import Login from '../Login';
 import { Signin } from '../Signin';
 import { Main } from '../Main';
+import { Home } from '../Home';
 
 const history = createHashHistory();
 const App = ({ store }) => { 
@@ -15,7 +16,7 @@ const App = ({ store }) => {
     <Router history={history} >
     <Route exact path="/" render={() => { 
       const initialPage = ((selectors.isLoggedUser(store.getState())) 
-        ? '/main'  
+        ? '/main/home'  
         : '/login');
       return(
       <Redirect to={initialPage}/>
@@ -28,6 +29,9 @@ const App = ({ store }) => {
       </Route>
       <Route path='/main'>
         <Main />
+        <Route path='/main/home'>
+          <Home />
+        </Route>
       </Route>
     </Router>
   </Provider>

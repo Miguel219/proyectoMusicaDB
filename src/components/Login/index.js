@@ -9,6 +9,7 @@ import * as actions from '../../actions/loggedUser';
 
 
 const Login = ({ onSubmit }) => {
+  document.body.style.backgroundColor = 'white';
   const [mailInput, changeMailInput] = useState('');
   const [passwordInput, changePasswordInput] = useState('');
   return (

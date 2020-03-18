@@ -23,6 +23,7 @@ const validateInputs = (nameInput, birthdayInput, lastNameInput, mailInput, pass
 };
 
 export const Signin = () => {
+  document.body.style.backgroundColor = 'white';
   const [nameInput, changeNameInput] = useState('');
   const [lastNameInput, changeLastNameInput] = useState('');
   const [birthdayInput, changeBirthdayInput] = useState('');
