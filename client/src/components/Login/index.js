@@ -34,7 +34,7 @@ const Login = ({ onSubmit }) => {
           onChange={e => changePasswordInput(e.target.value)}
         />
         <br/>
-        <Link to={(mailInput!=='' && passwordInput!=='') ? '/main' : '/login'} >
+        <Link to={(mailInput!=='' && passwordInput!=='') ? '/main/home' : '/login'} >
           <button type="submit" className="form-login-button" onClick={
             () => onSubmit(mailInput, passwordInput)
           }>

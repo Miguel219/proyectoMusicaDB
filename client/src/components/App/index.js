@@ -8,9 +8,14 @@ import Login from '../Login';
 import { Signin } from '../Signin';
 import { Main } from '../Main';
 import { Home } from '../Home';
+import logo from '../../../public/Images/music-note.png';
+
 
 const history = createHashHistory();
 const App = ({ store }) => { 
+  var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.href = logo;
+    document.getElementsByTagName('head')[0].appendChild(link);
   return(
   <Provider store={store}>
     <Router history={history} >
