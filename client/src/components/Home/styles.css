@@ -23,6 +23,15 @@
     overflow-x: auto;
 }
 
+hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 100%;               
+    background-color: Black;
+    height: 2px;
+}
+
 .home-content-container {
     background: white;
     border-style: solid;

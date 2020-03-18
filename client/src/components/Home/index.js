@@ -15,6 +15,7 @@ export const Home = () => {
         <div className="home-content-container" >{'hola5'}</div>
         <div className="home-content-container" >{'hola6'}</div>
       </div>
+      <hr/>
       {'Artistas:'}
       <div className="home-content">
         <div className="home-content-container" >{'hola1'}</div>
@@ -24,6 +25,7 @@ export const Home = () => {
         <div className="home-content-container" >{'hola5'}</div>        
         <div className="home-content-container" >{'hola6'}</div>        
       </div>
+      <hr/>
       {'Álbumes:'}
       <div className="home-content">
         <div className="home-content-container" >{'hola1'}</div>
