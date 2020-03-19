@@ -10,9 +10,7 @@ const configureStore = () => {
   const store = createStore(reducer, persistedState);
 
   store.subscribe(throttle(() => {
-    saveState({
-      loggedUser: store.getState().loggedUser,
-    });
+    saveState(store.getState());
   }, 1000));  
 
   return store;

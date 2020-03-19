@@ -6,7 +6,7 @@ import { createHashHistory } from 'history';
 import * as selectors from '../../reducers';
 import Login from '../Login';
 import { Signin } from '../Signin';
-import { Main } from '../Main';
+import { Sidebar } from '../Sidebar';
 import { Home } from '../Home';
 import logo from '../../../public/Images/music-note.png';
 
@@ -33,7 +33,7 @@ const App = ({ store }) => {
         <Signin />
       </Route>
       <Route path='/main'>
-        <Main />
+        <Sidebar />
         <Route path='/main/home'>
           <Home />
         </Route>
