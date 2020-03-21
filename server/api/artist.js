@@ -27,6 +27,17 @@ api.post('/get', (req, res) => {
   });
 });
 
+
+//Get Artists Albums 
+api.post('/getArtistAlbums', (req, res) => {
+  let params = req.body;
+  Artist.getArtistAlbums(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 //Insert Artist
 api.post('/', (req, res) => {
   let params = req.body;

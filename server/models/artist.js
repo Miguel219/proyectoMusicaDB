@@ -22,6 +22,17 @@ class Artist {
     });
   }
 
+  static getArtistAlbums (params,callback) {
+    db.query(`select a.albumid, a.title as albumname, a.artistid, ar.name as artistname
+    from artist ar 
+    inner join album a on a.artistid=ar.artistid
+    where (ar.artistid = '${params.artistid}')`, (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
    
   static insert (params, callback) {
     db.query(`INSERT INTO artist (name) VALUES ('${params.artistname}')`, (err, res) => {

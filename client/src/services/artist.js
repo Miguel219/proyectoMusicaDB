@@ -33,6 +33,21 @@
 };
 
 
+//get Artist Params
+export const getArtistAlbums = ({artistid}) => {
+  return fetch(`/api/artist/getArtistAlbums`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body:JSON.stringify({artistid})
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
+
 //add Artist
  export const addArtist = ({artistname}) => {
   return fetch('/api/artist/', {
@@ -72,6 +87,7 @@
 export default {
   getArtistList,
   getArtistListAll,
+  getArtistAlbums,
   updateArtist,
   addArtist,
   deleteArtist
