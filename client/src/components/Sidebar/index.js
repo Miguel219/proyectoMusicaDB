@@ -16,12 +16,10 @@ export const Sidebar = () => {
   document.body.style.backgroundColor = '#b3ffff';
   return (
     <div className="sidebar">
-      <Link to='/main/home' style={{textDecoration:'none',color:'dimgray'}}>
-        <div className="sidebar-title">
-          <img alt="logo" src={logo} className="sidebar-title-image"/>
-          {'Music App'}
-        </div>
-      </Link>
+      <div className="sidebar-title">
+        <img alt="logo" src={logo} className="sidebar-title-image"/>
+        {'Music App'}
+      </div>
       <div className="sidebar-options">
         {sidebarOptions.map((option, id) => (
           <Link key={id} to={'/main/' + option.toLowerCase()} style={{textDecoration:'none',color:'dimgray'}}>

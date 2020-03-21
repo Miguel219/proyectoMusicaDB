@@ -7,7 +7,9 @@ import * as selectors from '../../reducers';
 import Login from '../Login';
 import { Signin } from '../Signin';
 import { Sidebar } from '../Sidebar';
-import { Home } from '../Home';
+import { Tracks } from '../Tracks';
+import { Artists } from '../Artists';
+import { Albums } from '../Albums';
 import logo from '../../../public/Images/music-note.png';
 
 
@@ -34,8 +36,14 @@ const App = ({ store }) => {
       </Route>
       <Route path='/main'>
         <Sidebar />
-        <Route path='/main/home'>
-          <Home />
+        <Route path='/main/canciones'>
+          <Tracks />
+        </Route>
+        <Route path='/main/artistas'>
+          <Artists />
+        </Route>
+        <Route path='/main/álbumes'>
+          <Albums />
         </Route>
       </Route>
     </Router>
