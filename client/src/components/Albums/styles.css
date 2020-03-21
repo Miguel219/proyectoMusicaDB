@@ -13,14 +13,8 @@
 }
 
 .home-content {
-    align-items: center;
-    color: dimgray;
-    display: flex;
-    flex-direction: row;
+    background: whitesmoke;
     font-size: 15px;
-    height: 200px;
-    width: 80vw;
-    overflow-x: auto;
 }
 
 hr {

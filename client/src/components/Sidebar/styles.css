@@ -32,16 +32,6 @@
     width: 15vw;
 }
 
-.sidebar-title:hover {
-    background: azure;
-    cursor:pointer;
-}
-
-.sidebar-title:active {
-    border-top-width: 4px;
-    background: #FFD400;
-}
-
 .sidebar-image {
     margin: 10px;
     width: 30px;
