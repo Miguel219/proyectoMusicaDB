@@ -1,21 +1,56 @@
 var express = require('express');
-var Artist = require('../models/artist');
+var Track = require('../models/track');
+/* -------------------------------------------------------------------------- */
+/*                                 Track Api                                 */
+/* -------------------------------------------------------------------------- */
 
 var api = express.Router();
 
+
+
+//Get all Tracks
 api.get('/', (req, res) => {
-  Artist.getAll((err, artist) => {
+  Track.getAll((err, result) => {
     if (err)
       return res.json(err);
-    return res.json(artist);
+    return res.json(result);
   });
 });
 
+//Get Tracks params
+api.post('/get', (req, res) => {
+  let params = req.body;
+  Track.getAllParams(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
 
+//Insert Track
 api.post('/', (req, res) => {
-  var artistName = req.body.artistName;
+  let params = req.body;
+  Track.insert(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
 
-  Artist.insert(artistName, (err, result) => {
+//Update Track
+api.put('/', (req, res) => {
+  let params = req.body;
+  Track.update(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+//Delete Track
+api.delete('/', (req, res) => {
+  let params = req.body;
+  Track.delete(params, (err, result) => {
     if (err)
       return res.json(err);
     return res.json(result);

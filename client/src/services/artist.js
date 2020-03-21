@@ -18,11 +18,11 @@
 };
 
 //get Artist Params
- export const getArtistList = ({search="",limit="All"}) => {
+ export const getArtistList = ({artistname="",limit="All"}) => {
   return fetch(`/api/artist/get`,{
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body:JSON.stringify({search,limit})
+    body:JSON.stringify({artistname,limit})
   })
   .then(res => res.json())
     .then(res => {
@@ -34,11 +34,11 @@
 
 
 //add Artist
- export const addArtist = ({artistName}) => {
+ export const addArtist = ({artistname}) => {
   return fetch('/api/artist/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistName})
+    body: JSON.stringify({artistname})
   })
   .then(res => {
     return res.json();
@@ -46,11 +46,11 @@
 };
 
 //delete Artist
- export const deleteArtist = ({artistId}) => {
+ export const deleteArtist = ({artistid}) => {
   return fetch('/api/artist/', {
     method: 'delete',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistId})
+    body: JSON.stringify({artistid})
   })
   .then(res => {
     return res.json();
@@ -58,11 +58,11 @@
 };
 
 //update Artist
- export const updateArtist = ({artistId,artistName}) => {
+ export const updateArtist = ({artistid,artistname}) => {
   return fetch('/api/artist/', {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistId,artistName})
+    body: JSON.stringify({artistid,artistname})
   })
   .then(res => {
     return res.json();
