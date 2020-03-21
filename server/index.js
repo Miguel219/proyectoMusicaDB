@@ -19,6 +19,13 @@ app.use(bodyParser.json());
 
 //Apis
 app.use('/api/artist', require('./api/artist'));
+app.use('/api/track', require('./api/track'));
+app.use('/api/album', require('./api/album'));
+app.use('/api/genre', require('./api/genre'));
+app.use('/api/permission', require('./api/permission'));
+app.use('/api/role', require('./api/role'));
+app.use('/api/user', require('./api/user'));
+app.use('/api/report', require('./api/report'));
 
 
 //Listen al puerto
