@@ -12,6 +12,7 @@ import EditTrack from '../EditTrack';
 import Artists from '../Artists';
 import Albums from '../Albums';
 import logo from '../../../public/Images/music-note.png';
+import PrivateRoute from '../PrivateRouter'
 
 
 export const  history = createHashHistory();
@@ -44,49 +45,12 @@ const App = ({ store }) => {
         <Redirect to={page}/>
       )}} > 
         <Sidebar />
-        <Route path='/main/canciones' 
-         render={() => { 
-           console.log((selectors.isLoggedUser(store.getState())));
-          const page = ((selectors.isLoggedUser(store.getState())) 
-            ? <Tracks />
-            :  <Redirect to={'/login'}/>);
-          return(
-            page
-        )}}>
-          
-        </Route>
-        <Route path='/main/artistas' render={() => { 
-           console.log((selectors.isLoggedUser(store.getState())));
-          const page = ((selectors.isLoggedUser(store.getState())) 
-            ? <Artists />
-            :  <Redirect to={'/login'}/>);
-          return(
-            page
-        )}}>
-          
-        </Route>
-        <Route path='/main/álbumes' render={() => { 
-           console.log((selectors.isLoggedUser(store.getState())));
-          const page = ((selectors.isLoggedUser(store.getState())) 
-            ?  <Albums />
-            :  <Redirect to={'/login'}/>);
-          return(
-            page
-        )}}>
-         
-        </Route>
+        <PrivateRoute path={'/main/canciones'}  component={<Tracks />} store={store}/>
+        <PrivateRoute path={'/main/artistas'}  component={<Artists />} store={store}/>
+        <PrivateRoute path={'/main/álbumes'}  component={<Albums />} store={store}/>
       </Route>
-      <Route path='/editarCanción'
-      render={() => { 
-        console.log((selectors.isLoggedUser(store.getState())));
-       const page = ((selectors.isLoggedUser(store.getState())) 
-         ?  <EditTrack />
-         :  <Redirect to={'/login'}/>);
-       return(
-         page
-     )}}>
-        
-      </Route>
+      <PrivateRoute path={'/main/editarCanción'}  component={<EditTrack />} store={store}/>
+     
     </Router>
   </Provider>
 )};
