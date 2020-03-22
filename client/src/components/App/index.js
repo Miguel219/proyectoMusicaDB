@@ -35,20 +35,57 @@ const App = ({ store }) => {
       <Route path='/signin'>
         <Signin />
       </Route>
-      <Route path='/main'>
+      <Route path='/main'
+      render={() => { 
+        const page = ((selectors.isLoggedUser(store.getState())) 
+          ? '/login'  
+          : '/main');
+        return(
+        <Redirect to={page}/>
+      )}} > 
         <Sidebar />
-        <Route path='/main/canciones'>
-          <Tracks />
+        <Route path='/main/canciones' 
+         render={() => { 
+           console.log((selectors.isLoggedUser(store.getState())));
+          const page = ((selectors.isLoggedUser(store.getState())) 
+            ? <Tracks />
+            :  <Redirect to={'/login'}/>);
+          return(
+            page
+        )}}>
+          
         </Route>
-        <Route path='/main/artistas'>
-          <Artists />
+        <Route path='/main/artistas' render={() => { 
+           console.log((selectors.isLoggedUser(store.getState())));
+          const page = ((selectors.isLoggedUser(store.getState())) 
+            ? <Artists />
+            :  <Redirect to={'/login'}/>);
+          return(
+            page
+        )}}>
+          
         </Route>
-        <Route path='/main/álbumes'>
-          <Albums />
+        <Route path='/main/álbumes' render={() => { 
+           console.log((selectors.isLoggedUser(store.getState())));
+          const page = ((selectors.isLoggedUser(store.getState())) 
+            ?  <Albums />
+            :  <Redirect to={'/login'}/>);
+          return(
+            page
+        )}}>
+         
         </Route>
       </Route>
-      <Route path='/editarCanción'>
-        <EditTrack />
+      <Route path='/editarCanción'
+      render={() => { 
+        console.log((selectors.isLoggedUser(store.getState())));
+       const page = ((selectors.isLoggedUser(store.getState())) 
+         ?  <EditTrack />
+         :  <Redirect to={'/login'}/>);
+       return(
+         page
+     )}}>
+        
       </Route>
     </Router>
   </Provider>

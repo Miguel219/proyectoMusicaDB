@@ -12,9 +12,10 @@ import artistService from '../../services/artist';
 import * as actionArtists from '../../actions/artists';
 import albumService from '../../services/album';
 import * as actionAlbums from '../../actions/albums';
+import * as selectors from '../../reducers';
 
 
-const Header = ({ onSearch, parentPage }) => {
+const Header = ({ onSearch, parentPage,user }) => {
   const [searchInput, changeSearchInput] = useState('');
   const [showFilter, changeShowFilter] = useState(Boolean);
   const [genderInput, changeGenderInput] = useState('');
@@ -90,7 +91,7 @@ const Header = ({ onSearch, parentPage }) => {
       <div className="header-user">
         <img alt="img" src={Artistas} className="user-image"/>
         <div className="header-user-info">
-          {'Juan Pérez'}
+            {user.name + "  " + user.lastname}
         </div>    
       </div>
     </div>
@@ -99,7 +100,9 @@ const Header = ({ onSearch, parentPage }) => {
 
 
 export default connect(
-  undefined,
+  state =>({
+      user: selectors.getLoggedUser(state)
+  }),
   dispatch => ({
     onSearch(parentPage, searchInput, genderInput, artistInput, albumInput) {
       //Se pasan todos los inputs a minusculas

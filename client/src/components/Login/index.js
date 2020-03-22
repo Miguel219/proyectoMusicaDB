@@ -11,6 +11,7 @@ import { history } from '../App';
 
 const Login = ({ onSubmit }) => {
   document.body.style.backgroundColor = 'white';
+  
   const [mailInput, changeMailInput] = useState('');
   
   const [passwordInput, changePasswordInput] = useState('');
@@ -63,14 +64,14 @@ const connected = connect(
   undefined,
   (dispatch,state) => ({
     onSubmit(mailInput, passwordInput) {
-      let loggedIn = false;
+      
       if (mailInput==="" || passwordInput==="") 
         { alert("Ingresa los campos para continuar")}
       else{  
         userService.loginuser({userid:mailInput,password:passwordInput}).then(
         (res)=>{
           if (res.length>0){
-              loggedIn = true;
+              
               let user = res[0];
               userService.getUserPermissions({userid:mailInput}).then(permissions =>{
                 user.permissions = permissions.map(permission=>permission.permissionname)

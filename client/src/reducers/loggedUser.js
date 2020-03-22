@@ -21,4 +21,4 @@ const loggedUser = (state = {}, action) => {
 export default loggedUser;
 
 export const getLoggedUser = state => state;
-export const isLoggedUser = state => ((state !== null) ? true : false);
+export const isLoggedUser = state => ((state.userid!==undefined) ? true : false);
