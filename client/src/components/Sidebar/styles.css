@@ -1,6 +1,7 @@
 .sidebar {
     align-items: center;
-    background: white;
+    background: black;
+    color:white;
     border-right: #00EED0;
     border-right-style: solid;
     border-right-width: 2px;
@@ -32,20 +33,25 @@
     padding-bottom:2vh;
     height: 15vh;
     width: 15vw;
+    color:white;
 }
 
 .sidebar-image {
     margin: 10px;
-    width: 30px;
+    padding: 5px;
+    width: 40px;
+    background: white;
+    border-radius: 50%;
 }
 
 .sidebar-title-image {
     margin-left: 10px;
     margin-right: 20px;
-    width: 60px;
+    width: 65px;
 }
 
 .sidebar-options {
+    color:white;
     align-items: center;
     border: #00EED0;
     border-style: solid;
@@ -66,14 +72,14 @@
     border-top-width: 0px;
     display: flex;
     font-size: 20px;
-    color:black;
+    color:white;
     flex-direction: row;
     height: 50px;
     width: 15vw;
 }
 
 .sidebar-option:hover {
-    background: azure;
+    background: #00C8B9;
     cursor:pointer;
 }
 
@@ -81,5 +87,5 @@
     border-top: #00EED0;
     border-style: solid;
     border-top-width: 2px;
-    background-color: #FFD400;
+    background-color: #00998D;
 }

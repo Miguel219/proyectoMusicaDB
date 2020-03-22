@@ -18,7 +18,7 @@ const Tracks = ({ tracks, selectColumn }) => {
           {'Canciones:'}
           <div className="tracks-buttons">
             <div className="tracks-add-button">
-              {'+'}
+              <i className="fa fa-plus fa-xs"></i>
             </div>
           </div>
         </div>

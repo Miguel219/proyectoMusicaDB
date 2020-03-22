@@ -18,7 +18,7 @@ const Albums = ({ albums, selectColumn }) => {
           {'Álbumes:'}
           <div className="albums-buttons">
             <div className="albums-add-button">
-              {'+'}
+            <i className="fa fa-plus fa-xs"></i>
             </div>
           </div>
         </div>
