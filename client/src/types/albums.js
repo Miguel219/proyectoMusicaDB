@@ -1,3 +1,4 @@
 export const ALBUM_ADDED = 'ALBUM_ADDED';
 export const ALBUMS_CLEAR = 'ALBUMS_CLEAR';
 export const ALBUM_SELECTED = 'ALBUM_SELECTED';
+export const ALBUM_DESELECTED = 'ALBUM_DESELECTED';

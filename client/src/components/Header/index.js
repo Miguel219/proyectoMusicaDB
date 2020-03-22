@@ -102,6 +102,12 @@ export default connect(
   undefined,
   dispatch => ({
     onSearch(parentPage, searchInput, genderInput, artistInput, albumInput) {
+      //Se pasan todos los inputs a minusculas
+      searchInput = searchInput.toLowerCase();
+      genderInput = genderInput.toLowerCase();
+      artistInput = artistInput.toLowerCase();
+      albumInput = albumInput.toLowerCase();
+      //Dependendo de en que pagina esta se llama a la base de datos
       if(parentPage==="Tracks")
         trackService.getTrackList({
           trackname:searchInput,

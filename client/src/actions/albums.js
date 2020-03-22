@@ -14,3 +14,7 @@ export const selectAlbum = album => ({
   type: types.ALBUM_SELECTED,
   payload: album,
 });
+
+export const deselectAlbum = () => ({
+  type: types.ALBUM_DESELECTED,
+});

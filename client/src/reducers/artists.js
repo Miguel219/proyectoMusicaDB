@@ -42,6 +42,10 @@ const selected = (state = {}, action) => {
       var newState = action.payload;
       return newState;
     }
+    case types.ARTIST_DESELECTED: {
+      var newStateClear = {};
+      return newStateClear;
+    }
     default: {
       return state;
     }

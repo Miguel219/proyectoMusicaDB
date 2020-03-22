@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css';
@@ -10,6 +11,9 @@ import * as actionTracks from '../../actions/tracks';
 
 
 const Tracks = ({ tracks, selectColumn }) => {
+  const [selectedRow, changeSelectedRow] = useState(Boolean);
+  if(selectedRow)
+    return (<Redirect push to="/editarCanción" />)
   return (
     <Fragment>
       <Header parentPage="Tracks"/>
@@ -36,7 +40,10 @@ const Tracks = ({ tracks, selectColumn }) => {
           <tbody>
             {tracks.map((track, id) => 
               (
-                <tr key={id} className={"table-light"} onClick={() => selectColumn(track)}>
+                <tr key={id} className={"table-light"} onClick={() => {
+                  selectColumn(track);
+                  changeSelectedRow(true);
+                }}>
                   <th scope="row">{id+1}</th>
                   <td>{track.trackname}</td>
                   <td>{track.albumname}</td>

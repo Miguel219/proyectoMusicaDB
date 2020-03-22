@@ -8,6 +8,7 @@ import Login from '../Login';
 import { Signin } from '../Signin';
 import { Sidebar } from '../Sidebar';
 import Tracks from '../Tracks';
+import EditTrack from '../EditTrack';
 import Artists from '../Artists';
 import Albums from '../Albums';
 import logo from '../../../public/Images/music-note.png';
@@ -45,6 +46,9 @@ const App = ({ store }) => {
         <Route path='/main/álbumes'>
           <Albums />
         </Route>
+      </Route>
+      <Route path='/editarCanción'>
+        <EditTrack />
       </Route>
     </Router>
   </Provider>

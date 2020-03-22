@@ -1,7 +1,7 @@
 import * as types from '../types/loggedUser';
 
 
-const loggedUser = (state = null, action) => {
+const loggedUser = (state = {}, action) => {
   var newState = null;
   switch (action.type) {
     case types.USER_LOGGED_IN: {
@@ -9,7 +9,7 @@ const loggedUser = (state = null, action) => {
       return newState;
     }
     case types.USER_LOGGED_OFF: {
-      newState = null;
+      newState = {};
       return newState;
     }
     default: {

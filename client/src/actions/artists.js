@@ -14,3 +14,7 @@ export const selectArtist = artist => ({
   type: types.ARTIST_SELECTED,
   payload: artist,
 });
+
+export const deselectArtist = () => ({
+  type: types.ARTIST_DESELECTED,
+});

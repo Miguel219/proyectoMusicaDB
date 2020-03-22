@@ -14,3 +14,7 @@ export const selectTrack = track => ({
   type: types.TRACK_SELECTED,
   payload: track,
 });
+
+export const deselectTrack = () => ({
+  type: types.TRACK_DESELECTED,
+});

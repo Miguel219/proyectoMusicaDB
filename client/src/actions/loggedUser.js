@@ -1,9 +1,9 @@
 import * as types from '../types/loggedUser';
 
 
-export const login = id => ({
+export const login = user => ({
   type: types.USER_LOGGED_IN,
-  payload: id,
+  payload: user,
 });
 
 export const logout = () => ({
