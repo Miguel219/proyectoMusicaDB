@@ -34,11 +34,11 @@ export const getTrackListAll = () => {
 
 
 //add Track
- export const addTrack = ({trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice}) => {
+ export const addTrack = ({trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice,userid}) => {
   return fetch('/api/track/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice})
+    body: JSON.stringify({trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice,userid})
   })
   .then(res => {
     return res.json();
@@ -47,11 +47,11 @@ export const getTrackListAll = () => {
 
 
 //update Track
-export const updateTrack = ({trackid,trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice}) => {
+export const updateTrack = ({trackid,trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice,userid}) => {
   return fetch('/api/track/', {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({trackid,trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice})
+    body: JSON.stringify({trackid,trackname, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice,userid})
   })
   .then(res => {
     return res.json();

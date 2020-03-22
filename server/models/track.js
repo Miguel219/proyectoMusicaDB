@@ -30,8 +30,8 @@ class Track {
 
    
   static insert (params, callback) {
-    db.query(`INSERT INTO track(name, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice)
-      VALUES ('${params.trackname}', '${params.albumid}','${params.mediatypeid}' , '${params.genreid}', '${params.composer}', '${params.milliseconds}', '${params.bytes}', '${params.unitprice}');`, (err, res) => {
+    db.query(`INSERT INTO track(name, albumid, mediatypeid, genreid, composer, milliseconds, bytes, unitprice,userid)
+      VALUES ('${params.trackname}', '${params.albumid}','${params.mediatypeid}' , '${params.genreid}', '${params.composer}', '${params.milliseconds}', '${params.bytes}', '${params.unitprice}','${params.userid}');`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -40,7 +40,7 @@ class Track {
 
   static update (params, callback) {
     db.query(`UPDATE track
-    SET  name='${params.trackname}', albumid='${params.albumid}', mediatypeid='${params.mediatypeid}', genreid='${params.genreid}', composer='${params.composer}', milliseconds='${params.milliseconds}', bytes='${params.bytes}', unitprice='${params.unitprice}'
+    SET  name='${params.trackname}', userid='${params.userid}',albumid='${params.albumid}', mediatypeid='${params.mediatypeid}', genreid='${params.genreid}', composer='${params.composer}', milliseconds='${params.milliseconds}', bytes='${params.bytes}', unitprice='${params.unitprice}'
     where trackid='${params.trackid}';`, (err, res) => {
       if (err.error)
         return callback(err);

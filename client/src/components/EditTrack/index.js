@@ -25,7 +25,7 @@ const trackModel = {
   unitprice: "",
 };
 
-const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions }) => {
+const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions,user,onBack }) => {
   track = {...trackModel, ...track}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(track.trackname);
@@ -161,7 +161,8 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                   composer: composerInput,
                   milliseconds: millisecondsInput,
                   bytes: bytesInput,
-                  unitprice: unitpriceInput
+                  unitprice: unitpriceInput,
+                  userId: user.userId
                 })
               }>
                 Crear
@@ -178,19 +179,23 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                   composer: composerInput,
                   milliseconds: millisecondsInput,
                   bytes: bytesInput,
-                  unitprice: unitpriceInput
+                  unitprice: unitpriceInput,
+                  userId: user.userId
                 })
               }>
                 Editar
               </button>): null
               }
-              {(track.trackid==null && permissions.includes('Borrar canción')) 
-                ? <div/> 
-
-                : (<button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track)}>
-                    {'Eliminar'}
+              {(track.trackid!=null && permissions.includes('Borrar canción')) 
+                ? (<button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track)}>
+                {'Eliminar'}
                   </button>)
+
+                : null
               }
+              <button type="submit" className="edit-track-button-delete w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.push("/main/canciones")}>
+                {'Regresar'}
+              </button>
               </td>
             </tr>
           </tbody>
@@ -223,6 +228,6 @@ export default connect(
     },
     onDelete(track) {
       trackService.deleteTrack(track).then(()=> history.push("/main/canciones"));
-    },
+    }
   }),
 )(EditTrack);
