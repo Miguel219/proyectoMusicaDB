@@ -6,7 +6,7 @@
     border-bottom-width: 1px;
     color: dimgray;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     font-family: "Comic Sans MS", cursive, sans-serif;
     height: 9vh;
     justify-content: center;
@@ -16,6 +16,24 @@
     top: 0px;
     width: 100vw;
     z-index: 1;
+}
+
+.header-container {
+    height: 35px;
+}
+
+.header-initial-filter {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header-more-filters {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .header-search-filter {

@@ -1,9 +1,9 @@
-.home {
+.artists {
     color: dimgray;
     display: flex;
     position: relative;
     left: 16vw;
-    top: 80px;
+    top: 90px;
     flex-direction: column;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 25px;
@@ -12,25 +12,41 @@
     z-index: 0;
 }
 
-.home-content {
+.artists-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.artists-buttons {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.artists-add-button {
+    background: #FFD400;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+
+.artists-add-button:hover {
+    background: whitesmoke;
+}
+
+.artists-add-button:active {
+    transform: scale(0.9);
+}
+
+
+.artists-content {
     background: whitesmoke;
     font-size: 15px;
 }
-
-hr {
-    border: 0;
-    clear:both;
-    display:block;
-    width: 100%;               
-    background-color: Black;
-    height: 2px;
-}
-
-.home-content-container {
-    background: white;
-    border-style: solid;
-    margin-right: 15px;
-    width: 200px;
-    min-width: 200px;
-    height: 170px;
-  }

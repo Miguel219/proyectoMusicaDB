@@ -1,0 +1,3 @@
+export const ARTIST_ADDED = 'ARTIST_ADDED';
+export const ARTISTS_CLEAR = 'ARTISTS_CLEAR';
+export const ARTIST_SELECTED = 'ARTIST_SELECTED';

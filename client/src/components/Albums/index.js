@@ -1,51 +1,60 @@
 import React, { Fragment } from 'react';
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css';
-import { Header } from '../Header';
+import * as selectors from '../../reducers';
+import Header from '../Header';
+import * as actionAlbums from '../../actions/albums';
 
-const onSearch = () => {
-  console.log('Hola');
-};
 
-export const Albums = () => {
+const Albums = ({ albums, selectColumn }) => {
   return (
     <Fragment>
-      <Header onSearch={() => onSearch()}/>
-      <div className="home">
-        {'Álbumes:'}
-        <Table className='home-content' size="sm" hover bordered>
+      <Header parentPage="Album"/>
+      <div className="albums">
+        <div className="albums-title">
+          {'Álbumes:'}
+          <div className="albums-buttons">
+            <div className="albums-add-button">
+              {'+'}
+            </div>
+          </div>
+        </div>
+        <Table className='albums-content' size="sm" hover bordered>
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Nombre</th>
+              <th>Artista</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="table-light">
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr className="table-light">
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr className="table-light">
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {albums.map((album, id) => 
+              (
+                <tr key={id} className={"table-light"} onClick={() => selectColumn(album)}>
+                  <th scope="row">{id+1}</th>
+                  <td>{album.albumname}</td>
+                  <td>{album.artistname}</td>
+                </tr>
+              ))
+            }
           </tbody>
         </Table>
       </div>
     </Fragment>
   );
 } 
+
+
+export default connect(
+  state => ({
+    albums: selectors.getAlbums(state),
+  }),
+  dispatch => ({
+    selectColumn(album) {
+      dispatch(actionAlbums.selectAlbum(album));
+    },
+  }),
+)(Albums);
