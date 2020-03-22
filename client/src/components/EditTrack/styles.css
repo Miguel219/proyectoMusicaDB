@@ -12,6 +12,7 @@
     align-items: center;
     background: white;
     border-top: #00EED0;
+    font-size: 16px;
     border-top-style: solid;
     border-top-width: 10px;
     border-radius: 5px;
@@ -24,31 +25,62 @@
     width: 80vw;
 }
 
-.edit-track-content-row {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
+.edit-track-title {
+    font-size: 35px;
+    margin: 25px;
+}
+
+.edit-track-table {
+    width: 80%;
+}
+
+.table {
+    text-align: center;   
 }
 
 .edit-track-input {
     border-radius: 10px;
+    font-size: 13px;
+    color: dimgray;
     border: 1px solid #ccc;
     box-sizing: border-box;
     display: inline-block;
-    margin-top: 10px;
+    height: 35px;
     padding: 8px 16px;
     width: 270px;
-    margin-right: 15px;
 }
 
 .edit-track-select {
     border-radius: 10px;
-    font-size: 12px;
-    border: 1px solid;
+    font-size: 13px;
+    color: dimgray;
+    border: 1px solid #ccc;
     cursor: pointer;
     height: 35px;
-    margin-top: 10px;
     padding: 8px 16px;
     user-select: none;
-    width: 80%;
-  }
+    width: 270px;
+}
+
+button {
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    cursor:pointer;
+    color:#000000;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    height: 40px;
+}
+
+.edit-track-button-save {
+    background-color:#FFD400;
+    margin-right: 5px;
+}
+
+.edit-track-button-delete {
+    background-color:red;
+    margin-left: 5px;
+}

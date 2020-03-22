@@ -3,8 +3,8 @@
 
 // If they are: they proceed to the page
 // If not: they are redirected to the login page.
-import React, {Component} from 'react'
-import { Router, Route, Redirect } from 'react-router';
+import React from 'react'
+import { Route, Redirect } from 'react-router';
 import * as selectors from '../../reducers';
 
 export default ({component,path,store}) => {

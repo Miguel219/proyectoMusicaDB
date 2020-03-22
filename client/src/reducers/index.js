@@ -4,6 +4,8 @@ import loggedUser, * as loggedUserSelectors from './loggedUser';
 import tracks, * as tracksSelectors from './tracks';
 import artists, * as artistsSelectors from './artists';
 import albums, * as albumsSelectors from './albums';
+import genres, * as genresSelectors from './genres';
+import mediatypes, * as mediatypesSelectors from './mediatypes';
 
 
 const reducer = combineReducers({
@@ -11,6 +13,8 @@ const reducer = combineReducers({
   tracks,
   artists,
   albums,
+  genres,
+  mediatypes,
 });
 
 
@@ -28,3 +32,7 @@ export const getSelectedArtist = state => artistsSelectors.getSelectedArtist(sta
 export const getAlbum = (state, albumid) => albumsSelectors.getAlbum(state.albums, albumid);
 export const getAlbums = state => albumsSelectors.getAlbums(state.albums);
 export const getSelectedAlbum = state => albumsSelectors.getSelectedAlbum(state.albums);
+export const getGenre = (state, genreid) => genresSelectors.getGenre(state.genres, genreid);
+export const getGenres = state => genresSelectors.getGenres(state.genres);
+export const getMediatype = (state, mediatypeid) => mediatypesSelectors.getMediatype(state.mediatypes, mediatypeid);
+export const getMediatypes = state => mediatypesSelectors.getMediatypes(state.mediatypes);

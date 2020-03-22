@@ -49,7 +49,7 @@ const App = ({ store }) => {
         <PrivateRoute path={'/main/artistas'}  component={<Artists />} store={store}/>
         <PrivateRoute path={'/main/álbumes'}  component={<Albums />} store={store}/>
       </Route>
-      <PrivateRoute path={'/main/editarCanción'}  component={<EditTrack />} store={store}/>
+      <PrivateRoute path={'/editarCanción'}  component={<EditTrack />} store={store}/>
      
     </Router>
   </Provider>
