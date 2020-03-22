@@ -18,6 +18,7 @@ export const Sidebar = () => {
     <div className="sidebar">
       <div className="sidebar-title">
         <img alt="logo" src={logo} className="sidebar-title-image"/>
+
         {'Music App'}
       </div>
       <div className="sidebar-options">

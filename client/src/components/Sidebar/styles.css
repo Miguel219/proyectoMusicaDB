@@ -4,7 +4,7 @@
     border-right: #00EED0;
     border-right-style: solid;
     border-right-width: 2px;
-    color: dimgray;
+    color: black;
     display: flex;
     position: fixed;
     left: 0px;
@@ -20,14 +20,16 @@
 
 .sidebar-title {
     align-items: center;
-    min-height: 100px;
+    min-height: 130px;
     border: #00EED0;
     border-bottom: #FFD400;
     border-style: solid;
     border-width: 2px;
     display: flex;
     font-size: 26px;
-    flex-direction: row;
+    flex-direction: column;
+    padding-top:2vh;
+    padding-bottom:2vh;
     height: 15vh;
     width: 15vw;
 }
@@ -50,7 +52,7 @@
     border-width: 2px;
     border-top-width: 0px;
     display: flex;
-    font-size: 28px;
+    font-size: 20px;
     flex-direction: column;
     height: 85vh;
     width: 15vw;
@@ -63,7 +65,8 @@
     border-width: 2px;
     border-top-width: 0px;
     display: flex;
-    font-size: 28px;
+    font-size: 20px;
+    color:black;
     flex-direction: row;
     height: 50px;
     width: 15vw;
