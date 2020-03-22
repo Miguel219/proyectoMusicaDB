@@ -22,6 +22,7 @@ app.use('/api/artist', require('./api/artist'));
 app.use('/api/track', require('./api/track'));
 app.use('/api/album', require('./api/album'));
 app.use('/api/genre', require('./api/genre'));
+app.use('/api/mediatype', require('./api/mediatype'));
 app.use('/api/permission', require('./api/permission'));
 app.use('/api/role', require('./api/role'));
 app.use('/api/user', require('./api/user'));

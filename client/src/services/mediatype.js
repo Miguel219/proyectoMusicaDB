@@ -1,25 +1,95 @@
-var express = require('express');
-var Artist = require('../models/artist');
-
-var api = express.Router();
-
-api.get('/', (req, res) => {
-  Artist.getAll((err, artist) => {
-    if (err)
-      return res.json(err);
-    return res.json(artist);
-  });
-});
+/* -------------------------------------------------------------------------- */
+/*                             Servicios de Mediatype                            */
+/* -------------------------------------------------------------------------- */
 
 
-api.post('/', (req, res) => {
-  var artistName = req.body.artistName;
+//get Mediatype All
+export const getMediatypeListAll = () => {
+  return fetch(`/api/mediatype/`,{
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
 
-  Artist.insert(artistName, (err, result) => {
-    if (err)
-      return res.json(err);
-    return res.json(result);
-  });
-});
+//TODO IMPLEMENTATION
+// //get Mediatype Params
+//  export const getMediatypeList = ({mediatypename="",limit="All"}) => {
+//   return fetch(`/api/mediatype/get`,{
+//     method: 'post',
+//     headers: { 'Content-Type': 'application/json' },
+//     body:JSON.stringify({mediatypename,limit})
+//   })
+//   .then(res => res.json())
+//     .then(res => {
+//       return res;
+      
+      
+//     });
+// };
 
-module.exports = api;
+
+// //get Mediatype Params
+// export const getMediatypeAlbums = ({mediatypeid}) => {
+//   return fetch(`/api/mediatype/getMediatypeAlbums`,{
+//     method: 'post',
+//     headers: { 'Content-Type': 'application/json' },
+//     body:JSON.stringify({mediatypeid})
+//   })
+//   .then(res => res.json())
+//     .then(res => {
+//       return res;
+      
+      
+//     });
+// };
+
+// //add Mediatype
+//  export const addMediatype = ({mediatypename}) => {
+//   return fetch('/api/mediatype/', {
+//     method: 'post',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({mediatypename})
+//   })
+//   .then(res => {
+//     return res.json();
+//   });
+// };
+
+// //delete Mediatype
+//  export const deleteMediatype = ({mediatypeid}) => {
+//   return fetch('/api/mediatype/', {
+//     method: 'delete',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({mediatypeid})
+//   })
+//   .then(res => {
+//     return res.json();
+//   });
+// };
+
+// //update Mediatype
+//  export const updateMediatype = ({mediatypeid,mediatypename}) => {
+//   return fetch('/api/mediatype/', {
+//     method: 'put',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({mediatypeid,mediatypename})
+//   })
+//   .then(res => {
+//     return res.json();
+//   });
+// };
+
+export default {
+  getMediatypeListAll,
+  // getMediatypeListAll,
+  // getMediatypeAlbums,
+  // updateMediatype,
+  // addMediatype,
+  // deleteMediatype
+}
