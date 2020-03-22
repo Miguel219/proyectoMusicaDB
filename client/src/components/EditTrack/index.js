@@ -186,7 +186,8 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
               }
               {(track.trackid==null && permissions.includes('Borrar canción')) 
                 ? <div/> 
-                : (<button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track.trackid)}>
+
+                : <button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track)}>3ab2a3f79d06f5908168c5425b0d19147aa5b83b
                     {'Eliminar'}
                   </button>)
               }
@@ -219,6 +220,9 @@ export default connect(
       }else{
         alert("Ingresa todos los campos para guardar.");
       };
+    },
+    onDelete(track) {
+      trackService.deleteTrack(track).then(()=> history.push("/main/canciones"));
     },
   }),
 )(EditTrack);
