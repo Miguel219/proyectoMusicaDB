@@ -1,51 +1,66 @@
 import React, { Fragment } from 'react';
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css';
-import { Header } from '../Header';
+import * as selectors from '../../reducers';
+import Header from '../Header';
+import * as actionTracks from '../../actions/tracks';
 
-const onSearch = () => {
-  console.log('Hola');
-};
 
-export const Tracks = () => {
+const Tracks = ({ tracks, selectColumn }) => {
   return (
     <Fragment>
-      <Header onSearch={() => onSearch()}/>
-      <div className="home">
-        {'Canciones:'}
-        <Table className='home-content' size="sm" hover bordered>
+      <Header parentPage="Tracks"/>
+      <div className="tracks">
+        <div className="tracks-title">
+          {'Canciones:'}
+          <div className="tracks-buttons">
+            <div className="tracks-add-button">
+              {'+'}
+            </div>
+          </div>
+        </div>
+        <Table className='tracks-content' size="sm" hover bordered>
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Nombre</th>
+              <th>Álbum</th>
+              <th>Género</th>
+              <th>Artista</th>
+              <th>Precio</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="table-light">
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr className="table-light">
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr className="table-light">
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {tracks.map((track, id) => 
+              (
+                <tr key={id} className={"table-light"} onClick={() => selectColumn(track)}>
+                  <th scope="row">{id+1}</th>
+                  <td>{track.trackname}</td>
+                  <td>{track.albumname}</td>
+                  <td>{track.genrename}</td>
+                  <td>{track.artistname}</td>
+                  <td>{track.unitprice}</td>
+                </tr>
+              ))
+            }
           </tbody>
         </Table>
       </div>
     </Fragment>
   );
 } 
+
+
+export default connect(
+  state => ({
+    tracks: selectors.getTracks(state),
+  }),
+  dispatch => ({
+    selectColumn(track) {
+      dispatch(actionTracks.selectTrack(track));
+    },
+  }),
+)(Tracks);

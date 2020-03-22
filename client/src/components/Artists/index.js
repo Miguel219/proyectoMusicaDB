@@ -1,51 +1,58 @@
 import React, { Fragment } from 'react';
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css';
-import { Header } from '../Header';
+import * as selectors from '../../reducers';
+import Header from '../Header';
+import * as actionArtists from '../../actions/artists';
 
-const onSearch = () => {
-  console.log('Hola');
-};
 
-export const Artists = () => {
+const Artists = ({ artists, selectColumn }) => {
   return (
     <Fragment>
-      <Header onSearch={() => onSearch()}/>
-      <div className="home">
-        {'Artistas:'}
-        <Table className='home-content' size="sm" hover bordered>
+      <Header parentPage="Artist"/>
+      <div className="artists">
+        <div className="artists-title">
+          {'Artistas:'}
+          <div className="artists-buttons">
+            <div className="artists-add-button">
+              {'+'}
+            </div>
+          </div>
+        </div>
+        <Table className='artists-content' size="sm" hover bordered>
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Nombre</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="table-light">
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr className="table-light">
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr className="table-light">
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {artists.map((artist, id) => 
+              (
+                <tr key={id} className={"table-light"} onClick={() => selectColumn(artist)}>
+                  <th scope="row">{id+1}</th>
+                  <td>{artist.artistname}</td>
+                </tr>
+              ))
+            }
           </tbody>
         </Table>
       </div>
     </Fragment>
   );
 } 
+
+
+export default connect(
+  state => ({
+    artists: selectors.getArtists(state),
+  }),
+  dispatch => ({
+    selectColumn(artist) {
+      dispatch(actionArtists.selectArtist(artist));
+    },
+  }),
+)(Artists);
