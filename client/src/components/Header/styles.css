@@ -93,7 +93,7 @@
 
 .header-user {
     align-items: center;
-    background: #FFD400;
+    background: #434343;
     border: black;
     border-left-style: solid;
     border-left-width: 2px;
@@ -114,9 +114,14 @@
     overflow: hidden;
     padding-left: 8px;
     font-size: 15px;
+    color:white;
 }
 
 .user-image {
-    height: 20px;
-    width: 20px;   
+    height: 30px;
+    width: 30px;   
+    margin: 2px;
+    padding: 5px;
+    background: white;
+    border-radius: 50%;
 }

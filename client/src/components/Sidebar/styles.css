@@ -1,7 +1,9 @@
 .sidebar {
     align-items: center;
-    background: white;
+    background-color: #1C1C1C;
+    color:white;
     border-right: #00EED0;
+    border-left:black;
     border-right-style: solid;
     border-right-width: 2px;
     color: black;
@@ -22,9 +24,10 @@
     align-items: center;
     min-height: 130px;
     border: #00EED0;
+    border-left:black;
     border-bottom: #FFD400;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     display: flex;
     font-size: 26px;
     flex-direction: column;
@@ -32,24 +35,31 @@
     padding-bottom:2vh;
     height: 15vh;
     width: 15vw;
+    color:white;
 }
 
 .sidebar-image {
     margin: 10px;
-    width: 30px;
+    padding: 5px;
+    width: 40px;
+    background: white;
+    border-radius: 50%;
 }
 
 .sidebar-title-image {
     margin-left: 10px;
     margin-right: 20px;
-    width: 60px;
+    width: 65px;
 }
 
 .sidebar-options {
+    color:white;
+    background-color: #434343;
     align-items: center;
     border: #00EED0;
+    border-left:black;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     border-top-width: 0px;
     display: flex;
     font-size: 20px;
@@ -61,19 +71,20 @@
 .sidebar-option {
     align-items: center;
     border: #00EED0;
+    border-left:black;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     border-top-width: 0px;
     display: flex;
     font-size: 20px;
-    color:black;
+    color:white;
     flex-direction: row;
     height: 50px;
     width: 15vw;
 }
 
 .sidebar-option:hover {
-    background: azure;
+    background: #00C8B9;
     cursor:pointer;
 }
 
@@ -81,5 +92,5 @@
     border-top: #00EED0;
     border-style: solid;
     border-top-width: 2px;
-    background-color: #FFD400;
+    background-color: #00998D;
 }

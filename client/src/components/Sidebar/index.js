@@ -13,7 +13,7 @@ const sidebarOptions = ['Canciones', 'Artistas', 'Álbumes', 'Reportes'];
 const optImg = [Canciones, Artistas, Albumes, Reportes];
 
 export const Sidebar = () => {
-  document.body.style.backgroundColor = '#b3ffff';
+  document.body.style.backgroundColor = '#A8FFF5';
   return (
     <div className="sidebar">
       <div className="sidebar-title">

@@ -24,8 +24,9 @@
 }
 
 .artists-add-button {
-    background: #FFD400;
-    border-radius: 10px;
+    background: #FFB900;
+
+    border-radius: 15px;
     border: 1px solid #ccc;
     color: black;
     align-items: center;
