@@ -1,6 +1,6 @@
 .sidebar {
     align-items: center;
-    background: black;
+    background-color: #1C1C1C;
     color:white;
     border-right: #00EED0;
     border-left:black;
@@ -54,6 +54,7 @@
 
 .sidebar-options {
     color:white;
+    background-color: #434343;
     align-items: center;
     border: #00EED0;
     border-left:black;
