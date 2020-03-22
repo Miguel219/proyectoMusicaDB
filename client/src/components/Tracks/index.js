@@ -16,14 +16,14 @@ import mediatypeService from '../../services/mediatype';
 import * as actionMediatypes from '../../actions/mediatypes';
 
 
-const Tracks = ({ tracks, selectColumn, onClick }) => {
+const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
   return (
     <Fragment>
       <Header parentPage="Tracks"/>
       <div className="tracks">
         <div className="tracks-title">
           {'Canciones:'}
-          <div className="tracks-buttons">
+          <div className="tracks-buttons" hidden={!permissions.includes('Crear canción')}>
             <div className="tracks-add-button" onClick={() => onClick()}>
               <i className="fa fa-plus fa-xs"></i>
             </div>
@@ -64,6 +64,7 @@ const Tracks = ({ tracks, selectColumn, onClick }) => {
 export default connect(
   state => ({
     tracks: selectors.getTracks(state),
+    permissions: selectors.getLoggedUser(state).permissions,
   }),
   dispatch => ({
     selectColumn(track) {

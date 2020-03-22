@@ -25,7 +25,7 @@ const trackModel = {
   unitprice: "",
 };
 
-const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete }) => {
+const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions }) => {
   track = {...trackModel, ...track}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(track.trackname);
@@ -150,7 +150,8 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                 />
               </td>
               <td>
-              <button type="submit" className="edit-track-button-save" onClick={() => 
+              {(track.trackid==null  && permissions.includes('Crear canción')) ?
+                (<button type="submit" className="edit-track-button-save" onClick={() => 
                 onSave({
                   trackid: track.trackid,
                   trackname: nameInput,
@@ -163,13 +164,31 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                   unitprice: unitpriceInput
                 })
               }>
-                {(track.trackid==null) ? 'Crear' : "Editar"}
-              </button>
-              {(track.trackid==null) 
+                Crear
+              </button>): null
+              }
+              {(track.trackid!=null  && permissions.includes('Editar canción')) ?
+                (<button type="submit" className="edit-track-button-save" onClick={() => 
+                onSave({
+                  trackid: track.trackid,
+                  trackname: nameInput,
+                  albumid: albumDropDown,
+                  mediatypeid: mediatypeDropDown,
+                  genreid: genreDropDown,
+                  composer: composerInput,
+                  milliseconds: millisecondsInput,
+                  bytes: bytesInput,
+                  unitprice: unitpriceInput
+                })
+              }>
+                Editar
+              </button>): null
+              }
+              {(track.trackid==null && permissions.includes('Borrar canción')) 
                 ? <div/> 
-                : <button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track.trackid)}>
+                : (<button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track.trackid)}>
                     {'Eliminar'}
-                  </button>
+                  </button>)
               }
               </td>
             </tr>
@@ -187,6 +206,8 @@ export default connect(
     albumList: selectors.getAlbums(state),
     genreList: selectors.getGenres(state),
     mediatypeList: selectors.getMediatypes(state),
+    permissions: selectors.getLoggedUser(state).permissions,
+    user: selectors.getLoggedUser(state),
   }),
   dispatch => ({
     onSave(track) {
