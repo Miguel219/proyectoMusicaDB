@@ -48,6 +48,16 @@ class Track {
     });
   }
 
+  static updateActive (params, callback) {
+    db.query(`UPDATE track
+    SET  isactive='${params.isactive}'
+    where trackid='${params.trackid}';`, (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
   static delete (params, callback) {
     db.query(`delete from track where trackid=${params.trackid}`, (err, res) => {
       if (err.error)

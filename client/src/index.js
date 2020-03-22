@@ -8,6 +8,7 @@ import App from './components/App';
 //import albumService from './services/album'
 //import genreService from './services/genre'
 //import mediatypeService from './services/mediatype'
+import reportService from './services/report'
 
 const store = configureStore();
 
@@ -30,3 +31,12 @@ ReactDOM.render(
 
 //console.log(genreService.getGenreListAll().then(res=> console.log(res)))
 //console.log(mediatypeService.getMediatypeListAll().then(res=> console.log(res)))
+
+//console.log(reportService.getReport({reportType:1}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:2,limit:"All"}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:3}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:4}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:5}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:6,limit:"All"}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:7}).then(res=> console.log(res)))
+//console.log(reportService.getReport({reportType:8}).then(res=> console.log(res)))

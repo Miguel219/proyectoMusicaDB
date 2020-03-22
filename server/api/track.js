@@ -47,6 +47,17 @@ api.put('/', (req, res) => {
   });
 });
 
+
+//Update Track Active
+api.put('/active', (req, res) => {
+  let params = req.body;
+  Track.updateActive(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 //Delete Track
 api.delete('/', (req, res) => {
   let params = req.body;

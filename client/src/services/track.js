@@ -59,6 +59,18 @@ export const updateTrack = ({trackid,trackname, albumid, mediatypeid, genreid, c
 };
 
 
+//update Track
+export const updateTrackActive = ({trackid,isactive}) => {
+  return fetch('/api/track/active', {
+    method: 'put',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({trackid,isactive})
+  })
+  .then(res => {
+    return res.json();
+  });
+};
+
 //delete Track
  export const deleteTrack = ({trackid}) => {
   return fetch('/api/track/', {

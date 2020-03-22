@@ -47,7 +47,7 @@ CREATE TABLE Artist
 (
     ArtistId SERIAL,
     Name VARCHAR(120),
-	IsActive BOOL DEFAULT 1,
+	IsActive BOOL DEFAULT True,
 	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
     CONSTRAINT PK_Artist PRIMARY KEY (ArtistId),
 	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -59,7 +59,7 @@ CREATE TABLE Album
     AlbumId SERIAL,
     Title VARCHAR(160) NOT NULL,
     ArtistId INT NOT NULL,
-	IsActive BOOL DEFAULT 1,
+	IsActive BOOL DEFAULT False,
 	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
     CONSTRAINT PK_Album PRIMARY KEY (AlbumId),
     FOREIGN KEY (ArtistId) REFERENCES Artist (ArtistId) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -152,7 +152,7 @@ CREATE TABLE Track
     Milliseconds INT NOT NULL,
     Bytes INT,
     UnitPrice NUMERIC(10,2) NOT NULL,
-	IsActive BOOL DEFAULT 1,
+	IsActive BOOL DEFAULT True,
 	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
     CONSTRAINT PK_Track PRIMARY KEY (TrackId),
     FOREIGN KEY (AlbumId) REFERENCES Album (AlbumId) ON DELETE NO ACTION ON UPDATE NO ACTION,
