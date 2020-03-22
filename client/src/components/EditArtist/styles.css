@@ -1,4 +1,4 @@
-.edit-track {
+.edit-artist {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-.edit-track-content {
+.edit-artist-content {
     align-items: center;
     background: white;
     border-top: #00EED0;
@@ -25,14 +25,20 @@
     width: 1200px;
 }
 
-.edit-track-title {
+.edit-artist-title {
     font-size: 35px;
     margin: 25px;
 }
 
-.edit-track-table {
+.edit-artist-table {
     width: 80%;
     height: min-content;
+}
+
+.edit-artist-table-albums {
+    background: whitesmoke;
+    font-size: 15px;
+    width: 80%;
 }
 
 .table {
@@ -40,7 +46,7 @@
     margin-bottom: 50px;
 }
 
-.edit-track-input {
+.edit-artist-input {
     border-radius: 10px;
     font-size: 13px;
     color: dimgray;
@@ -52,7 +58,7 @@
     width: 270px;
 }
 
-.edit-track-select {
+.edit-artist-select {
     border-radius: 10px;
     font-size: 13px;
     color: dimgray;
@@ -77,12 +83,12 @@ button {
     height: 40px;
 }
 
-.edit-track-button-save {
+.edit-artist-button-save {
     background-color:#FFD400;
     margin-right: 5px;
 }
 
-.edit-track-button-delete {
+.edit-artist-button-delete {
     background-color:red;
     margin-left: 5px;
 }

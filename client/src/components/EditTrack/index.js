@@ -167,7 +167,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
               </button>
               {(track.trackid==null) 
                 ? <div/> 
-                : <button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track.trackid)}>
+                : <button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track)}>
                     {'Eliminar'}
                   </button>
               }
@@ -198,6 +198,9 @@ export default connect(
       }else{
         alert("Ingresa todos los campos para guardar.");
       };
+    },
+    onDelete(track) {
+      trackService.deleteTrack(track).then(()=> history.push("/main/canciones"));
     },
   }),
 )(EditTrack);

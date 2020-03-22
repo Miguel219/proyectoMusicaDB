@@ -3,13 +3,16 @@ import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { history } from '../App';
 import './styles.css';
 import * as selectors from '../../reducers';
 import Header from '../Header';
 import * as actionArtists from '../../actions/artists';
+import * as actionAlbums from '../../actions/albums';
+import artistService from '../../services/artist';
 
 
-const Artists = ({ artists, selectColumn }) => {
+const Artists = ({ artists, selectColumn, onClick }) => {
   return (
     <Fragment>
       <Header parentPage="Artist"/>
@@ -17,7 +20,7 @@ const Artists = ({ artists, selectColumn }) => {
         <div className="artists-title">
           {'Artistas:'}
           <div className="artists-buttons">
-            <div className="artists-add-button">
+            <div className="artists-add-button" onClick={() => onClick()}>
             <i className="fa fa-plus fa-xs"></i>
             </div>
           </div>
@@ -53,6 +56,16 @@ export default connect(
   dispatch => ({
     selectColumn(artist) {
       dispatch(actionArtists.selectArtist(artist));
+      dispatch(actionAlbums.clearAlbums());
+      artistService.getArtistAlbums(artist).then(res=> {
+        const artistAlbums = res;
+        artistAlbums.map(album => dispatch(actionAlbums.addAlbum(album)));
+      });
+      history.push("/editarArtista");
+    },
+    onClick() {
+      dispatch(actionArtists.deselectArtist());
+      history.push("/editarArtista");
     },
   }),
 )(Artists);
