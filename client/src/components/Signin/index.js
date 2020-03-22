@@ -1,12 +1,34 @@
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import userService from '../../services/user';
 import './styles.css';
 
 
-const onSubmit = () => {
-  console.log(uuidv4());
+
+const onSubmit = (nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) => {
+  userService.useridtaken({userid:mailInput}).then(
+    res => {
+      if(!res[0].isuseridtaken){
+        userService.addUser({name:nameInput,lastname:lastNameInput,birthdate:birthdayInput,userid:mailInput,password:passwordInput});
+      }else{
+        alert("El correo ingresado ya existe en la plataforma.")
+      }
+      
+    }
+);
+  
+  
+};
+
+var useridtaken = true;
+const isUserIdTaken = (userid) => {
+  userService.useridtaken({userid}).then(
+      res => {
+        useridtaken = res[0].isuseridtaken;
+        console.log(res[0].isuseridtaken)
+      }
+  );
 };
 
 const validateInputs = (nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) => {
@@ -20,6 +42,7 @@ const validateInputs = (nameInput, birthdayInput, lastNameInput, mailInput, pass
   if(isNaN(date.getTime() || date.getFullYear()>2020 || date.getFullYear()<1920))
     return false;
   return true;
+
 };
 
 export const Signin = () => {
@@ -66,8 +89,12 @@ export const Signin = () => {
         <input className="form-signin-input"
           type="email"
           value={mailInput}
-          onChange={e => changeMailInput(e.target.value)}
+          onChange={e => {changeMailInput(e.target.value);
+            isUserIdTaken(e.target.value)}}
+          
         />
+        
+        
         <label style={{width: '270px'}}>
           {'Contraseña:'}
         </label>
@@ -77,9 +104,9 @@ export const Signin = () => {
           onChange={e => changePasswordInput(e.target.value)}
         />
         <br/>
-        <Link to={validateInputs(nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) ? '/login' : '/signin'} >
-          <button type="submit" className="form-login-button" onClick={
-            () => validateInputs(nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) ? onSubmit() : alert("Revisa tus datos para continuar")
+        <Link to={validateInputs(nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) && (!useridtaken) ? '/login' : '/signin'} >
+          <button type="submit" className='form-login-button' onClick={
+            () => validateInputs(nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) ? onSubmit(nameInput, birthdayInput, lastNameInput, mailInput, passwordInput) : alert("Revisa tus datos para continuar")
           }>
             {'Registrarse'}
           </button>

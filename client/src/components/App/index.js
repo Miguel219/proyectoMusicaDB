@@ -14,7 +14,7 @@ import Albums from '../Albums';
 import logo from '../../../public/Images/music-note.png';
 
 
-const history = createHashHistory();
+export const  history = createHashHistory();
 const App = ({ store }) => { 
   var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
     link.href = logo;

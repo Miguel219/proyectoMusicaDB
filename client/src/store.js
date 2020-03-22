@@ -12,6 +12,7 @@ const configureStore = () => {
   store.subscribe(throttle(() => {
     saveState(store.getState());
   }, 1000));  
+    console.log(store.getState());
 
   return store;
 }
