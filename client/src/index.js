@@ -10,7 +10,7 @@ import App from './components/App';
 //import mediatypeService from './services/mediatype'
 //import reportService from './services/report'
 
-import userService from './services/user'
+//import userService from './services/user'
 
 const store = configureStore();
 
