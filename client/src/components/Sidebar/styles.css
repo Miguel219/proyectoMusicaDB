@@ -3,6 +3,7 @@
     background: black;
     color:white;
     border-right: #00EED0;
+    border-left:black;
     border-right-style: solid;
     border-right-width: 2px;
     color: black;
@@ -23,9 +24,10 @@
     align-items: center;
     min-height: 130px;
     border: #00EED0;
+    border-left:black;
     border-bottom: #FFD400;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     display: flex;
     font-size: 26px;
     flex-direction: column;
@@ -54,8 +56,9 @@
     color:white;
     align-items: center;
     border: #00EED0;
+    border-left:black;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     border-top-width: 0px;
     display: flex;
     font-size: 20px;
@@ -67,8 +70,9 @@
 .sidebar-option {
     align-items: center;
     border: #00EED0;
+    border-left:black;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     border-top-width: 0px;
     display: flex;
     font-size: 20px;
