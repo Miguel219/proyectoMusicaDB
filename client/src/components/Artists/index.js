@@ -12,14 +12,14 @@ import * as actionAlbums from '../../actions/albums';
 import artistService from '../../services/artist';
 
 
-const Artists = ({ artists, selectColumn, onClick }) => {
+const Artists = ({ artists, selectColumn, permissions, onClick }) => {
   return (
     <Fragment>
       <Header parentPage="Artist"/>
       <div className="artists">
         <div className="artists-title">
           {'Artistas:'}
-          <div className="artists-buttons">
+          <div className="artists-buttons" hidden={!permissions.includes('Crear artista')}>
             <div className="artists-add-button" onClick={() => onClick()}>
             <i className="fa fa-plus fa-xs"></i>
             </div>
@@ -52,6 +52,7 @@ const Artists = ({ artists, selectColumn, onClick }) => {
 export default connect(
   state => ({
     artists: selectors.getArtists(state),
+    permissions: selectors.getLoggedUser(state).permissions,
   }),
   dispatch => ({
     selectColumn(artist) {
@@ -65,6 +66,7 @@ export default connect(
     },
     onClick() {
       dispatch(actionArtists.deselectArtist());
+      dispatch(actionAlbums.clearAlbums());
       history.push("/editarArtista");
     },
   }),

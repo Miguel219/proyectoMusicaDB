@@ -13,6 +13,7 @@ import Artists from '../Artists';
 import Reports from '../Reports'
 import EditArtist from '../EditArtist';
 import Albums from '../Albums';
+import EditAlbum from '../EditAlbum';
 import logo from '../../../public/Images/music-note.png';
 import PrivateRoute from '../PrivateRouter'
 
@@ -54,6 +55,7 @@ const App = ({ store }) => {
       </Route>
       <PrivateRoute path={'/editarCanción'}  component={<EditTrack />} store={store}/>
       <PrivateRoute path={'/editarArtista'}  component={<EditArtist />} store={store}/>
+      <PrivateRoute path={'/editarÁlbum'}  component={<EditAlbum />} store={store}/>
 
 
       

@@ -3,21 +3,26 @@ import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { history } from '../App';
 import './styles.css';
 import * as selectors from '../../reducers';
 import Header from '../Header';
 import * as actionAlbums from '../../actions/albums';
+import * as actionTracks from '../../actions/tracks';
+import * as actionArtists from '../../actions/artists';
+import artistService from '../../services/artist';
+import albumService from '../../services/album';
 
 
-const Albums = ({ albums, selectColumn }) => {
+const Albums = ({ albums, selectColumn, permissions, onClick }) => {
   return (
     <Fragment>
       <Header parentPage="Album"/>
       <div className="albums">
         <div className="albums-title">
           {'Álbumes:'}
-          <div className="albums-buttons">
-            <div className="albums-add-button">
+          <div className="albums-buttons" hidden={!permissions.includes('Crear álbum')}>
+            <div className="albums-add-button" onClick={() => onClick()}>
             <i className="fa fa-plus fa-xs"></i>
             </div>
           </div>
@@ -51,10 +56,34 @@ const Albums = ({ albums, selectColumn }) => {
 export default connect(
   state => ({
     albums: selectors.getAlbums(state),
+    permissions: selectors.getLoggedUser(state).permissions,
   }),
   dispatch => ({
     selectColumn(album) {
       dispatch(actionAlbums.selectAlbum(album));
+      dispatch(actionTracks.clearTracks());
+      albumService.getAlbumTracks(album).then(res=> {
+        const albumTracks = res;
+        albumTracks.map(track => dispatch(actionTracks.addTrack(track)));
+      });
+      //Se carga el DorpDown de albums
+      dispatch(actionArtists.clearArtists());
+      artistService.getArtistListAll().then(res=> {
+        const artistDropDown = res;
+        artistDropDown.map(artist => dispatch(actionArtists.addArtist(artist)));
+      });
+      history.push("/editarÁlbum");
+    },
+    onClick() {
+      dispatch(actionAlbums.deselectAlbum());
+      dispatch(actionTracks.clearTracks());
+      //Se carga el DorpDown de albums
+      dispatch(actionArtists.clearArtists());
+      artistService.getArtistListAll().then(res=> {
+        const artistDropDown = res;
+        artistDropDown.map(artist => dispatch(actionArtists.addArtist(artist)));
+      });
+      history.push("/editarÁlbum");
     },
   }),
 )(Albums);

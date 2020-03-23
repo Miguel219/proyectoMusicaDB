@@ -4,7 +4,6 @@ import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reac
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { history } from '../App';
 import './styles.css';
 import * as selectors from '../../reducers';
 import Header from '../Header';
@@ -63,31 +62,6 @@ const renderSwitchReport = (reporttypeid,report) =>{
           </tbody>
         </Table>
         );
-        case '3':
-          return (
-            <Table className='reports-content' size="sm" hover bordered>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Artista</th>
-                <th>Cantidad de álbumes</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {report.map((report, id) => 
-                (
-                  <tr key={id} className={"table-light"} >
-                    <th scope="row">{id+1}</th>
-                    <td>{report.artistname}</td>
-                    <td>{report.albumcount}</td>
-     
-                  </tr>
-                ))
-              }
-            </tbody>
-          </Table>
-          );
         case '3':
           return (
             <Table className='reports-content' size="sm" hover bordered>

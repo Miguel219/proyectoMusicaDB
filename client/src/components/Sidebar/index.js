@@ -27,7 +27,7 @@ const DummySidebar = ({loggoff,permissions}) => {
       </div>
       <div className="sidebar-options">
         {sidebarOptions.map((option, id) => (
-          (id<3 || (id==3 && Reports.some(r=> permissions.includes(r)))) ?
+          (id<3 || (id===3 && Reports.some(r=> permissions.includes(r)))) ?
           (<Link key={id} to={'/main/' + option.toLowerCase()} style={{textDecoration:'none',color:'dimgray'}}>
             <div value={id} className="sidebar-option">
               <img alt="img" src={optImg[id]} className="sidebar-image"/>

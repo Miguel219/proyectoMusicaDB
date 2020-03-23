@@ -63,7 +63,7 @@ class Report {
     from track t
     inner join users u on u.userId = t.userId
     group by (u.userId)
-    order by (count(*))
+    order by (count(*)) DESC
     limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);

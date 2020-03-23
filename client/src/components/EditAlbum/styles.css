@@ -1,4 +1,4 @@
-.edit-track {
+.edit-album {
     align-items: center;
     display: flex;
     position: relative;
@@ -9,7 +9,7 @@
     width: 100vw;
 }
 
-.edit-track-content {
+.edit-album-content {
     align-items: center;
     background: white;
     border-top: #00EED0;
@@ -27,14 +27,24 @@
     width: 1200px;
 }
 
-.edit-track-title {
+.edit-album-title {
     font-size: 35px;
     margin: 25px;
 }
 
-.edit-track-table {
+.edit-album-table {
     width: 80%;
     height: min-content;
+}
+
+.edit-album-table-tracks-container {
+    font-size: 23px;
+    width: 80%;
+}
+
+.edit-album-table-tracks {
+    background: whitesmoke;
+    font-size: 15px;
 }
 
 .table {
@@ -42,7 +52,7 @@
     margin-bottom: 50px;
 }
 
-.edit-track-input {
+.edit-album-input {
     border-radius: 10px;
     font-size: 13px;
     color: dimgray;
@@ -54,7 +64,7 @@
     width: 270px;
 }
 
-.edit-track-select {
+.edit-album-select {
     border-radius: 10px;
     font-size: 13px;
     color: dimgray;
@@ -79,12 +89,42 @@ button {
     height: 40px;
 }
 
-.edit-track-button-save {
+.edit-album-button-save {
     background-color:#FFD400;
     margin-right: 5px;
 }
 
-.edit-track-button-delete {
+.edit-album-button-delete {
     background-color:red;
     margin-left: 5px;
 }
+
+.edit-album-buttons {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-album-add-button {
+    background: #FFB900;
+
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+
+.edit-album-add-button:hover {
+    background: whitesmoke;
+}
+
+.edit-album-add-button:active {
+    transform: scale(0.9);
+}
+

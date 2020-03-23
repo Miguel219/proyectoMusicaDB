@@ -33,6 +33,8 @@ export const getArtists = state => artistsSelectors.getArtists(state.artists);
 export const getSelectedArtist = state => artistsSelectors.getSelectedArtist(state.artists);
 export const getAlbum = (state, albumid) => albumsSelectors.getAlbum(state.albums, albumid);
 export const getAlbums = state => albumsSelectors.getAlbums(state.albums);
+export const getAlbumDropDown = (state, albumid) => albumsSelectors.getAlbumDropDown(state.albums, albumid);
+export const getAlbumsDropDown = state => albumsSelectors.getAlbumsDropDown(state.albums);
 export const getSelectedAlbum = state => albumsSelectors.getSelectedAlbum(state.albums);
 export const getGenre = (state, genreid) => genresSelectors.getGenre(state.genres, genreid);
 export const getGenres = state => genresSelectors.getGenres(state.genres);

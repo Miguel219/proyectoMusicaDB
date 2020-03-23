@@ -36,6 +36,39 @@ const byId = (state = [], action) => {
   }
 };
 
+const orderDropDown = (state = [], action) => {
+  switch (action.type) {
+    case types.ALBUMDROPDOWN_ADDED: {
+      return [...state, action.payload.albumid];
+    }
+    case types.ALBUMDROPDOWN_CLEAR: {
+      const newState = [];
+      return newState;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const byIdDropDown = (state = [], action) => {
+  switch (action.type) {
+    case types.ALBUMDROPDOWN_ADDED: {
+      return {
+        ...state,
+        [action.payload.albumid]: action.payload,
+      };
+    }
+    case types.ALBUMDROPDOWN_CLEAR: {
+      const newState = [];
+      return newState;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 const selected = (state = {}, action) => {
   switch (action.type) {
     case types.ALBUM_SELECTED: {
@@ -55,6 +88,8 @@ const selected = (state = {}, action) => {
 const albums = combineReducers({
   byId,
   order,
+  byIdDropDown,
+  orderDropDown,
   selected,
 });
 
@@ -63,5 +98,9 @@ export default albums;
 export const getAlbum = (state, albumid) => state.byId[albumid];
 export const getAlbums = state => state.order.map(
   id => getAlbum(state, id),
+).filter(album => album != null);
+export const getAlbumDropDown = (state, albumid) => state.byIdDropDown[albumid];
+export const getAlbumsDropDown = state => state.orderDropDown.map(
+  id => getAlbumDropDown(state, id),
 ).filter(album => album != null);
 export const getSelectedAlbum = state => (state.selected);

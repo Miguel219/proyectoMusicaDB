@@ -70,10 +70,10 @@ export default connect(
     selectColumn(track) {
       dispatch(actionTracks.selectTrack(track));
       //Se carga el DorpDown de albums
-      dispatch(actionAlbums.clearAlbums());
+      dispatch(actionAlbums.clearAlbumDropDown());
       albumService.getAlbumListAll().then(res=> {
         const albumDropDown = res;
-        albumDropDown.map(album => dispatch(actionAlbums.addAlbum(album)));
+        albumDropDown.map(album => dispatch(actionAlbums.addAlbumDropDown(album)));
       });
       //Se carga el DorpDown de genres
       dispatch(actionGenres.clearGenres());
@@ -92,10 +92,10 @@ export default connect(
     onClick() {
       dispatch(actionTracks.deselectTrack());
       //Se carga el DorpDown de albums
-      dispatch(actionAlbums.clearAlbums());
+      dispatch(actionAlbums.clearAlbumDropDown());
       albumService.getAlbumListAll().then(res=> {
         const albumDropDown = res;
-        albumDropDown.map(album => dispatch(actionAlbums.addAlbum(album)));
+        albumDropDown.map(album => dispatch(actionAlbums.addAlbumDropDown(album)));
       });
       //Se carga el DorpDown de genres
       dispatch(actionGenres.clearGenres());

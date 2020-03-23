@@ -25,7 +25,7 @@ const trackModel = {
   unitprice: "",
 };
 
-const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions,user,onBack }) => {
+const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions,user }) => {
   track = {...trackModel, ...track}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(track.trackname);
@@ -40,7 +40,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
     <div className="edit-track">
       <div className='edit-track-content'>
         <div className='edit-track-title'>
-          {(track.trackid==null) ? 'Crear canción' : "Editar canción"}
+          {"Canción"}
         </div>
         <Table className="edit-track-table" borderless>
           <thead>
@@ -162,7 +162,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                   milliseconds: millisecondsInput,
                   bytes: bytesInput,
                   unitprice: unitpriceInput,
-                  userId: user.userId
+                  userid: user.userid
                 })
               }>
                 Crear
@@ -180,7 +180,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                   milliseconds: millisecondsInput,
                   bytes: bytesInput,
                   unitprice: unitpriceInput,
-                  userId: user.userId
+                  userid: user.userid
                 })
               }>
                 Editar
@@ -193,7 +193,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
 
                 : null
               }
-              <button type="submit" className="edit-track-button-delete w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.push("/main/canciones")}>
+              <button type="submit" className="edit-track-button-delete w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.goBack()}>
                 {'Regresar'}
               </button>
               </td>
@@ -209,7 +209,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
 export default connect(
   state => ({
     track: selectors.getSelectedTrack(state),
-    albumList: selectors.getAlbums(state),
+    albumList: selectors.getAlbumsDropDown(state),
     genreList: selectors.getGenres(state),
     mediatypeList: selectors.getMediatypes(state),
     permissions: selectors.getLoggedUser(state).permissions,
@@ -217,17 +217,18 @@ export default connect(
   }),
   dispatch => ({
     onSave(track) {
+      console.log(track.userid)
       if(track.trackname!=="" && track.albumid!=null && track.mediatypeid!=null && track.genreid!=null && track.composer!=="" && track.milliseconds!==0 && track.bytes!==0 && track.unitprice!=="") {
       if(track.trackid==null)
-        trackService.addTrack(track).then(()=> history.push("/main/canciones"));
+        trackService.addTrack(track).then(()=> history.push('/main/canciones'));
       if(track.trackid!=null)
-        trackService.updateTrack(track).then(()=> history.push("/main/canciones"));
+        trackService.updateTrack(track).then(()=> history.push('/main/canciones'));
       }else{
         alert("Ingresa todos los campos para guardar.");
       };
     },
     onDelete(track) {
-      trackService.deleteTrack(track).then(()=> history.push("/main/canciones"));
+      trackService.deleteTrack(track).then(()=> history.push('/main/canciones'));
     }
   }),
 )(EditTrack);
