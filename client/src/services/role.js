@@ -81,7 +81,7 @@ export const unassignRole = ({userid}) => {
 //update assignRole
 export const assignPermission = ({permissionid,roleid}) => {
   return fetch('/api/role/assignPermission', {
-    method: 'put',
+    method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({permissionid,roleid})
   })

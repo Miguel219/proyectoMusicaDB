@@ -107,7 +107,7 @@ class Role {
   }
 
   static getPermissionsOutOfRole (params,callback) {
-    db.query(`select p.permissionid
+    db.query(`select p.permissionid, p.name as permissionname
     from permission p 
     left  join rolespermissions rp on p.permissionid = rp.permissionid and rp.roleid=${params.roleid}
     where rp.permissionid is null`, (err, res) => {
@@ -117,7 +117,7 @@ class Role {
     });
   }
 
-  static getRolesPermissions (params,callback) {
+  static getRolePermissions (params,callback) {
     db.query(`select p.permissionid, p.name as permissionname 
     from permission p 
     inner join rolespermissions rp on p.permissionid = rp.permissionid 

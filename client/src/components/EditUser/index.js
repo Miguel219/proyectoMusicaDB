@@ -35,13 +35,13 @@ const EditUser = ({ user, roleList, permissions, onSave }) => {
                 </select>
               </td>
               <td>
-                <button type="submit" className="edit-user-button-save" onClick={() => 
+                <button hidden={!permissions.includes('Asignar un rol a un usuario')} type="submit" className="edit-user-button-save" onClick={() => 
                     onSave({
                       userid: user.userid,
                       roleid: roleDropDown,
                     })
                   }>
-                    {'Editar'}
+                    {'Asignar'}
                   </button>
                 <button type="submit" className="edit-user-button-save w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.goBack()}>
                   {'Regresar'}
