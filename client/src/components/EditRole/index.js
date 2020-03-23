@@ -14,7 +14,7 @@ const roleModel = {
   rolename: "",
 };
 
-const EditRole = ({ role, rolePermissions, permissions, onSave, onDelete, onClick }) => {
+const EditRole = ({ role, rolePermissions, permissions, onSave, onDelete, onClick, onDeletePermission }) => {
   role = {...roleModel, ...role}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(role.rolename);
@@ -67,7 +67,7 @@ const EditRole = ({ role, rolePermissions, permissions, onSave, onDelete, onClic
                 </button> : 
                   null
                 }
-                <button type="submit" className="edit-role-button-delete w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.goBack()}>
+                <button type="submit" className="edit-role-button-delete w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.push("/admin/roles")}>
                   {'Regresar'}
                 </button>
               </td>
@@ -91,7 +91,7 @@ const EditRole = ({ role, rolePermissions, permissions, onSave, onDelete, onClic
             <tbody>
               {rolePermissions.map((permission, id) => 
                 (
-                  <tr key={id} className={"table-light"}>
+                  <tr key={id} className={"table-light"} onClick={()=> (role.roleid>2) ? onDeletePermission({permissionid: permission.permissionid, roleid: role.roleid}) : null}>
                     <th scope="row">{id+1}</th>
                     <td>{permission.permissionname}</td>
                   </tr>
@@ -142,6 +142,16 @@ export default connect(
         permissionList.map(permission => dispatch(actionPermissions.addPermission(permission)));
       });
       history.push("/editar/permisos");
+    },
+    onDeletePermission(role) {
+      roleService.unassignPermission(role).then(res=> {
+        //Se carga el DorpDown de roles
+        dispatch(actionPermissions.clearPermissions());
+        roleService.getRolePermissions(role).then(res=> {
+          const permissionList = res;
+          permissionList.map(permission => dispatch(actionPermissions.addPermission(permission)));
+        });
+      });
     },
   }),
 )(EditRole);
