@@ -20,6 +20,7 @@ import EditUser from '../EditUser';
 import Roles from '../Roles';
 import logo from '../../../public/Images/music-note.png';
 import PrivateRoute from '../PrivateRouter'
+import PrivateRouteAdmin from '../PrivateRouterAdmin'
 
 
 export const  history = createHashHistory();
@@ -68,7 +69,7 @@ const App = ({ store }) => {
         <PrivateRoute path={'/editar/canción'}  component={<EditTrack />} store={store}/>
         <PrivateRoute path={'/editar/artista'}  component={<EditArtist />} store={store}/>
         <PrivateRoute path={'/editar/álbum'}  component={<EditAlbum />} store={store}/>
-        <PrivateRoute path={'/editar/usuario'}  component={<EditUser />} store={store}/>
+        <PrivateRouteAdmin path={'/editar/usuario'}  component={<EditUser />} store={store}/>
       </Route>
       
       <Route path='/admin'
@@ -80,8 +81,8 @@ const App = ({ store }) => {
         <Redirect to={page}/>
       )}} > 
         <SidebarAdmin />
-        <PrivateRoute path={'/admin/usuarios'}  component={<Users />} store={store}/>
-        <PrivateRoute path={'/admin/roles'}  component={<Roles />} store={store}/>
+        <PrivateRouteAdmin path={'/admin/usuarios'}  component={<Users />} store={store}/>
+        <PrivateRouteAdmin path={'/admin/roles'}  component={<Roles />} store={store}/>
       </Route>
 
       

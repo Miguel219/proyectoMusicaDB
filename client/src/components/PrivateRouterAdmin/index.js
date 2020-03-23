@@ -15,7 +15,7 @@ export default ({component,path,store}) => {
     <Route path={path}
     render={() => { 
         
-       const page = (isLoggedIn && selectors.getLoggedUser(store.getState()).roleid!==1) 
+       const page = (isLoggedIn && selectors.getLoggedUser(store.getState()).roleid===1) 
          ?  component
          :  <Redirect to={'/login'}/>;
        return(
