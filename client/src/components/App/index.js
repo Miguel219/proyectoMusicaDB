@@ -49,8 +49,8 @@ const App = ({ store }) => {
       <Route path='/main'
       render={() => { 
         const page = ((selectors.isLoggedUser(store.getState())) 
-          ? '/login'  
-          : '/main');
+          ?  '/main' 
+          : '/login' );
         return(
         <Redirect to={page}/>
       )}} > 
@@ -63,25 +63,25 @@ const App = ({ store }) => {
       <Route path='/editar'
       render={() => { 
         const page = ((selectors.isLoggedUser(store.getState())) 
-          ? '/login'  
-          : '/editar');
+          ? '/editar' 
+          : '/login');
         return(
         <Redirect to={page}/>
       )}} > 
         <PrivateRoute path={'/editar/canción'}  component={<EditTrack />} store={store}/>
         <PrivateRoute path={'/editar/artista'}  component={<EditArtist />} store={store}/>
         <PrivateRoute path={'/editar/álbum'}  component={<EditAlbum />} store={store}/>
-        <PrivateRoute path={'/editar/usuario'}  component={<EditUser />} store={store}/>
-        <PrivateRoute path={'/editar/rol'}  component={<EditRole />} store={store}/>
-        <PrivateRoute path={'/editar/permisos'}  component={<AssignPermission />} store={store}/>
+        <PrivateRouteAdmin path={'/editar/usuario'}  component={<EditUser />} store={store}/>
+        <PrivateRouteAdmin path={'/editar/rol'}  component={<EditRole />} store={store}/>
+        <PrivateRouteAdmin path={'/editar/permisos'}  component={<AssignPermission />} store={store}/>
 
       </Route>
       
       <Route path='/admin'
       render={() => { 
         const page = ((selectors.isLoggedUser(store.getState())) 
-          ? '/login'  
-          : '/admin');
+          ? '/admin'  
+          : '/login');
         return(
         <Redirect to={page}/>
       )}} > 
