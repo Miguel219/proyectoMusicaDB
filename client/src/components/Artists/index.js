@@ -62,12 +62,12 @@ export default connect(
         const artistAlbums = res;
         artistAlbums.map(album => dispatch(actionAlbums.addAlbum(album)));
       });
-      history.push("/editarArtista");
+      history.push("/editar/artista");
     },
     onClick() {
       dispatch(actionArtists.deselectArtist());
       dispatch(actionAlbums.clearAlbums());
-      history.push("/editarArtista");
+      history.push("/editar/artista");
     },
   }),
 )(Artists);

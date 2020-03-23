@@ -53,9 +53,18 @@ const App = ({ store }) => {
         <PrivateRoute path={'/main/álbumes'}  component={<Albums />} store={store}/>
         <PrivateRoute path={'/main/reportes'}  component={<Reports />} store={store}/>
       </Route>
-      <PrivateRoute path={'/editarCanción'}  component={<EditTrack />} store={store}/>
-      <PrivateRoute path={'/editarArtista'}  component={<EditArtist />} store={store}/>
-      <PrivateRoute path={'/editarÁlbum'}  component={<EditAlbum />} store={store}/>
+      <Route path='/editar'
+      render={() => { 
+        const page = ((selectors.isLoggedUser(store.getState())) 
+          ? '/login'  
+          : '/editar');
+        return(
+        <Redirect to={page}/>
+      )}} > 
+        <PrivateRoute path={'/editar/canción'}  component={<EditTrack />} store={store}/>
+        <PrivateRoute path={'/editar/artista'}  component={<EditArtist />} store={store}/>
+        <PrivateRoute path={'/editar/álbum'}  component={<EditAlbum />} store={store}/>
+      </Route>
 
 
       

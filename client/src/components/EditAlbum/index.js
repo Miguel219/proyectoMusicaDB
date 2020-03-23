@@ -171,7 +171,7 @@ export default connect(
         const mediatypeDropDown = res;
         mediatypeDropDown.map(mediatype => dispatch(actionMediatypes.addMediatype(mediatype)));
       });
-      history.push("/editarCanción");
+      history.push("/editar/canción");
     },
   }),
 )(EditAlbum);

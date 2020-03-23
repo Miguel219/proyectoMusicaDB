@@ -72,7 +72,7 @@ export default connect(
         const artistDropDown = res;
         artistDropDown.map(artist => dispatch(actionArtists.addArtist(artist)));
       });
-      history.push("/editarÁlbum");
+      history.push("/editar/álbum");
     },
     onClick() {
       dispatch(actionAlbums.deselectAlbum());
@@ -83,7 +83,7 @@ export default connect(
         const artistDropDown = res;
         artistDropDown.map(artist => dispatch(actionArtists.addArtist(artist)));
       });
-      history.push("/editarÁlbum");
+      history.push("/editar/álbum");
     },
   }),
 )(Albums);
