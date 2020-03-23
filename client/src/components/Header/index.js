@@ -23,7 +23,8 @@ const Header = ({ onSearch, parentPage,user }) => {
   const [albumInput, changeAlbumInput] = useState('');
   return (
     <div className="header">
-      <div className="header-container">
+     
+      <div className="header-container" hidden={parentPage==="Reports"}> 
         <div className="header-initial-filter">
           {
             (parentPage!=="Artist")

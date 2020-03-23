@@ -6,6 +6,7 @@ import artists, * as artistsSelectors from './artists';
 import albums, * as albumsSelectors from './albums';
 import genres, * as genresSelectors from './genres';
 import mediatypes, * as mediatypesSelectors from './mediatypes';
+import report, * as reportSelectors from './reports.js'
 
 
 const reducer = combineReducers({
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   albums,
   genres,
   mediatypes,
+  report
 });
 
 
@@ -36,3 +38,5 @@ export const getGenre = (state, genreid) => genresSelectors.getGenre(state.genre
 export const getGenres = state => genresSelectors.getGenres(state.genres);
 export const getMediatype = (state, mediatypeid) => mediatypesSelectors.getMediatype(state.mediatypes, mediatypeid);
 export const getMediatypes = state => mediatypesSelectors.getMediatypes(state.mediatypes);
+export const getReport = state => reportSelectors.getReport(state.report);
+export const getReportSelected = state => reportSelectors.getReportSelected(state.report);

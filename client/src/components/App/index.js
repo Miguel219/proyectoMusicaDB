@@ -10,6 +10,7 @@ import { Sidebar } from '../Sidebar';
 import Tracks from '../Tracks';
 import EditTrack from '../EditTrack';
 import Artists from '../Artists';
+import Reports from '../Reports'
 import EditArtist from '../EditArtist';
 import Albums from '../Albums';
 import logo from '../../../public/Images/music-note.png';
@@ -49,9 +50,13 @@ const App = ({ store }) => {
         <PrivateRoute path={'/main/canciones'}  component={<Tracks />} store={store}/>
         <PrivateRoute path={'/main/artistas'}  component={<Artists />} store={store}/>
         <PrivateRoute path={'/main/álbumes'}  component={<Albums />} store={store}/>
+        <PrivateRoute path={'/main/reportes'}  component={<Reports />} store={store}/>
       </Route>
       <PrivateRoute path={'/editarCanción'}  component={<EditTrack />} store={store}/>
       <PrivateRoute path={'/editarArtista'}  component={<EditArtist />} store={store}/>
+
+
+      
      
     </Router>
   </Provider>

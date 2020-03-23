@@ -1,0 +1,53 @@
+.reports {
+    color: dimgray;
+    display: flex;
+    position: relative;
+    left: 16vw;
+    top: 90px;
+    flex-direction: column;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 25px;
+    height: max-content;
+    width: 80vw;
+    z-index: 0;
+}
+
+.reports-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.reports-buttons {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.reports-add-button {
+    background: #FFB900;
+
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+
+.reports-add-button:hover {
+    background: whitesmoke;
+}
+
+.reports-add-button:active {
+    transform: scale(0.9);
+}
+
+
+.reports-content {
+    background: whitesmoke;
+    font-size: 15px;
+}
