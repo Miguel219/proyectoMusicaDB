@@ -113,9 +113,9 @@ api.delete('/', (req, res) => {
 
 
 //Get roles  permissions
-api.post('/getRolesPermissions', (req, res) => {
+api.post('/getRolePermissions', (req, res) => {
   let params = req.body;
-  role.getRolesPermissions(params, (err, result) => {
+  role.getRolePermissions(params, (err, result) => {
     if (err)
       return res.json(err);
     return res.json(result);

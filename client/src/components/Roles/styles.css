@@ -17,6 +17,35 @@
     flex-direction: column;
 }
 
+.roles-buttons {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.roles-add-button {
+    background: #FFB900;
+
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+
+.roles-add-button:hover {
+    background: whitesmoke;
+}
+
+.roles-add-button:active {
+    transform: scale(0.9);
+}
+
 .roles-content {
     background: whitesmoke;
     font-size: 15px;

@@ -18,6 +18,8 @@ import EditAlbum from '../EditAlbum';
 import Users from '../Users';
 import EditUser from '../EditUser';
 import Roles from '../Roles';
+import EditRole from '../EditRole';
+import AssignPermission from '../AssignPermission';
 import logo from '../../../public/Images/music-note.png';
 import PrivateRoute from '../PrivateRouter'
 import PrivateRouteAdmin from '../PrivateRouterAdmin'
@@ -69,7 +71,10 @@ const App = ({ store }) => {
         <PrivateRoute path={'/editar/canción'}  component={<EditTrack />} store={store}/>
         <PrivateRoute path={'/editar/artista'}  component={<EditArtist />} store={store}/>
         <PrivateRoute path={'/editar/álbum'}  component={<EditAlbum />} store={store}/>
-        <PrivateRouteAdmin path={'/editar/usuario'}  component={<EditUser />} store={store}/>
+        <PrivateRoute path={'/editar/usuario'}  component={<EditUser />} store={store}/>
+        <PrivateRoute path={'/editar/rol'}  component={<EditRole />} store={store}/>
+        <PrivateRoute path={'/editar/permisos'}  component={<AssignPermission />} store={store}/>
+
       </Route>
       
       <Route path='/admin'

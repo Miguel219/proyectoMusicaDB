@@ -27,6 +27,7 @@ const Users = ({ users, permissions, selectColumn }) => {
               <th>#</th>
               <th>Nombre</th>
               <th>Correo</th>
+              <th>Rol</th>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +37,7 @@ const Users = ({ users, permissions, selectColumn }) => {
                   <th scope="row">{id+1}</th>
                   <td>{user.username}</td>
                   <td>{user.userid}</td>
+                  <td>{user.rolename}</td>
                 </tr>
               ))
             }

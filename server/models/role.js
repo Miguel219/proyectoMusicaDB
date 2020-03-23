@@ -107,17 +107,17 @@ class Role {
   }
 
   static getPermissionsOutOfRole (params,callback) {
-    db.query(`select p.permissionid
+    db.query(`select p.permissionid, p.name as permissionname
     from permission p 
     left  join rolespermissions rp on p.permissionid = rp.permissionid and rp.roleid=${params.roleid}
-    where rp.permissionid is null`, (err, res) => {
+    where rp.permissionid is null and p.permissionid>5`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
     });
   }
 
-  static getRolesPermissions (params,callback) {
+  static getRolePermissions (params,callback) {
     db.query(`select p.permissionid, p.name as permissionname 
     from permission p 
     inner join rolespermissions rp on p.permissionid = rp.permissionid 
