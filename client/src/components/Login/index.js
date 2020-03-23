@@ -75,8 +75,10 @@ const connected = connect(
               let user = res[0];
               userService.getUserPermissions({userid:mailInput}).then(permissions =>{
                 user.permissions = permissions.map(permission=>permission.permissionname)
-                dispatch(actions.login(user))
-                history.push("/main/canciones")
+                dispatch(actions.login(user));
+                (user.roleid===1) 
+                  ? history.push("/admin/usuarios")
+                  : history.push("/main/canciones");
               })
           }else{
             alert("Los datos ingresados no coinciden con ningún usuario de la plataforma.");

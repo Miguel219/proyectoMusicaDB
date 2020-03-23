@@ -6,7 +6,10 @@ import artists, * as artistsSelectors from './artists';
 import albums, * as albumsSelectors from './albums';
 import genres, * as genresSelectors from './genres';
 import mediatypes, * as mediatypesSelectors from './mediatypes';
-import report, * as reportSelectors from './reports.js'
+import roles, * as rolesSelectors from './roles';
+import users, * as usersSelectors from './users';
+import permissions, * as permissionsSelectors from './permissions';
+import report, * as reportSelectors from './reports.js';
 
 
 const reducer = combineReducers({
@@ -16,7 +19,10 @@ const reducer = combineReducers({
   albums,
   genres,
   mediatypes,
-  report
+  report,
+  roles,
+  users,
+  permissions,
 });
 
 
@@ -42,3 +48,11 @@ export const getMediatype = (state, mediatypeid) => mediatypesSelectors.getMedia
 export const getMediatypes = state => mediatypesSelectors.getMediatypes(state.mediatypes);
 export const getReport = state => reportSelectors.getReport(state.report);
 export const getReportSelected = state => reportSelectors.getReportSelected(state.report);
+export const getRole = (state, roleid) => rolesSelectors.getRole(state.roles, roleid);
+export const getRoles = state => rolesSelectors.getRoles(state.roles);
+export const getSelectedRole = state => rolesSelectors.getSelectedRole(state.roles);
+export const getUser = (state, userid) => usersSelectors.getUser(state.users, userid);
+export const getUsers = state => usersSelectors.getUsers(state.users);
+export const getSelectedUser = state => usersSelectors.getSelectedUser(state.users);
+export const getPermission = (state, permissionid) => permissionsSelectors.getPermission(state.permissions, permissionid);
+export const getPermissions = state => permissionsSelectors.getPermissions(state.permissions);

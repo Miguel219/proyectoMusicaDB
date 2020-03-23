@@ -7,7 +7,7 @@ const db = require('../database');
 class User {
 
   static getAll (callback) {
-    db.query(`SELECT userid,name as username from users where roleid>1`, (err, res) => {
+    db.query(`SELECT userid,name as username,roleid from users where roleid>1`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

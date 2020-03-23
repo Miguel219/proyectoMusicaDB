@@ -1,4 +1,3 @@
-import { getUserPermissions, getUserListAll } from './user';
 /* -------------------------------------------------------------------------- */
 /*                             Servicios de Role                            */
 /* -------------------------------------------------------------------------- */
@@ -17,37 +16,6 @@ export const getRoleListAll = () => {
       
     });
 };
-
-//get user list all
-export const getUserListAll = () => {
-  return fetch(`/api/user/getUserListAll`,{
-    method: 'get',
-    headers: { 'Content-Type': 'application/json' }
-  })
-  .then(res => res.json())
-    .then(res => {
-      return res;
-      
-      
-    });
-};
-
-//get User Permissions
-export const getUserPermissions = ({userid}) => {
-  return fetch(`/api/role/getUserPermissions`,{
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body:JSON.stringify({userid})
-  })
-  .then(res => res.json())
-    .then(res => {
-      return res;
-      
-      
-    });
-};
-
-
 
 //add Role
  export const addRole = ({rolename}) => {
@@ -181,7 +149,6 @@ export const getPermissions = ({roleid}) => {
 
 export default {
   getRoleListAll,
-  getUserPermissions,
   updateRole,
   addRole,
   deleteRole,
@@ -192,5 +159,4 @@ export default {
   getPermissions,
   getPermissionsOutOfRole,
   getRolePermissions,
-  getUserListAll
 }

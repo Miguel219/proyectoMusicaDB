@@ -12,6 +12,10 @@ import artistService from '../../services/artist';
 import * as actionArtists from '../../actions/artists';
 import albumService from '../../services/album';
 import * as actionAlbums from '../../actions/albums';
+import userService from '../../services/user';
+import * as actionUsers from '../../actions/users';
+import roleService from '../../services/role';
+import * as actionRoles from '../../actions/roles';
 import * as selectors from '../../reducers';
 
 
@@ -24,7 +28,8 @@ const Header = ({ onSearch, parentPage,user }) => {
   return (
     <div className="header">
      
-      <div className="header-container" hidden={parentPage==="Reports"}> 
+      <div className="header-container" hidden={parentPage==="Reports" || parentPage==="Users" || parentPage==="Roles"} 
+      onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput)} > 
         <div className="header-initial-filter">
           {
             (parentPage!=="Artist")
@@ -43,8 +48,7 @@ const Header = ({ onSearch, parentPage,user }) => {
               value={searchInput}
               onChange={e => changeSearchInput(e.target.value)}
           />
-          <div className="header-search-button" 
-            onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput)} 
+          <div className="header-search-button"
             onClick={() => onSearch(parentPage, searchInput, genderInput, artistInput, albumInput)}>
             <img alt="img" src={Search} className="header-search-image"/>
           </div>
@@ -142,6 +146,18 @@ export default connect(
           const albumList = res;
           dispatch(actionAlbums.clearAlbums());
           albumList.map( album => dispatch(actionAlbums.addAlbum(album)));
+        });
+      if(parentPage==="Users") 
+        userService.getUserListAll().then(res=> {
+          const userList = res;
+          dispatch(actionUsers.clearUsers());
+          userList.map( user => dispatch(actionUsers.addUser(user)));
+        });
+      if(parentPage==="Roles") 
+        roleService.getRoleListAll().then(res=> {
+          const roleList = res;
+          dispatch(actionRoles.clearRoles());
+          roleList.map( role => dispatch(actionRoles.addRole(role)));
         });
     },
   }),

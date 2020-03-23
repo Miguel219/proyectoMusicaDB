@@ -16,7 +16,8 @@ const Reports=["Reporte artistas por área","Reporte géneros con más canciones
 const sidebarOptions = ['Canciones', 'Artistas', 'Álbumes', 'Reportes'];
 const optImg = [Canciones, Artistas, Albumes, Reportes];
 let logoffimg = Logoff;
-const DummySidebar = ({loggoff,permissions}) => {
+
+const Sidebar = ({loggoff,permissions}) => {
   document.body.style.backgroundColor = '#A8FFF5';
   return (
     <div className="sidebar">
@@ -47,7 +48,7 @@ const DummySidebar = ({loggoff,permissions}) => {
   );
 } 
 
-export const Sidebar = connect(
+export default connect(
   state => ({
     permissions: selectors.getLoggedUser(state).permissions,
   }),
@@ -59,4 +60,4 @@ export const Sidebar = connect(
       
     },
   }),
-)(DummySidebar);
+)(Sidebar);

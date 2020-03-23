@@ -1,0 +1,4 @@
+export const USER_ADDED = 'USER_ADDED';
+export const USERS_CLEAR = 'USERS_CLEAR';
+export const USER_SELECTED = 'USER_SELECTED';
+export const USER_DESELECTED = 'USER_DESELECTED';

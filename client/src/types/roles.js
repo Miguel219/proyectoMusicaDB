@@ -1,0 +1,4 @@
+export const ROLE_ADDED = 'ROLE_ADDED';
+export const ROLES_CLEAR = 'ROLES_CLEAR';
+export const ROLE_SELECTED = 'ROLE_SELECTED';
+export const ROLE_DESELECTED = 'ROLE_DESELECTED';

@@ -1,0 +1,96 @@
+.sidebar-admin {
+    align-items: center;
+    background-color: #1C1C1C;
+    color:white;
+    border-right: #00EED0;
+    border-left:black;
+    border-right-style: solid;
+    border-right-width: 2px;
+    color: black;
+    display: flex;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    flex-direction: column;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    height: 100vh;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 15vw;
+    z-index: 2;
+}
+
+.sidebar-admin-title {
+    align-items: center;
+    min-height: 130px;
+    border: #00EED0;
+    border-left:black;
+    border-bottom: #FFD400;
+    border-style: solid;
+    border-width: 4px;
+    display: flex;
+    font-size: 26px;
+    flex-direction: column;
+    padding-top:2vh;
+    padding-bottom:2vh;
+    height: 15vh;
+    width: 15vw;
+    color:white;
+}
+
+.sidebar-admin-image {
+    margin: 10px;
+    padding: 5px;
+    width: 40px;
+    background: white;
+    border-radius: 50%;
+}
+
+.sidebar-admin-title-image {
+    margin-left: 10px;
+    margin-right: 20px;
+    width: 65px;
+}
+
+.sidebar-admin-options {
+    color:white;
+    background-color: #434343;
+    align-items: center;
+    border: #00EED0;
+    border-left:black;
+    border-style: solid;
+    border-width: 4px;
+    border-top-width: 0px;
+    display: flex;
+    font-size: 20px;
+    flex-direction: column;
+    height: 85vh;
+    width: 15vw;
+}
+
+.sidebar-admin-option {
+    align-items: center;
+    border: #00EED0;
+    border-left:black;
+    border-style: solid;
+    border-width: 4px;
+    border-top-width: 0px;
+    display: flex;
+    font-size: 20px;
+    color:white;
+    flex-direction: row;
+    height: 50px;
+    width: 15vw;
+}
+
+.sidebar-admin-option:hover {
+    background: #00C8B9;
+    cursor:pointer;
+}
+
+.sidebar-admin-option:active {
+    border-top: #00EED0;
+    border-style: solid;
+    border-top-width: 2px;
+    background-color: #00998D;
+}
