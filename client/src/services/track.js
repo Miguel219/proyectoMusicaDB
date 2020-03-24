@@ -89,6 +89,7 @@ export default {
   getTrackList,
   getTrackListAll,
   updateTrack,
+  updateTrackActive,
   addTrack,
   deleteTrack
 }

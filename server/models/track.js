@@ -15,7 +15,7 @@ class Track {
   }
 
   static getAllParams (params,callback) {
-    db.query(`select  t.trackid, t.name as trackname, t.albumId,a.title as albumname, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice
+    db.query(`select  t.trackid, t.name as trackname, t.isactive, t.albumid, a.title as albumname, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice
     from track t
     inner join album a on a.albumid = t.albumid
     inner join artist ar on ar.artistid = a.artistid

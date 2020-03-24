@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { history } from '../App';
 import './styles.css';
 import * as selectors from '../../reducers';
+import * as actionTracks from '../../actions/tracks';
 import trackService from '../../services/track';
 
 const trackModel = {
@@ -25,7 +26,7 @@ const trackModel = {
   unitprice: "",
 };
 
-const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions,user }) => {
+const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelete,permissions,user, activate }) => {
   track = {...trackModel, ...track}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(track.trackname);
@@ -168,7 +169,7 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                 Crear
               </button>): null
               }
-              {(track.trackid!=null  && permissions.includes('Editar canción')) ?
+              {(track.trackid!=null  && permissions.includes('Editar canción') && track.isactive) ?
                 (<button type="submit" className="edit-track-button-save" onClick={() => 
                 onSave({
                   trackid: track.trackid,
@@ -186,13 +187,29 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
                 Editar
               </button>): null
               }
-              {(track.trackid!=null && permissions.includes('Borrar canción')) 
+              {(track.trackid!=null && permissions.includes('Borrar canción') && track.isactive) 
                 ? (<button type="submit" className="edit-track-button-delete" onClick={() => onDelete(track)}>
                 {'Eliminar'}
                   </button>)
 
                 : null
               }
+              <br/>
+              <br/>
+              <button type="submit" hidden={track.isactive} className="edit-track-button-delete w3-aqua" onClick={() => 
+                activate(track, {
+                  trackid: track.trackid,
+                  isactive: !track.isactive,
+                  })}>
+                {'Activar'}
+              </button>
+              <button type="submit" hidden={!track.isactive} className="edit-track-button-delete w3-light-blue" onClick={() => 
+                activate(track, {
+                  trackid: track.trackid,
+                  isactive: !track.isactive,
+                  })}>
+                {'Desactivar'}
+              </button>
               <button type="submit" className="edit-track-button-delete w3-cyan" style={{marginLeft:'10px'}} onClick={() => history.goBack()}>
                 {'Regresar'}
               </button>
@@ -229,6 +246,12 @@ export default connect(
     },
     onDelete(track) {
       trackService.deleteTrack(track).then(()=> history.push('/main/canciones'));
-    }
+    },
+    activate(track, trackActivate) {
+      trackService.updateTrackActive(trackActivate).then(() => {
+        track.isactive = trackActivate.isactive
+        dispatch(actionTracks.selectTrack(track));
+      })
+    },
   }),
 )(EditTrack);
