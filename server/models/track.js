@@ -7,7 +7,7 @@ const db = require('../database');
 class Track {
 
   static getAll (callback) {
-    db.query(`SELECT trackid,name as trackname from track`, (err, res) => {
+    db.query(`SELECT trackid,name as trackname, isactive from track`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -21,7 +21,8 @@ class Track {
     inner join artist ar on ar.artistid = a.artistid
     inner join genre g on g.genreid = t.genreid
     inner join mediatype mt on mt.mediatypeid = t.mediatypeid
-    where (LOWER(t.name) like LOWER('%${params.trackname}%') and LOWER(a.title) like LOWER('%${params.albumname}%') and LOWER(ar.name) like LOWER('%${params.artistname}%') and LOWER(g.name) like LOWER('%${params.genrename}%')) limit ${params.limit}`, (err, res) => {
+    where (LOWER(t.name) like LOWER('%${params.trackname}%') and LOWER(a.title) like LOWER('%${params.albumname}%') and LOWER(ar.name) like LOWER('%${params.artistname}%') and LOWER(g.name) like LOWER('%${params.genrename}%')) 
+    order by t.trackid limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

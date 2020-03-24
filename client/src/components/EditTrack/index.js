@@ -194,16 +194,20 @@ const EditTrack = ({ track, albumList, genreList, mediatypeList, onSave, onDelet
 
                 : null
               }
-              <br/>
-              <br/>
-              <button type="submit" hidden={track.isactive} className="edit-track-button-delete w3-aqua" onClick={() => 
+              {(track.trackid!==null
+             ? (<br/>
+              ):null )}
+              {(track.trackid!==null
+             ? (<br/>
+              ):null )}
+              <button type="submit" hidden={(track.isactive || track.trackid===null) || !permissions.includes("Inactivar canción")} className="edit-track-button-delete w3-aqua" onClick={() => 
                 activate(track, {
                   trackid: track.trackid,
                   isactive: !track.isactive,
                   })}>
                 {'Activar'}
               </button>
-              <button type="submit" hidden={!track.isactive} className="edit-track-button-delete w3-light-blue" onClick={() => 
+              <button type="submit" hidden={(!track.isactive || track.trackid===null) || !permissions.includes("Inactivar canción")} className="edit-track-button-delete w3-light-blue" onClick={() => 
                 activate(track, {
                   trackid: track.trackid,
                   isactive: !track.isactive,

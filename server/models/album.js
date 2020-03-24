@@ -18,7 +18,7 @@ class Album {
     db.query(`select a.albumid, a.title  as albumname, a.artistid, ar.name as artistname
     from album a
     inner join artist ar on ar.artistid=a.artistid
-    where (LOWER(a.title) like '%${params.albumname}%' and LOWER(ar.name) like '%${params.artistname}%') limit ${params.limit}`, (err, res) => {
+    where (LOWER(a.title) like '%${params.albumname}%' and LOWER(ar.name) like '%${params.artistname}%') order by a.albumid limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -26,7 +26,7 @@ class Album {
   }
 
   static getAlbumTracks (params,callback) {
-    db.query(`select t.trackId, t.name as trackName, t.albumId,a.title as albumName, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice
+    db.query(`select t.trackId, t.name as trackName, t.isactive,t.albumId,a.title as albumName, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice
     from album a
     inner join track t on t.albumid=a.albumid
     inner join artist ar on ar.artistid = a.artistid

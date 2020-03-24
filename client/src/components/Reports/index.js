@@ -9,7 +9,6 @@ import * as selectors from '../../reducers';
 import Header from '../Header';
 import * as actionsReport from '../../actions/reports';
 import reportService from '../../services/report'
-import Artist from '../../../../server/models/artist';
 
 const renderSwitchReport = (reporttypeid,report) =>{
   console.log(report);
@@ -270,7 +269,7 @@ const Reports = ({  onSelectReport,permissions,report,selectedReportId}) => {
       <div className="reports">
         <div className="reports-title">
           {'Reportes:'}
-          <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} style={{width:'300px',margin:'20px'}}>
+          <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} style={{width:'550px',margin:'20px'}}>
             <DropdownToggle caret>
                 
                 { (selectedReportId==null) ?

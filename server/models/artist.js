@@ -15,7 +15,8 @@ class Artist {
   }
 
   static getAllParams (params,callback) {
-    db.query(`SELECT artistid,name as artistname from artist where LOWER(name) like LOWER('%${params.artistname}%') limit ${params.limit}`, (err, res) => {
+    db.query(`SELECT artistid,name as artistname from artist where LOWER(name) like LOWER('%${params.artistname}%') 
+    order by artistid limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

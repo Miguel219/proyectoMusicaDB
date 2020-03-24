@@ -74,7 +74,8 @@ const EditRole = ({ role, rolePermissions, permissions, onSave, onDelete, onClic
             </tr>
           </tbody>
         </Table>
-        <div className="edit-role-table-permissions-container">
+
+        <div className="edit-role-table-permissions-container" hidden={role.roleid===null}>
           {'Permisos del rol:'}
           <div className="role-permissions-buttons" hidden={role.roleid===2 || !permissions.includes('Asignar un permiso a un rol')}>
             <div className="role-permissions-add-button" onClick={() => onClick(role)}>

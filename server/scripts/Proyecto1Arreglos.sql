@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
    Create Tables
 ********************************************************************************/
 
@@ -170,8 +170,8 @@ CREATE TABLE InvoiceLine
     UnitPrice NUMERIC(10,2) NOT NULL,
     Quantity INT NOT NULL,
     CONSTRAINT PK_InvoiceLine PRIMARY KEY (InvoiceLineId),
-    FOREIGN KEY (InvoiceId) REFERENCES Invoice (InvoiceId) ON DELETE NO ACTION ON UPDATE NO ACTION
-    -- FOREIGN KEY (TrackId) REFERENCES Track (TrackId) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (InvoiceId) REFERENCES Invoice (InvoiceId) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES Track (TrackId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 DROP TABLE IF EXISTS Playlist;
@@ -188,8 +188,8 @@ CREATE TABLE PlaylistTrack
     PlaylistId INT NOT NULL,
     TrackId INT NOT NULL,
     CONSTRAINT PK_PlaylistTrack PRIMARY KEY (PlaylistId, TrackId),
-    FOREIGN KEY (PlaylistId) REFERENCES Playlist (PlaylistId) ON DELETE NO ACTION ON UPDATE NO ACTION
-    --FOREIGN KEY (TrackId) REFERENCES Track (TrackId) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (PlaylistId) REFERENCES Playlist (PlaylistId) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES Track (TrackId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 
@@ -247,15 +247,14 @@ INSERT INTO Permission (Name) VALUES ('Editar canción');
 INSERT INTO Permission (Name) VALUES ('Borrar canción');
 INSERT INTO Permission (Name) VALUES ('Inactivar canción');
 /*Permisos de reportes*/
-INSERT INTO Permission (Name) VALUES ('Reporte artistas con más álbumes publicados');
+INSERT INTO Permission (Name) VALUES ('Reporte artistas por área');
 INSERT INTO Permission (Name) VALUES ('Reporte géneros con más canciones');
-INSERT INTO Permission (Name) VALUES ('Reporte total de duración de cada playlist');
+INSERT INTO Permission (Name) VALUES ('Reporte artistas con más albums individuales');
 INSERT INTO Permission (Name) VALUES ('Reporte canciones de mayor duración con la información de sus artistas');
 INSERT INTO Permission (Name) VALUES ('Reporte usuarios que han registrado más canciones');
 INSERT INTO Permission (Name) VALUES ('Reporte promedio de duración de canciones por género');
-INSERT INTO Permission (Name) VALUES ('Reporte cantidad de artistas diferentes por playlist');
-INSERT INTO Permission (Name) VALUES ('Reporte artistas con más diversidad de géneros musicales');
-INSERT INTO Permission (Name) VALUES ('Reporte cantidades de música');
+INSERT INTO Permission (Name) VALUES ('Reporte álbumes más recientes');
+INSERT INTO Permission (Name) VALUES ('Reporte artistas más colaborativos');
 
 /*Se asignan los permisos a los dos roles iniciales*/
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,1);
@@ -281,6 +280,7 @@ INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,20);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,21);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,22);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,23);
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,24);
 
 /*Se crea el unico usuario con el rol de administrador*/
 INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (1,'Administrador','admin',NULL,'adminMusic@gmail.com','admin2020');
@@ -305,7 +305,7 @@ INSERT INTO Genre (Name) VALUES ('World');
 INSERT INTO Genre (Name) VALUES ('Hip Hop/Rap');
 INSERT INTO Genre (Name) VALUES ('Science Fiction');
 INSERT INTO Genre (Name) VALUES ('TV Shows');
-INSERT INTO Genre (Name) VALUES ('Sci Fi & Fantasy');
+INSERT INTO Genre (Name) VALUES ('Sci Fi & Fantasy');https://docs.google.com/document/d/1K7PEHx61c5BCTtRtaQfSSyRiiaBAHQ6MN5wnHE_7yEA/edit#
 INSERT INTO Genre (Name) VALUES ('Drama');
 INSERT INTO Genre (Name) VALUES ('Comedy');
 INSERT INTO Genre (Name) VALUES ('Alternative');

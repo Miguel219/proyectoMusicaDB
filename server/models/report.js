@@ -23,11 +23,11 @@ class Report {
   //2. Generos con mas canciones
   static getReport2 (params,callback) {
     db.query(`SELECT G.Name AS genre, 
-    COUNT(T.TrackId) as trackcount
+    COUNT(distinct T.TrackId) as trackcount
     FROM Track T 
     INNER JOIN Genre G ON G.GenreId = T.GenreId
     GROUP BY G.GenreId
-    ORDER BY COUNT(T.TrackId) DESC limit ${params.limit}`, (err, res) => {
+    ORDER BY COUNT(distinct T.TrackId) DESC limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
