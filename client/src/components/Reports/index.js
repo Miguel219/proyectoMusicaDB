@@ -9,6 +9,7 @@ import * as selectors from '../../reducers';
 import Header from '../Header';
 import * as actionsReport from '../../actions/reports';
 import reportService from '../../services/report'
+import Artist from '../../../../server/models/artist';
 
 const renderSwitchReport = (reporttypeid,report) =>{
   console.log(report);
@@ -21,6 +22,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
           <tr>
             <th>#</th>
             <th>Artista</th>
+            <th>Cantidad de álbumes</th>
             
           </tr>
         </thead>
@@ -29,7 +31,8 @@ const renderSwitchReport = (reporttypeid,report) =>{
             (
               <tr key={id} className={"table-light"} >
                 <th scope="row">{id+1}</th>
-                <td>{report.name}</td>
+                <td>{report.artistname}</td>
+                <td>{report.albumcount}</td>
  
               </tr>
             ))
@@ -68,8 +71,8 @@ const renderSwitchReport = (reporttypeid,report) =>{
             <thead>
               <tr>
                 <th>#</th>
-                <th>Artista</th>
-                <th>Cantidad de álbumes</th>
+                <th>Playlist</th>
+                <th>Duracion</th>
                 
               </tr>
             </thead>
@@ -78,8 +81,8 @@ const renderSwitchReport = (reporttypeid,report) =>{
                 (
                   <tr key={id} className={"table-light"} >
                     <th scope="row">{id+1}</th>
-                    <td>{report.artistname}</td>
-                    <td>{report.albumcount}</td>
+                    <td>{report.playlistname}</td>
+                    <td>{report.summilliseconds}</td>
      
                   </tr>
                 ))
@@ -175,10 +178,8 @@ const renderSwitchReport = (reporttypeid,report) =>{
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Álbum</th>
-                 
-  
-              
+                  <th>Playlist</th>
+                  <th>Cantidad de artistas</th>
                   
                 </tr>
               </thead>
@@ -187,7 +188,8 @@ const renderSwitchReport = (reporttypeid,report) =>{
                   (
                     <tr key={id} className={"table-light"} >
                       <th scope="row">{id+1}</th>
-                      <td>{report.albumname}</td>
+                      <td>{report.playlistname}</td>
+                      <td>{report.countartist}</td>
        
                     </tr>
                   ))
@@ -195,14 +197,15 @@ const renderSwitchReport = (reporttypeid,report) =>{
               </tbody>
             </Table>
             );
+
           case '8':
             return (
               <Table className='reports-content' size="sm" hover bordered>
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Artist</th>
-                  <th>Cantidad de canciones</th>
+                  <th>Artista</th>
+                  <th>Cantidad de Géneros</th>
   
               
                   
@@ -214,7 +217,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
                     <tr key={id} className={"table-light"} >
                       <th scope="row">{id+1}</th>
                       <td>{report.artistname}</td>
-                      <td>{report.trackcount}</td>
+                      <td>{report.countgenre}</td>
        
                     </tr>
                   ))
@@ -222,7 +225,34 @@ const renderSwitchReport = (reporttypeid,report) =>{
               </tbody>
             </Table>
             );
-          
+            case '9':
+              return (
+                <Table className='reports-content' size="sm" hover bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Cantidad en plataforma</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {report.map((report, id) => 
+                    (
+                      <tr key={id} className={"table-light"} >
+                        <th scope="row">{id+1}</th>
+                        <td>{report.namecount}</td>
+                        <td>{report.countcant}</td>
+         
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </Table>
+              );
+            
     default:
       return null;
   }
@@ -233,7 +263,7 @@ const Reports = ({  onSelectReport,permissions,report,selectedReportId}) => {
   const [dropdownName,changeDropdownName] = useState('Seleccionar reporte');
   const toggle = () => setOpen(!dropdownOpen);
   const changeDropdown = (newName,newValue) => {changeDropdownName(newName); onSelectReport(newValue);}
-  const Reports=["Reporte artistas por área","Reporte géneros con más canciones","Reporte artistas con más albums individuales","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte álbumes más recientes","Reporte artistas más colaborativos"]
+  const Reports=["Reporte artistas con más álbumes publicados","Reporte géneros con más canciones","Reporte total de duración de cada playlist","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte cantidad de artistas diferentes por playlist","Reporte artistas con más diversidad de géneros musicales","Reporte cantidades de música"]
   return (
     <Fragment>
       <Header parentPage="Reports"/>

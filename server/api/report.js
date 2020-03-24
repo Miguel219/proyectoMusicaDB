@@ -95,6 +95,16 @@ api.post('/8', (req, res) => {
   });
 });
 
+// 8.Totales
+api.post('/9', (req, res) => {
+  let params = req.body;
+  Report.getReport9(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 
 
 

@@ -7,9 +7,13 @@ const db = require('../database');
 class Report {
 
 
-  //1.Artistas por área No puede ser implementado
+  //1.Artistas con más álbumes
   static getReport1 (params,callback) {
-    db.query(`select * from artist limit ${params.limit}`, (err, res) => {
+    db.query(`select ar.name as artistname ,count(a.albumid) as albumcount
+    from artist ar
+    inner join album a on a.artistid = ar.artistid
+    group by(ar.artistid)
+    order by count(a.albumid) DESC limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -30,13 +34,14 @@ class Report {
     });
   }
 
-  //3.Artistas con más albums individuales
+  //3.Total de duración de cada playlist
   static getReport3 (params,callback) {
-    db.query(`select ar.name as artistname ,count(a.albumid) as albumcount
-    from artist ar
-    inner join album a on a.artistid = ar.artistid
-    group by(ar.artistid)
-    order by count(a.albumid) DESC limit ${params.limit}`, (err, res) => {
+    db.query(`select distinct p.name as playlistname,sum(t.milliseconds) as summilliseconds
+    from playlist p
+    inner join playlisttrack pt on p.playlistid = pt.playlistid
+    inner join track t on t.trackid = pt.trackid
+    group by p.playlistid
+    order by sum(t.milliseconds) DESC limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -88,9 +93,14 @@ class Report {
 
   //7.Álbumes más recientes
   static getReport7 (params,callback) {
-    db.query(`select albumid, title as albumname
-    from album
-    order by (albumid) DESC
+    db.query(`select distinct p.name as playlistname,count(distinct ar.artistid) as countartist
+    from playlist p
+    inner join playlisttrack pt on p.playlistid = pt.playlistid
+    inner join track t on t.trackid = pt.trackid
+    inner join album a on a.albumid = t.albumid
+    inner join artist ar on ar.artistid = a.artistid
+    group by p.playlistid
+    order by count(distinct ar.artistid) DESC
     limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
@@ -100,12 +110,13 @@ class Report {
 
   //8.Artistas más colaborativos
   static getReport8 (params,callback) {
-    db.query(`select  ar.name as artistname ,count(t.trackid) as trackcount
-    from artist ar
-    inner join album a on a.artistid = ar.artistid
-	  inner join track t on t.albumid = a.albumid
-    group by(ar.artistid)
-    order by count(t.trackid) DESC limit ${params.limit}`, (err, res) => {
+    db.query(`select ar.name as artistname ,count(distinct g.genreid) as countgenre
+    from track t 
+    inner join album a on a.albumid = t.trackid
+    inner join artist ar on ar.artistid = a.artistid
+    inner join genre  g on g.genreid = t.genreid
+    group by ar.artistid
+    order by count(distinct g.genreid) DESC limit ${params.limit}`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -114,7 +125,31 @@ class Report {
 
    
 
-
+  //9. Totales
+  static getReport9 (params,callback) {
+    db.query(`select 'Canciones' as namecount,count(*) as countcant
+    from track
+    union
+    select 'Artistas' as namecount,count(*) as countcant
+    from artist
+    union
+    select 'Álbums' as namecount,count(*) as countcant
+    from album
+    UNION
+    select 'Géneros' as namecount,count(*) as countcant
+    from genre
+    union
+    select 'Playlists' as namecount,count(*) as countcant
+    from playlist
+    union
+    select 'MediaTypes' as namecount,count(*) as countcant
+    from mediatype
+    order by namecount limit ${params.limit}`, (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
 
 
 }

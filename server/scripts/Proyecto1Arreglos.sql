@@ -247,14 +247,15 @@ INSERT INTO Permission (Name) VALUES ('Editar canción');
 INSERT INTO Permission (Name) VALUES ('Borrar canción');
 INSERT INTO Permission (Name) VALUES ('Inactivar canción');
 /*Permisos de reportes*/
-INSERT INTO Permission (Name) VALUES ('Reporte artistas por área');
+INSERT INTO Permission (Name) VALUES ('Reporte artistas con más álbumes publicados');
 INSERT INTO Permission (Name) VALUES ('Reporte géneros con más canciones');
-INSERT INTO Permission (Name) VALUES ('Reporte artistas con más albums individuales');
+INSERT INTO Permission (Name) VALUES ('Reporte total de duración de cada playlist');
 INSERT INTO Permission (Name) VALUES ('Reporte canciones de mayor duración con la información de sus artistas');
 INSERT INTO Permission (Name) VALUES ('Reporte usuarios que han registrado más canciones');
 INSERT INTO Permission (Name) VALUES ('Reporte promedio de duración de canciones por género');
-INSERT INTO Permission (Name) VALUES ('Reporte álbumes más recientes');
-INSERT INTO Permission (Name) VALUES ('Reporte artistas más colaborativos');
+INSERT INTO Permission (Name) VALUES ('Reporte cantidad de artistas diferentes por playlist');
+INSERT INTO Permission (Name) VALUES ('Reporte artistas con más diversidad de géneros musicales');
+INSERT INTO Permission (Name) VALUES ('Reporte cantidades de música');
 
 /*Se asignan los permisos a los dos roles iniciales*/
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,1);

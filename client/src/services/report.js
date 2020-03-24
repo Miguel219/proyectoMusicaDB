@@ -125,6 +125,23 @@ export const getMostColaborativeArtists = ({limit=10}) => {
     });
 };
 
+
+// 9 getMostColaborativeArtists
+export const getTotals = ({limit=10}) => {
+  return fetch(`/api/report/9`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({limit})
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
+
+
 export const getReport = ({reportType,limit = 10}) =>{
   return fetch(`/api/report/${reportType}`,{
     method: 'post',
