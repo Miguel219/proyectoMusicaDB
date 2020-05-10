@@ -10,6 +10,42 @@ import Header from '../Header';
 import * as actionsReport from '../../actions/reports';
 import reportService from '../../services/report'
 
+
+
+//Función para exportar reportes a excel
+const exportExcelReport = (reportName,report) =>{
+  
+  let csv = '';
+  //Agregamos Headers Primero
+  Object.keys(report[0]).map((key,index)=>{
+      csv += key.toString() ;
+      if(index!=Object.keys(report[0]).length-1){
+        csv +=  ',';
+      }
+  })
+
+
+  csv += "\n";
+  //Exportamos la data a un excel de cada objeto del reporte como una row
+  report.forEach(function(rowObject) {
+    Object.keys(rowObject).map((key,index)=>{
+      csv += rowObject[key];
+      if(index!=Object.keys(rowObject).length-1){
+        csv +=  ',';
+      }
+  })
+   
+    csv += "\n";
+  });
+
+  //Código para convertir archivo a csv y ser descargar en click.
+  var elementCsv = document.createElement('a');
+  elementCsv.href = 'data:text/csv;charset=UTF-8,' + escape(csv);
+  elementCsv.target = '_blank';
+  elementCsv.download = `${reportName}.csv`;
+  elementCsv.click();
+}
+
 const renderSwitchReport = (reporttypeid,report) =>{
   console.log(report);
   console.log(reporttypeid);
@@ -292,7 +328,13 @@ const Reports = ({  onSelectReport,permissions,report,selectedReportId}) => {
             }
             </DropdownMenu>
           </ButtonDropdown>
+          {report.length>0 && <div className="reports-buttons" hidden={!permissions.includes('Crear artista')}>
+                <div className="reports-add-button" onClick={() => exportExcelReport(Reports[selectedReportId-1],report)}>
+                <i className="fa fa-file-excel-o fa-xs"></i>
+                </div>
+          </div>}
           {renderSwitchReport(selectedReportId,report)}
+
         </div>
  
 
