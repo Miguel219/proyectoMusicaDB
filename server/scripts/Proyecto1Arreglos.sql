@@ -1,4 +1,4 @@
-﻿/*******************************************************************************
+/*******************************************************************************
    Create Tables
 ********************************************************************************/
 
@@ -255,6 +255,7 @@ INSERT INTO Permission (Name) VALUES ('Reporte usuarios que han registrado más 
 INSERT INTO Permission (Name) VALUES ('Reporte promedio de duración de canciones por género');
 INSERT INTO Permission (Name) VALUES ('Reporte álbumes más recientes');
 INSERT INTO Permission (Name) VALUES ('Reporte artistas más colaborativos');
+INSERT INTO Permission (Name) VALUES ('Reporte cantidades de música');
 
 /*Se asignan los permisos a los dos roles iniciales*/
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,1);
@@ -305,7 +306,7 @@ INSERT INTO Genre (Name) VALUES ('World');
 INSERT INTO Genre (Name) VALUES ('Hip Hop/Rap');
 INSERT INTO Genre (Name) VALUES ('Science Fiction');
 INSERT INTO Genre (Name) VALUES ('TV Shows');
-INSERT INTO Genre (Name) VALUES ('Sci Fi & Fantasy');https://docs.google.com/document/d/1K7PEHx61c5BCTtRtaQfSSyRiiaBAHQ6MN5wnHE_7yEA/edit#
+INSERT INTO Genre (Name) VALUES ('Sci Fi & Fantasy');
 INSERT INTO Genre (Name) VALUES ('Drama');
 INSERT INTO Genre (Name) VALUES ('Comedy');
 INSERT INTO Genre (Name) VALUES ('Alternative');
