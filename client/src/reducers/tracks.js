@@ -18,7 +18,7 @@ const order = (state = [], action) => {
   }
 };
 
-const byId = (state = [], action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
     case types.TRACK_ADDED: {
       return {
@@ -27,7 +27,17 @@ const byId = (state = [], action) => {
       };
     }
     case types.TRACKS_CLEAR: {
-      const newState = [];
+      const newState = {};
+      return newState;
+    }
+    case types.TRACK_LISTEN: {
+      const newState = {
+        ...state,
+        [action.payload]: {
+          ...state[action.payload],
+          totalplayback: (parseInt(state[action.payload].totalplayback) + 1).toString(),
+        }
+    };
       return newState;
     }
     default: {

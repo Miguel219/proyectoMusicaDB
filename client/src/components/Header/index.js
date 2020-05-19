@@ -151,9 +151,12 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
           <div className="header-user-info">
               {user.name + "  " + user.lastname}
           </div>
-          <div className="header-cart-button" onClick={() => document.getElementById('modal-cart').style.display = "block"} >
-            <i className="fa fa-shopping-cart fa-xs"></i>
-          </div>    
+          {(parentPage!=="Users" && parentPage!=="Roles") &&
+            (<div className="header-cart-button" onClick={() => document.getElementById('modal-cart').style.display = "block"} >
+              <i className="fa fa-shopping-cart fa-xs"></i>
+            </div>)
+          }
+              
         </div>
       </div>
 

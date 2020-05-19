@@ -26,8 +26,6 @@ export const getTrackListAll = () => {
   })
   .then(res => res.json())
     .then(tracks => {
-      console.log(tracks);
-     
       tracks.forEach((track,index) => {
         let search = "";
         search = track.trackname ;

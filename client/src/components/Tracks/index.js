@@ -18,7 +18,7 @@ import * as actionCart from '../../actions/cart';
 import trackService from '../../services/track';
 
 
-const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteToCart, cart, user}) => {
+const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteToCart, cart, user, listenTrack}) => {
   return (
     <Fragment>
       <Header parentPage="Tracks"/>
@@ -60,7 +60,7 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteTo
                   <td onClick={() => selectColumn(track)}>{track.totalplayback}</td>
                   <td onClick={() => selectColumn(track)}>{track.totalsold}</td>
                   { track.isbought && <td className='td-button'>
-                    <div className="tracks-play-button" onClick={() => {window.open(track.deezer.preview, '_blank'); trackService.playbackTrack({trackid:track.trackid,userid:user.userid});}}>
+                    <div className="tracks-play-button" onClick={() => {window.open(track.deezer.preview, '_blank'); trackService.playbackTrack({trackid:track.trackid,userid:user.userid});listenTrack(track.trackid);}}>
                         <i className="fa fa-play fa-xs"></i>
                     </div>
                   </td>}
@@ -145,6 +145,9 @@ export default connect(
     },
     deleteToCart(trackid) {
       dispatch(actionCart.deleteToCart(trackid));
+    },
+    listenTrack(trackid) {
+      dispatch(actionTracks.listenTrack(trackid));
     },
   }),
 )(Tracks);
