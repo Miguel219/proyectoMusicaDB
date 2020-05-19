@@ -69,7 +69,7 @@ $$ LANGUAGE plpgsql;
 DROP TRIGGER IF EXISTS removing_artist ON Artist;
 
 CREATE TRIGGER removing_artist
-  BEFORE DELETE
+  AFTER DELETE
   ON Artist
   FOR EACH ROW
   EXECUTE PROCEDURE log_removing_artist();
@@ -181,7 +181,7 @@ $$ LANGUAGE plpgsql;
 DROP TRIGGER IF EXISTS removing_genre ON Genre;
 
 CREATE TRIGGER removing_genre
-	BEFORE DELETE
+	AFTER DELETE
 	ON Genre
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_removing_genre();
@@ -237,7 +237,7 @@ $$ LANGUAGE plpgsql;
 DROP TRIGGER IF EXISTS removing_mediatype ON MediaType;
 
 CREATE TRIGGER removing_mediatype
-	BEFORE DELETE
+	AFTER DELETE
 	ON MediaType
 	FOR EACH ROW
   EXECUTE PROCEDURE log_removing_mediatype();
@@ -293,7 +293,7 @@ $$ LANGUAGE plpgsql;
 DROP TRIGGER IF EXISTS removing_track ON Track;
 
 CREATE TRIGGER removing_track
-	BEFORE DELETE
+	AFTER DELETE
 	ON Track
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_removing_track();
@@ -350,7 +350,7 @@ CREATE TRIGGER adding_playlist
   DROP TRIGGER IF EXISTS removing_playlist ON Playlist;
 
   CREATE TRIGGER removing_playlist
-  	BEFORE DELETE
+  	AFTER DELETE
   	ON Playlist
   	FOR EACH ROW
   	EXECUTE PROCEDURE log_removing_playlist();
