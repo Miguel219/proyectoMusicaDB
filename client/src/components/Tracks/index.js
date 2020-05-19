@@ -64,7 +64,7 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteTo
                         <i className="fa fa-play fa-xs"></i>
                     </div>
                   </td>}
-                  { !track.isbought && (cart.filter(trackInCart => trackInCart.trackid === track.trackid).length === 0) ? 
+                  { !track.isbought && ((cart.filter(trackInCart => trackInCart.trackid === track.trackid).length === 0) ? 
                     <td className='td-button'>
                       <div className="tracks-add-cart-button" style={{backgroundColor:'#34b1eb'}} onClick={() => addToCart(track)}>
                         <i className="fa fa-shopping-cart fa-xs"></i>
@@ -74,7 +74,7 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteTo
                       <div className="tracks-add-cart-button" style={{backgroundColor:'red'}} onClick={() => deleteToCart(track.trackid)}>
                         <i className="fa fa-shopping-cart fa-xs"></i>
                       </div>
-                    </td>}
+                    </td>)}
                   
                 </tr>
               ))
