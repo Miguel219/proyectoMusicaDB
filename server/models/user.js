@@ -54,9 +54,11 @@ class User {
 
    
   static insert (params, callback) {
+    if(params.state !== null)
+      params.state = `'${params.state}'`
     db.query(`INSERT INTO users(
-       name, lastname, birthdate, userid, password)
-      VALUES ('${params.name}', '${params.lastname}', '${params.birthdate}', '${params.userid}', '${params.password}')`, (err, res) => {
+       name, lastname, birthdate, userid, password, country, state, city, address, postalcode)
+      VALUES ('${params.name}', '${params.lastname}', '${params.birthdate}', '${params.userid}', '${params.password}', '${params.country}', ${params.state}, '${params.city}', '${params.address}', '${params.postalcode}')`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

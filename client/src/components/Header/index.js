@@ -29,7 +29,7 @@ const Header = ({ onSearch, parentPage,user }) => {
     <div className="header">
      
       <div className="header-container" hidden={parentPage==="Reports" || parentPage==="Users" || parentPage==="Roles"} 
-      onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput)} > 
+      onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid)} > 
         <div className="header-initial-filter">
           {
             (parentPage!=="Artist")
@@ -49,7 +49,7 @@ const Header = ({ onSearch, parentPage,user }) => {
               onChange={e => changeSearchInput(e.target.value)}
           />
           <div className="header-search-button"
-            onClick={() => onSearch(parentPage, searchInput, genderInput, artistInput, albumInput)}>
+            onClick={() => onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid)}>
             <img alt="img" src={Search} className="header-search-image"/>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default connect(
       user: selectors.getLoggedUser(state)
   }),
   dispatch => ({
-    onSearch(parentPage, searchInput, genderInput, artistInput, albumInput) {
+    onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, userid) {
       //Se pasan todos los inputs a minusculas
       searchInput = searchInput.toLowerCase();
       genderInput = genderInput.toLowerCase();
@@ -118,6 +118,7 @@ export default connect(
       //Dependendo de en que pagina esta se llama a la base de datos
       if(parentPage==="Tracks")
         trackService.getTrackList({
+          userid: userid,
           trackname:searchInput,
           genrename:genderInput,
           albumname:albumInput,

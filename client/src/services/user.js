@@ -64,11 +64,11 @@ export const useridtaken = ({userid}) => {
 };
 
 //add User
- export const addUser = ({name,lastname,birthdate,userid,password}) => {
+ export const addUser = ({name,lastname,birthdate,userid,password,country,state,city,address,postalcode}) => {
   return fetch('/api/user/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({name,lastname,birthdate,userid,password})
+    body: JSON.stringify({name,lastname,birthdate,userid,password,country,state,city,address,postalcode})
   })
   .then(res => {
     return res.json();
