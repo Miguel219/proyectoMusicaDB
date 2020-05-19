@@ -18,11 +18,11 @@ export const getTrackListAll = () => {
 };
 
 //get Track Params
- export const getTrackList = ({trackname="",genrename="",albumname="",artistname="",limit="All"}) => {
+ export const getTrackList = ({userid,trackname="",genrename="",albumname="",artistname="",limit="All"}) => {
   return fetch(`/api/track/get`,{
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body:JSON.stringify({trackname,artistname,albumname,genrename,limit})
+    body:JSON.stringify({userid,trackname,artistname,albumname,genrename,limit})
   })
   .then(res => res.json())
     .then(res => {
