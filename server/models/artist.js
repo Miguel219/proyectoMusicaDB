@@ -36,7 +36,7 @@ class Artist {
 
    
   static insert (params, callback) {
-    db.query(`INSERT INTO artist (name) VALUES ('${params.artistname}')`, (err, res) => {
+    db.query(`INSERT INTO artist (name, userid) VALUES ('${params.artistname}','${params.userid}')`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -44,7 +44,7 @@ class Artist {
   }
 
   static update (params, callback) {
-    db.query(`update artist set name='${params.artistname}' where artistid='${params.artistid}';`, (err, res) => {
+    db.query(`update artist set name='${params.artistname}' userid='${params.userid}' where artistid='${params.artistid}';`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

@@ -7,7 +7,7 @@ const db = require('../database');
 class Track {
 
   static getAll (callback) {
-    db.query(`SELECT trackid,name as trackname, isactive from track`, (err, res) => {
+    db.query(`SELECT trackid,name as trackname, isactive, unitprice from track`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -15,7 +15,6 @@ class Track {
   }
 
   static getAllParams (params,callback) {
-    console.log(``)
     db.query(`with a as (select t.trackid, count(pb.trackid) as totalPlayback
                   from track t
                   left join playback pb on pb.trackid = t.trackid
@@ -122,6 +121,19 @@ class Track {
         return callback(err);
       callback(res);
     });
+  }
+
+  static playbackTracks (params, callback) {
+    params.tracks.map((track, i) => 
+      db.query(`INSERT INTO playback(
+        userid, trackid)
+        VALUES ('${params.userid}', '${track.trackid}');`, (err, res) => {
+        if (err.error)
+          return callback(err);
+        if((i+1)===params.tracks.length)
+          callback(res);
+      })
+    );
   }
 
 

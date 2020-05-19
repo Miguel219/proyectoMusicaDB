@@ -88,4 +88,14 @@ api.post('/playbackTrack', (req, res) => {
   });
 });
 
+//Playback tracks
+api.post('/playbackTracks', (req, res) => {
+  let params = req.body;
+  Track.playbackTracks(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 module.exports = api;

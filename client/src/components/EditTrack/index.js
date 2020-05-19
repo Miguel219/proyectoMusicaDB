@@ -238,7 +238,6 @@ export default connect(
   }),
   dispatch => ({
     onSave(track) {
-      console.log(track.userid)
       if(track.trackname!=="" && track.albumid!=null && track.mediatypeid!=null && track.genreid!=null && track.composer!=="" && track.milliseconds!==0 && track.bytes!==0 && track.unitprice!=="") {
       if(track.trackid==null)
         trackService.addTrack(track).then(()=> history.push('/main/canciones'));

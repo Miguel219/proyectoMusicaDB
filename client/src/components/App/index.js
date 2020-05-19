@@ -19,6 +19,7 @@ import Users from '../Users';
 import EditUser from '../EditUser';
 import Roles from '../Roles';
 import EditRole from '../EditRole';
+import { Simulation } from '../Simulation';
 import AssignPermission from '../AssignPermission';
 import logo from '../../../public/Images/music-note.png';
 import PrivateRoute from '../PrivateRouter'
@@ -88,6 +89,7 @@ const App = ({ store }) => {
         <SidebarAdmin />
         <PrivateRouteAdmin path={'/admin/usuarios'}  component={<Users />} store={store}/>
         <PrivateRouteAdmin path={'/admin/roles'}  component={<Roles />} store={store}/>
+        <PrivateRouteAdmin path={'/admin/simulación'}  component={<Simulation />} store={store}/>
       </Route>
 
       

@@ -76,7 +76,7 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
   return (
     <div>    
       <div className="header">
-        <div className="header-container" hidden={parentPage==="Reports" || parentPage==="Users" || parentPage==="Roles"} 
+        <div className="header-container" hidden={parentPage==="Reports" || parentPage==="Users" || parentPage==="Roles" || parentPage==="Simulation"} 
         onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid, boughtInput)} > 
           <div className="header-initial-filter">
             {
@@ -151,7 +151,7 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
           <div className="header-user-info">
               {user.name + "  " + user.lastname}
           </div>
-          {(parentPage!=="Users" && parentPage!=="Roles") &&
+          {(parentPage!=="Users" && parentPage!=="Roles" && parentPage!=="Simulation") &&
             (<div className="header-cart-button" onClick={() => document.getElementById('modal-cart').style.display = "block"} >
               <i className="fa fa-shopping-cart fa-xs"></i>
             </div>)

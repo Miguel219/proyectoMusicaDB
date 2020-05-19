@@ -120,6 +120,19 @@ export const updateTrackActive = ({trackid,isactive}) => {
   });
 
 };
+  
+//playbackTracks
+ export const playbackTracks = ({tracks,userid}) => {
+  return fetch('/api/track/playbackTracks', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({tracks,userid})
+  })
+  .then(res => {
+    return res.json();
+  });
+
+};
 
 
 //Generate Tracks Invoice
@@ -142,5 +155,6 @@ export default {
   addTrack,
   generateInvoice,
   deleteTrack,
-  playbackTrack
+  playbackTrack,
+  playbackTracks
 }
