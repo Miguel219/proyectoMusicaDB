@@ -29,7 +29,8 @@ AS $$
 	END
 $$ LANGUAGE plpgsql;
 
-select * from artistSalesBetweenTwoDates(1,'2020-05-18','2020-05-20')
+
+select * from totalSalesByWeek('2020-05-18','2020-05-20')
 
 -- Los N artistas con las mayores ventas para un rango de fechas a ser ingresado por el
 --usuario. La cantidad de artistas N a mostrar también debe ser ingresada por el usuario
@@ -38,7 +39,8 @@ CREATE OR REPLACE FUNCTION artistSalesBetweenTwoDates(limitArtist INT ,dateStart
     RETURNS TABLE(
 					artistid INTEGER,
                     artistname VARCHAR,
-					trackcount BIGINT)
+					trackcount BIGINT,
+					totalsold NUMERIC)
 AS $$
 	
 	DECLARE
@@ -53,7 +55,7 @@ AS $$
 			USING HINT = 'La fecha start debe ser menos a la fecha end.';
 		END IF;
 		RETURN QUERY
-		select ar.artistid,ar.name as artistname, count(il.trackid) as trackcount
+		select ar.artistid,ar.name as artistname, count(il.trackid) as trackcount,sum(i.total) as totalsold
 		from invoice i
 		inner join invoiceline il on i.invoiceid = il.invoiceid
 		inner join track t on t.trackid=il.trackid
@@ -61,12 +63,12 @@ AS $$
 		inner join artist ar on ar.artistid = a.artistid
 		where i.invoicedate between dateStart and  dateEnd
 		group by ar.artistid
-		order by count(il.trackid) DESC
+		order by sum(i.total) DESC
 		limit limitArtist;
 	END
 $$ LANGUAGE plpgsql;
 
-select * from totalSalesByWeek('2020-05-18','2020-05-20')
+select * from artistSalesBetweenTwoDates(2,'2020-05-18','2020-05-20')
 
 
 --Total de ventas por género para un rango de fechas a ser ingresado por el usuario
@@ -74,7 +76,8 @@ CREATE OR REPLACE FUNCTION genreSalesBetweenTwoDates(dateStart Timestamp,dateEnd
     RETURNS TABLE(
 					genreid INTEGER,
                     genrename VARCHAR,
-					trackcount BIGINT)
+					trackcount BIGINT,
+					totalsold NUMERIC)
 AS $$
 	
 	DECLARE
@@ -86,7 +89,7 @@ AS $$
 			USING HINT = 'La fecha start debe ser menos a la fecha end.';
 		END IF;
 		RETURN QUERY
-		(select g.genreid,g.name as genrename,count(il.trackid) as trackcount
+		(select g.genreid,g.name as genrename,count(il.trackid) as trackcount,sum(i.total) as totalsold
 		from invoice i
 		inner join invoiceline il on il.invoiceid=i.invoiceid
 		inner join track t on il.trackid= t.trackid
@@ -94,7 +97,7 @@ AS $$
 		where i.invoicedate between dateStart and  dateEnd
 		group by g.genreid)
 		union
-		(select g.genreid, g.name as genrename, 0 as trackcount
+		(select g.genreid, g.name as genrename, 0 as trackcount,0 as totalsold
 		from genre g
 		where g.genreid not in
 		(select g.genreid
@@ -104,11 +107,11 @@ AS $$
 		inner join genre g on t.genreid =g.genreid
 		where i.invoicedate between dateStart and  dateEnd
 		group by g.genreid))
-		order by trackcount DESC;
+		order by totalsold DESC;
 	END
 $$ LANGUAGE plpgsql;
 
-select * from genreSalesBetweenTwoDates('2020-05-19','2020-05-19')
+select * from genreSalesBetweenTwoDates('2020-05-19','2020-05-20')
 
 
 -- Las N canciones con más reproducciones para un artista a ser ingresado por el usuario

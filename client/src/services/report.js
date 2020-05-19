@@ -126,7 +126,7 @@ export const getMostColaborativeArtists = ({limit=10}) => {
 };
 
 
-// 9 getMostColaborativeArtists
+// 9 getTotals
 export const getTotals = ({limit=10}) => {
   return fetch(`/api/report/9`,{
     method: 'post',
@@ -141,12 +141,74 @@ export const getTotals = ({limit=10}) => {
     });
 };
 
+// 10 getTotalSalesWeek
+export const getTotalSalesWeek = ({params}) => {
+  return fetch(`/api/report/10`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({params})
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
 
-export const getReport = ({reportType,limit = 10}) =>{
+// 11 getTotalSalesArtist
+export const getTotalSalesArtist = ({params}) => {
+  return fetch(`/api/report/11`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({params})
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
+
+// 12 getTotalSalesGenre
+export const getTotalSalesGenre = ({params}) => {
+  return fetch(`/api/report/12`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({params})
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
+
+// 13 getTotalPlaybackArtist
+export const getTotalPlaybackArtist = ({params}) => {
+  return fetch(`/api/report/13`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({params})
+  })
+  .then(res => res.json())
+    .then(res => {
+      return res;
+      
+      
+    });
+};
+
+
+
+
+export const getReport = ({reportType,limit = 10,params={limit:10,dateStart:(new Date()).getTime(),dateEnd:(new Date()).getTime,artistid:1}}) =>{
   return fetch(`/api/report/${reportType}`,{
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({limit})
+    body: JSON.stringify({limit,params})
   })
   .then(res => res.json())
     .then(res => {

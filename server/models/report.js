@@ -151,6 +151,47 @@ class Report {
     });
   }
 
+   //10 totales por semana
+   static getReport10 (params,callback) {
+     console.log("hola");
+     console.log(params.params);
+    db.query(`select * from totalSalesByWeek('${params.params.dateStart}','${params.params.dateEnd}')`, 
+    (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+   //11 totales por artista
+   static getReport11 (params,callback) {
+    db.query(`select * from artistSalesBetweenTwoDates('${params.params.limit}','${params.params.dateStart}','${params.params.dateEnd}')`, 
+    (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  //12 ventas por genero
+  static getReport12 (params,callback) {
+    db.query(`select * from genreSalesBetweenTwoDates('${params.params.dateStart}','${params.params.dateEnd}')`, 
+    (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+   //13 reproducciones por artist
+   static getReport13 (params,callback) {
+    db.query(`select * from artistTopTracksPlayback('${params.params.limit}','${params.params.artistid}')`, 
+    (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
 
 }
 

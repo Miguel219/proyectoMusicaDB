@@ -12,7 +12,7 @@ import * as actions from '../../actions/loggedUser';
 import * as actionReport from '../../actions/reports'
 import * as selectors from '../../reducers';
 
-const Reports=["Reporte artistas con más álbumes publicados","Reporte géneros con más canciones","Reporte total de duración de cada playlist","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte cantidad de artistas diferentes por playlist","Reporte artistas con más diversidad de géneros musicales","Reporte cantidades de música"]
+const Reports=["Reporte artistas con más álbumes publicados","Reporte géneros con más canciones","Reporte total de duración de cada playlist","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte cantidad de artistas diferentes por playlist","Reporte artistas con más diversidad de géneros musicales","Reporte cantidades de música","Reporte total de ventas por semana","Reporte artistas con mayores ventas","Reporte total de ventas por género","Reporte canciones más reproducidas de un artista"]
 const sidebarOptions = ['Canciones', 'Artistas', 'Álbumes', 'Reportes'];
 const optImg = [Canciones, Artistas, Albumes, Reportes];
 let logoffimg = Logoff;

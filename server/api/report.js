@@ -95,7 +95,7 @@ api.post('/8', (req, res) => {
   });
 });
 
-// 8.Totales
+// 9.Totales
 api.post('/9', (req, res) => {
   let params = req.body;
   Report.getReport9(params, (err, result) => {
@@ -105,6 +105,48 @@ api.post('/9', (req, res) => {
   });
 });
 
+
+// 10 getTotalSalesWeek
+api.post('/10', (req, res) => {
+  let params = req.body;
+  Report.getReport10(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+
+// 11 getTotalSalesArtist
+api.post('/11', (req, res) => {
+  let params = req.body;
+  Report.getReport11(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+// 12 getTotalSalesGenre
+api.post('/12', (req, res) => {
+  let params = req.body;
+  Report.getReport12(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+
+// 13 getTotalPlaybackArtist
+api.post('/13', (req, res) => {
+  let params = req.body;
+  Report.getReport13(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
 
 
 

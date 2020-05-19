@@ -12,6 +12,7 @@ import reportService from '../../services/report'
 
 
 
+
 //Función para exportar reportes a excel
 const exportExcelReport = (reportName,report) =>{
   
@@ -287,18 +288,141 @@ const renderSwitchReport = (reporttypeid,report) =>{
                 </tbody>
               </Table>
               );
+            case '10':
+              return (
+                <Table className='reports-content' size="sm" hover bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Inicio de Semana</th>
+                    <th>Final de Semana</th>
+                    <th>Total Ventas</th>
+                    <th>Total Canciones Ventas</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {report.map((report, id) => 
+                    (
+                      <tr key={id} className={"table-light"} >
+                        <th scope="row">{id+1}</th>
+                        <td>{report.weekstart}</td>
+                        <td>{report.weekend}</td>
+                        <td>{report.weektotal}</td>
+                        <td>{report.weektotaltracks}</td>
+        
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </Table>
+            );
+            case '11':
+              return (
+                <Table className='reports-content' size="sm" hover bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Artista</th>
+                    <th>Cantidad Canciones Vendidas</th>
+                    <th>Total Ventas</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {report.map((report, id) => 
+                    (
+                      <tr key={id} className={"table-light"} >
+                        <th scope="row">{id+1}</th>
+                        <td>{report.artistname}</td>
+                        <td>{report.trackcount}</td>
+                        <td>{report.totalsold}</td>
+        
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </Table>
+            );
+            case '12':
+              return (
+                <Table className='reports-content' size="sm" hover bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Género</th>
+                    <th>Cantidad Canciones Vendidas</th>
+                    <th>Total Ventas</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {report.map((report, id) => 
+                    (
+                      <tr key={id} className={"table-light"} >
+                        <th scope="row">{id+1}</th>
+                        <td>{report.genrename}</td>
+                        <td>{report.trackcount}</td>
+                        <td>{report.totalsold}</td>
+                        
+        
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </Table>
+            );
+            case '13':
+              return (
+                <Table className='reports-content' size="sm" hover bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Canción</th>
+                    <th>Artista</th>
+                    <th>Total Reproducciones</th>
+                   
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {report.map((report, id) => 
+                    (
+                      <tr key={id} className={"table-light"} >
+                        <th scope="row">{id+1}</th>
+                        <td>{report.trackname}</td>
+                        <td>{report.artistname}</td>
+                        <td>{report.trackcount}</td>
+                       
+        
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </Table>
+            );
             
     default:
       return null;
   }
 }
  
-const Reports = ({  onSelectReport,permissions,report,selectedReportId}) => {
+const Reports = ({  onSelectReport,permissions,report,selectedReportId,getReportResult}) => {
+  //getReportResult({reportType:9})
   const [dropdownOpen, setOpen] = useState(false);
   const [dropdownName,changeDropdownName] = useState('Seleccionar reporte');
   const toggle = () => setOpen(!dropdownOpen);
-  const changeDropdown = (newName,newValue) => {changeDropdownName(newName); onSelectReport(newValue);}
-  const Reports=["Reporte artistas con más álbumes publicados","Reporte géneros con más canciones","Reporte total de duración de cada playlist","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte cantidad de artistas diferentes por playlist","Reporte artistas con más diversidad de géneros musicales","Reporte cantidades de música"]
+  const changeDropdown = (newName,newValue) => {changeDropdownName(newName); onSelectReport({reportType:newValue});
+          if(newValue<=13){getReportResult({reportType:newValue})};}
+  const Reports=["Reporte artistas con más álbumes publicados","Reporte géneros con más canciones","Reporte total de duración de cada playlist","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte cantidad de artistas diferentes por playlist","Reporte artistas con más diversidad de géneros musicales","Reporte cantidades de música","Reporte total de ventas por semana","Reporte artistas con mayores ventas","Reporte total de ventas por género","Reporte canciones más reproducidas de un artista"]
   return (
     <Fragment>
       <Header parentPage="Reports"/>
@@ -352,11 +476,13 @@ export default connect(
   }),
   dispatch => ({
 
-    onSelectReport(reportType) {
-      reportService.getReport({reportType}).then(
+    onSelectReport({reportType}) {
+      dispatch(actionsReport.selectReportId(reportType))
+    },
+    getReportResult({reportType,params={limit:10,dateStart:(new Date('2020-05-19')),dateEnd:(new Date('2020-05-21')),artistid:1}}){
+      reportService.getReport({reportType,params}).then(
         report=>{dispatch(actionsReport.selectReport(report))}
       )
-      dispatch(actionsReport.selectReportId(reportType))
     }
   }),
 )(Reports);

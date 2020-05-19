@@ -270,6 +270,19 @@ INSERT INTO Permission (Name) VALUES ('Reporte cantidad de artistas diferentes p
 INSERT INTO Permission (Name) VALUES ('Reporte artistas con más diversidad de géneros musicales');
 INSERT INTO Permission (Name) VALUES ('Reporte cantidades de música');
 
+--NUEVOS PERMISOS
+
+INSERT INTO Permission (Name) VALUES ('Reporte total de ventas por semana');
+INSERT INTO Permission (Name) VALUES ('Reporte artistas con mayores ventas');
+INSERT INTO Permission (Name) VALUES ('Reporte total de ventas por género');
+INSERT INTO Permission (Name) VALUES ('Reporte canciones más reproducidas de un artista');
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,25);
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,26);
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,27);
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,28);
+INSERT INTO Permission (Name) VALUES ('Ver Bitácora');
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,29);
+
 /*Se asignan los permisos a los dos roles iniciales*/
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,1);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,2);
@@ -295,6 +308,7 @@ INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,21);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,22);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,23);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,24);
+
 
 /*Se crea el unico usuario con el rol de administrador*/
 INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (1,'Administrador','admin',NULL,'adminMusic@gmail.com','admin2020');

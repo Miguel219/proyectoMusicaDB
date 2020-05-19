@@ -25,7 +25,7 @@ CREATE OR REPLACE FUNCTION log_changing_artist()
 $$
 BEGIN
   INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
-  VALUES ('update', OLD.userId, 'artist', OLD.ArtistId);
+  VALUES ('update', NEW.userId, 'artist', OLD.ArtistId);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -81,7 +81,7 @@ CREATE OR REPLACE FUNCTION log_changing_album()
 $$
 BEGIN
 		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
-		VALUES ('update', OLD.userId, 'album', OLD.AlbumId);
+		VALUES ('update', NEW.userId, 'album', OLD.AlbumId);
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -249,7 +249,7 @@ CREATE OR REPLACE FUNCTION log_changing_track()
 $$
 BEGIN
 		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
-		VALUES ('update', OLD.userId, 'track', OLD.TrackId);
+		VALUES ('update', NEW.userId, 'track', OLD.TrackId);
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
