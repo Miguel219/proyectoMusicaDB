@@ -68,4 +68,14 @@ api.delete('/', (req, res) => {
   });
 });
 
+//Insert Invoice Track
+api.post('/generateInvoice', (req, res) => {
+  let params = req.body;
+  Track.generateInvoice(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 module.exports = api;

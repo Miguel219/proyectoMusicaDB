@@ -111,6 +111,17 @@ export const updateTrackActive = ({trackid,isactive}) => {
 };
 
 
+//Generate Tracks Invoice
+export const generateInvoice = ({cart, user, total}) => {
+  return fetch('/api/track/generateInvoice', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({cart,user, total})
+  })
+  .then(res => {
+    return res.json();
+  });
+};
 
 export default {
   getTrackList,
@@ -118,5 +129,6 @@ export default {
   updateTrack,
   updateTrackActive,
   addTrack,
+  generateInvoice,
   deleteTrack
 }

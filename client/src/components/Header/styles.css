@@ -119,9 +119,109 @@
 
 .user-image {
     height: 30px;
-    width: 30px;   
-    margin: 2px;
+    width: 30px;
     padding: 5px;
     background: white;
     border-radius: 50%;
+}
+
+.header-cart-button {
+    background: white;
+    color: black;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-left: 5%;
+}
+
+.header-cart-button:hover {
+    background: whitesmoke;
+}
+
+.header-cart-button:active {
+    transform: scale(0.9);
+}
+
+.modal-cart {
+    display: none; 
+    position: fixed; 
+    z-index: 10; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-cart-content {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 80%; 
+}
+
+.close-modal-cart {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-modal-cart:hover,
+.close-modal-cart:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cart-delete-cart-button {
+    background-color: red;
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.cart-delete-cart-button:hover {
+    background: whitesmoke;
+}
+
+.cart-delete-cart-button:active {
+    transform: scale(0.9);
+}
+
+.cart-invoice-button {
+    background-color: #FFB900;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5%;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 40px;
+    width: 150px;
+}
+.cart-invoice-button:active {
+    transform: scale(0.9);
+}
+
+.cart-content {
+    background: white;
+    font-size: 15px;
 }

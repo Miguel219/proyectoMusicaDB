@@ -14,9 +14,10 @@ import genreService from '../../services/genre';
 import * as actionGenres from '../../actions/genres';
 import mediatypeService from '../../services/mediatype';
 import * as actionMediatypes from '../../actions/mediatypes';
+import * as actionCart from '../../actions/cart';
 
 
-const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
+const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteToCart, cart}) => {
   return (
     <Fragment>
       <Header parentPage="Tracks"/>
@@ -52,16 +53,22 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
                   <td onClick={() => selectColumn(track)}>{track.genrename}</td>
                   <td onClick={() => selectColumn(track)}>{track.artistname}</td>
                   <td onClick={() => selectColumn(track)}>{track.unitprice}</td>
-                  <td className='td-button'>
+                  { track.isbought && <td className='td-button'>
                     <div className="tracks-play-button" onClick={() => window.open(track.deezer.preview, '_blank')}>
                         <i className="fa fa-play fa-xs"></i>
                     </div>
-                  </td>
-                  <td className='td-button'>
-                      <div className="tracks-add-cart-button" onClick={() => {}}>
-                        <i className="fa fa-plus fa-xs"></i>
+                  </td>}
+                  { !track.isbought && (cart.filter(trackInCart => trackInCart.trackid === track.trackid).length === 0) ? 
+                    <td className='td-button'>
+                      <div className="tracks-add-cart-button" style={{backgroundColor:'#34b1eb'}} onClick={() => addToCart(track)}>
+                        <i className="fa fa-shopping-cart fa-xs"></i>
                       </div>
-                  </td>
+                    </td> : 
+                    <td className='td-button'>
+                      <div className="tracks-add-cart-button" style={{backgroundColor:'red'}} onClick={() => deleteToCart(track.trackid)}>
+                        <i className="fa fa-shopping-cart fa-xs"></i>
+                      </div>
+                    </td>}
                   
                 </tr>
               ))
@@ -77,6 +84,7 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
 export default connect(
   state => ({
     tracks: selectors.getTracks(state),
+    cart: selectors.getTracksInCart(state),
     permissions: selectors.getLoggedUser(state).permissions,
   }),
   dispatch => ({
@@ -124,6 +132,12 @@ export default connect(
         mediatypeDropDown.map(mediatype => dispatch(actionMediatypes.addMediatype(mediatype)));
       });
       history.push("/editar/canción");
+    },
+    addToCart(track) {
+      dispatch(actionCart.addToCart(track));
+    },
+    deleteToCart(trackid) {
+      dispatch(actionCart.deleteToCart(trackid));
     },
   }),
 )(Tracks);

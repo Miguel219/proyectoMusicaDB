@@ -68,7 +68,22 @@ class Track {
     });
   }
 
-
+  static generateInvoice (params, callback) {
+    db.query(`INSERT INTO invoice(userid, billingaddress, billingcity, billingstate, billingcountry, billingpostalcode, total)
+      VALUES ('${params.user.userid}', '${params.user.address}','${params.user.city}' , '${params.user.state}', '${params.user.country}', '${params.user.postalcode}', '${params.total}')
+      RETURNING invoiceid`, (err, res) => {
+      if (err.error)
+        return callback(err);
+      params.cart.forEach(track => {
+        db.query(`INSERT INTO invoiceline(invoiceid, trackid, unitprice, quantity)
+          VALUES ('${res[0].invoiceid}', '${track.trackid}','${track.unitprice}' , 1);`, (err, res) => {
+          if (err.error)
+            return callback(err);
+        });
+      });
+      callback(res);
+    });
+  }
 
 }
 

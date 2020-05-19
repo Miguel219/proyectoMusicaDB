@@ -128,7 +128,7 @@ CREATE TABLE Invoice
 (
     InvoiceId SERIAL,
     UserId VARCHAR(120) NOT NULL,
-    InvoiceDate TIMESTAMP NOT NULL,
+    InvoiceDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     BillingAddress VARCHAR(70),
     BillingCity VARCHAR(40),
     BillingState VARCHAR(40),

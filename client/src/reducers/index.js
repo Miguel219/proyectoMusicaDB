@@ -10,6 +10,7 @@ import roles, * as rolesSelectors from './roles';
 import users, * as usersSelectors from './users';
 import permissions, * as permissionsSelectors from './permissions';
 import report, * as reportSelectors from './reports.js';
+import cart, * as cartSelectors from './cart.js';
 
 
 const reducer = combineReducers({
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   report,
   roles,
   users,
+  cart,
   permissions,
 });
 
@@ -56,3 +58,5 @@ export const getUsers = state => usersSelectors.getUsers(state.users);
 export const getSelectedUser = state => usersSelectors.getSelectedUser(state.users);
 export const getPermission = (state, permissionid) => permissionsSelectors.getPermission(state.permissions, permissionid);
 export const getPermissions = state => permissionsSelectors.getPermissions(state.permissions);
+export const getTrackInCart = (state, trackid) => cartSelectors.getTrackInCart(state.cart,trackid);
+export const getTracksInCart = state => cartSelectors.getTracksInCart(state.cart);
