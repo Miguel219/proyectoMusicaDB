@@ -14,9 +14,11 @@ import genreService from '../../services/genre';
 import * as actionGenres from '../../actions/genres';
 import mediatypeService from '../../services/mediatype';
 import * as actionMediatypes from '../../actions/mediatypes';
+import trackService from '../../services/track';
 
 
-const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
+
+const Tracks = ({ tracks, selectColumn, onClick,permissions,user}) => {
   return (
     <Fragment>
       <Header parentPage="Tracks"/>
@@ -38,7 +40,10 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
               <th>Género</th>
               <th>Artista</th>
               <th>Precio</th>
+              <th># Reprod.</th>
+              <th># Ventas</th>
               <th>Acciones</th>
+              
               
             </tr>
           </thead>
@@ -52,8 +57,10 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
                   <td onClick={() => selectColumn(track)}>{track.genrename}</td>
                   <td onClick={() => selectColumn(track)}>{track.artistname}</td>
                   <td onClick={() => selectColumn(track)}>{track.unitprice}</td>
+                  <td onClick={() => selectColumn(track)}>{track.totalplayback}</td>
+                  <td onClick={() => selectColumn(track)}>{track.totalsold}</td>
                   <td className='td-button'>
-                    <div className="tracks-play-button" onClick={() => window.open(track.deezer.preview, '_blank')}>
+                    <div className="tracks-play-button" onClick={() => {window.open(track.deezer.preview, '_blank'); trackService.playbackTrack({trackid:track.trackid,userid:user.userid});}}>
                         <i className="fa fa-play fa-xs"></i>
                     </div>
                   </td>
@@ -78,6 +85,7 @@ export default connect(
   state => ({
     tracks: selectors.getTracks(state),
     permissions: selectors.getLoggedUser(state).permissions,
+    user: selectors.getLoggedUser(state),
   }),
   dispatch => ({
     selectColumn(track) {

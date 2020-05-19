@@ -110,6 +110,19 @@ export const updateTrackActive = ({trackid,isactive}) => {
   });
 };
 
+  //playbackTrack
+ export const playbackTrack = ({trackid,userid}) => {
+  return fetch('/api/track/playbackTrack', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({trackid,userid})
+  })
+  .then(res => {
+    return res.json();
+  });
+
+};
+
 
 
 export default {
@@ -118,5 +131,6 @@ export default {
   updateTrack,
   updateTrackActive,
   addTrack,
-  deleteTrack
+  deleteTrack,
+  playbackTrack
 }
