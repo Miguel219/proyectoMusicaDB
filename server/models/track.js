@@ -26,13 +26,20 @@ class Track {
                   left join invoiceline il on il.trackid = t.trackid
                   group by t.trackid, il.trackid
                   order by t.trackid),
-                c AS (select t.trackid,  CASE WHEN il.trackid IS NULL THEN false ELSE true end isbought
-                  from track t
-                  left join invoice i on i.userid = '${params.userid}'
-                  left join invoiceline il on il.trackid = t.trackid
-                  where il.invoiceid = i.invoiceid
-                  group by t.trackid,i.invoiceid,il.trackid
-                  order by t.trackid), 
+                c AS (
+                  (select t.trackid,  CASE WHEN il.trackid IS NULL THEN false ELSE true end isbought
+                    from track t
+                    left join invoice i on i.userid = '${params.userid}'
+                    left join invoiceline il on il.trackid = t.trackid
+                    where il.invoiceid = i.invoiceid
+                    group by t.trackid,i.invoiceid,il.trackid
+                    order by t.trackid)
+                  UNION(
+                        select t.trackid,  true as isbought
+                            from track t
+                    inner join LogBook lb on lb.objectid = t.trackid 
+                    where lb.objecttype='track' and lb.logtype='insert' 
+                    and lb.userid='${params.userid}')), 
                 d AS (select  t.trackid, t.name as trackname, t.isactive, t.albumid, a.title as albumname, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice
                   from track t
                   inner join album a on a.albumid = t.albumid
