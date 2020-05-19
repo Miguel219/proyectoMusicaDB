@@ -48,11 +48,11 @@ class Track {
                   inner join mediatype mt on mt.mediatypeid = t.mediatypeid
                   where (LOWER(t.name) like LOWER('%${params.trackname}%') and LOWER(a.title) like LOWER('%${params.albumname}%') and LOWER(ar.name) like LOWER('%${params.artistname}%') and LOWER(g.name) like LOWER('%${params.genrename}%'))
                   group by t.trackid,a.title,a.artistid,g.name,ar.name,mt.name   
-                  order by t.trackid limit ${params.limit})
+                  order by t.trackid)
               SELECT * FROM a JOIN b USING (trackid)
               LEFT JOIN c USING (trackid)
               JOIN d USING (trackid)
-              WHERE isbought = ${params.isbought} or isbought is ${params.isnull};`, (err, res) => {
+              WHERE isbought = ${params.onlyBought} or isbought is ${params.onlyNotBought}  limit ${params.limit};`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

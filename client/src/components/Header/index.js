@@ -31,6 +31,7 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
   const [genderInput, changeGenderInput] = useState('');
   const [artistInput, changeArtistInput] = useState('');
   const [albumInput, changeAlbumInput] = useState('');
+  const [boughtInput, changeBoughtInput] = useState('1');
   //Se genera el total del carrito
   var total = 0;
   if(cart.length>0)
@@ -69,14 +70,14 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
       generateInvoicePDF();
       clearCart();
       document.getElementById('modal-cart').style.display = "none";
-      onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid);
+      onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid, boughtInput);
     });
   }
   return (
     <div>    
       <div className="header">
         <div className="header-container" hidden={parentPage==="Reports" || parentPage==="Users" || parentPage==="Roles"} 
-        onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid)} > 
+        onLoad={()=> onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid, boughtInput)} > 
           <div className="header-initial-filter">
             {
               (parentPage!=="Artist")
@@ -96,7 +97,7 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
                 onChange={e => changeSearchInput(e.target.value)}
             />
             <div className="header-search-button"
-              onClick={() => onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid)}>
+              onClick={() => onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid, boughtInput)}>
               <img alt="img" src={Search} className="header-search-image"/>
             </div>
           </div>
@@ -123,6 +124,11 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
                     value={albumInput}
                     onChange={e => changeAlbumInput(e.target.value)}
                   />
+                  <select onChange={e => changeBoughtInput(e.target.value)} className="header-search-input" style={{height:'50px'}}>
+                    <option value="1">Todas las canciones</option>
+                    <option value="2">Canciones compradas</option>
+                    <option value="3">Canciones no compradas</option>
+                  </select>
                 </div>
               )
               : (
@@ -224,7 +230,7 @@ export default connect(
       cart: selectors.getTracksInCart(state),
   }),
   dispatch => ({
-    onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, userid) {
+    onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, userid, boughtInput) {
       //Se pasan todos los inputs a minusculas
       searchInput = searchInput.toLowerCase();
       genderInput = genderInput.toLowerCase();
@@ -237,6 +243,8 @@ export default connect(
           trackname:searchInput,
           genrename:genderInput,
           albumname:albumInput,
+          onlyBought:boughtInput==='3'?false:true,
+          onlyNotBought:boughtInput==='2'?true:null,
           artistname:artistInput,
           limit:"20"
         }).then(res=> {
