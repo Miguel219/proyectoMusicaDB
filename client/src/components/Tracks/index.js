@@ -17,7 +17,6 @@ import * as actionMediatypes from '../../actions/mediatypes';
 import trackService from '../../services/track';
 
 
-
 const Tracks = ({ tracks, selectColumn, onClick,permissions,user}) => {
   return (
     <Fragment>
@@ -31,7 +30,7 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions,user}) => {
             </div>
           </div>
         </div>
-        <Table className='tracks-content' size="sm" hover bordered>
+        <Table className='tracks-content' size="sm" hover bordered id="trackTable">
           <thead>
             <tr>
               <th>#</th>
