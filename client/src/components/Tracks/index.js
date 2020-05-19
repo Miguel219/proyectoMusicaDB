@@ -15,9 +15,10 @@ import * as actionGenres from '../../actions/genres';
 import mediatypeService from '../../services/mediatype';
 import * as actionMediatypes from '../../actions/mediatypes';
 import * as actionCart from '../../actions/cart';
+import trackService from '../../services/track';
 
 
-const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteToCart, cart}) => {
+const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteToCart, cart, user}) => {
   return (
     <Fragment>
       <Header parentPage="Tracks"/>
@@ -30,7 +31,7 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteTo
             </div>
           </div>
         </div>
-        <Table className='tracks-content' size="sm" hover bordered>
+        <Table className='tracks-content' size="sm" hover bordered id="trackTable">
           <thead>
             <tr>
               <th>#</th>
@@ -39,7 +40,10 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteTo
               <th>Género</th>
               <th>Artista</th>
               <th>Precio</th>
+              <th># Reprod.</th>
+              <th># Ventas</th>
               <th>Acciones</th>
+              
               
             </tr>
           </thead>
@@ -53,8 +57,10 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions, addToCart, deleteTo
                   <td onClick={() => selectColumn(track)}>{track.genrename}</td>
                   <td onClick={() => selectColumn(track)}>{track.artistname}</td>
                   <td onClick={() => selectColumn(track)}>{track.unitprice}</td>
+                  <td onClick={() => selectColumn(track)}>{track.totalplayback}</td>
+                  <td onClick={() => selectColumn(track)}>{track.totalsold}</td>
                   { track.isbought && <td className='td-button'>
-                    <div className="tracks-play-button" onClick={() => window.open(track.deezer.preview, '_blank')}>
+                    <div className="tracks-play-button" onClick={() => {window.open(track.deezer.preview, '_blank'); trackService.playbackTrack({trackid:track.trackid,userid:user.userid});}}>
                         <i className="fa fa-play fa-xs"></i>
                     </div>
                   </td>}
@@ -86,6 +92,7 @@ export default connect(
     tracks: selectors.getTracks(state),
     cart: selectors.getTracksInCart(state),
     permissions: selectors.getLoggedUser(state).permissions,
+    user: selectors.getLoggedUser(state),
   }),
   dispatch => ({
     selectColumn(track) {
