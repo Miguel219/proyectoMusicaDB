@@ -15,29 +15,37 @@ class Track {
   }
 
   static getAllParams (params,callback) {
+    console.log(``)
     db.query(`with a as (select t.trackid, count(pb.trackid) as totalPlayback
-                from track t
-                left join playback pb on pb.trackid = t.trackid
-                group by t.trackid, pb.trackid
-                order by t.trackid limit ${params.limit}), 
-              b AS (select t.trackid, count(il.trackid) as totalSold
-                from track t
-                left join invoiceline il on il.trackid = t.trackid
-                group by t.trackid, il.trackid
-                order by t.trackid limit ${params.limit}), 
-              c AS (select  t.trackid, t.name as trackname, t.isactive, t.albumid, a.title as albumname, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice, CASE WHEN il.trackid IS NULL THEN false ELSE true end isbought
-                from track t
-                inner join album a on a.albumid = t.albumid
-                inner join artist ar on ar.artistid = a.artistid
-                inner join genre g on g.genreid = t.genreid
-                inner join mediatype mt on mt.mediatypeid = t.mediatypeid
-                left join invoice i on i.userid = '${params.userid}'
-                left join invoiceline il on il.trackid = t.trackid and il.invoiceid = i.invoiceid
-                where (LOWER(t.name) like LOWER('%${params.trackname}%') and LOWER(a.title) like LOWER('%${params.albumname}%') and LOWER(ar.name) like LOWER('%${params.artistname}%') and LOWER(g.name) like LOWER('%${params.genrename}%'))
-                group by t.trackid,a.title,a.artistid,g.name,ar.name,mt.name,i.invoiceid,  il.trackid    
-                order by t.trackid limit ${params.limit})
-            SELECT * FROM a JOIN b USING (trackid)
-            JOIN c USING (trackid)`, (err, res) => {
+                  from track t
+                  left join playback pb on pb.trackid = t.trackid
+                  group by t.trackid, pb.trackid
+                  order by t.trackid), 
+                b AS (select t.trackid, count(il.trackid) as totalSold
+                  from track t
+                  left join invoiceline il on il.trackid = t.trackid
+                  group by t.trackid, il.trackid
+                  order by t.trackid),
+                c AS (select t.trackid,  CASE WHEN il.trackid IS NULL THEN false ELSE true end isbought
+                  from track t
+                  left join invoice i on i.userid = '${params.userid}'
+                  left join invoiceline il on il.trackid = t.trackid
+                  where il.invoiceid = i.invoiceid
+                  group by t.trackid,i.invoiceid,il.trackid
+                  order by t.trackid), 
+                d AS (select  t.trackid, t.name as trackname, t.isactive, t.albumid, a.title as albumname, t.genreid, g.name as genrename, a.artistid, ar.name as artistname,t.mediatypeid,mt.name as mediatypeName,t.composer,t.milliseconds,t.bytes,t.unitprice
+                  from track t
+                  inner join album a on a.albumid = t.albumid
+                  inner join artist ar on ar.artistid = a.artistid
+                  inner join genre g on g.genreid = t.genreid
+                  inner join mediatype mt on mt.mediatypeid = t.mediatypeid
+                  where (LOWER(t.name) like LOWER('%${params.trackname}%') and LOWER(a.title) like LOWER('%${params.albumname}%') and LOWER(ar.name) like LOWER('%${params.artistname}%') and LOWER(g.name) like LOWER('%${params.genrename}%'))
+                  group by t.trackid,a.title,a.artistid,g.name,ar.name,mt.name   
+                  order by t.trackid limit ${params.limit})
+              SELECT * FROM a JOIN b USING (trackid)
+              LEFT JOIN c USING (trackid)
+              JOIN d USING (trackid)
+              WHERE isbought = ${params.isbought} or isbought is ${params.isnull};`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

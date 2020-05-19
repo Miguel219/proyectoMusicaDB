@@ -65,12 +65,11 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
   }
   //Funcion que genera el invoice
   const generateInvoice = () => {
-    generateInvoicePDF();
     trackService.generateInvoice({cart:cart,user:user,total:total}).then(res=> {
-      console.log(res)
+      generateInvoicePDF();
       clearCart();
       document.getElementById('modal-cart').style.display = "none";
-      
+      onSearch(parentPage, searchInput, genderInput, artistInput, albumInput, user.userid);
     });
   }
   return (
@@ -205,7 +204,7 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
                 <td>{cart.length}</td>
                 <td>{total}</td>
                 <td className='td-button'>
-                  {cart.length===0 && <div className="cart-invoice-button"   onClick={() => generateInvoice()}>
+                  {cart.length!==0 && <div className="cart-invoice-button"   onClick={() => generateInvoice()}>
                     {'Comprar canciones'}
                   </div>}
                 </td>
