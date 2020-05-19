@@ -19,6 +19,10 @@ import roleService from '../../services/role';
 import * as actionRoles from '../../actions/roles';
 import * as selectors from '../../reducers';
 import * as actionCart from '../../actions/cart';
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
+
+
 
 
 const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) => {
@@ -33,12 +37,40 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
     cart.forEach(track => {
       total = total + parseFloat(track.unitprice);
     });
+  //Funcion para generar PDF Invoice
+  function generateInvoicePDF() {
+    var doc = new jsPDF()
+  
+    // // Simple data example
+    // var head = [['ID', 'Country', 'Rank', 'Capital']]
+    // var body = [
+    //   [1, 'Denmark', 7.526, 'Copenhagen'],
+    //   [2, 'Switzerland', 7.509, 'Bern'],
+    //   [3, 'Iceland', 7.501, 'Reykjavík'],
+    // ]
+    doc.setFontSize(18)
+    doc.text('Recibo de Compra', 10, 10)
+    doc.setFontSize(12)
+    doc.text(`Usuario ${user.userid}`, 10, 20)
+    doc.text(`Fecha ${(new Date()).toLocaleString()}`, 10, 25)
+    let head = [['#','Nombre','Álbum','Género','Artista','Precio']]
+    let body=cart.map((track, id) => [id+1,track.trackname,track.albumname,track.genrename,track.artistname,track.unitprice])
+    doc.autoTable({ startY: 30,head: head, body: body })
+    head = [['Cantidad','Total']]
+    body = [[cart.length,total]]
+    doc.autoTable({ head: head, body: body })
+    
+ 
+    doc.save('invoice.pdf')
+  }
   //Funcion que genera el invoice
   const generateInvoice = () => {
+    generateInvoicePDF();
     trackService.generateInvoice({cart:cart,user:user,total:total}).then(res=> {
       console.log(res)
       clearCart();
       document.getElementById('modal-cart').style.display = "none";
+      
     });
   }
   return (
@@ -121,14 +153,14 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
       </div>
 
       {/* Modal de cart */}
-      <div id="modal-cart" class="modal-cart">
-        <div class="modal-cart-content">
-          <span class="close-modal-cart" onClick={() => document.getElementById('modal-cart').style.display = "none"}>&times;</span>
+      <div id="modal-cart" className="modal-cart">
+        <div className="modal-cart-content">
+          <span className="close-modal-cart" onClick={() => document.getElementById('modal-cart').style.display = "none"}>&times;</span>
           <h1 style={{margin:'2%',textAlign:'center'}}>
             <i className="fa fa-shopping-cart fa-xs"></i>
             {' Carrito'}
           </h1>
-          <Table className='cart-content' size="sm" hover bordered>
+          <Table className='cart-content' size="sm" hover bordered id='trackTable'>
             <thead>
               <tr>
                 <th>#</th>
@@ -160,7 +192,7 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
               }
             </tbody>
           </Table>
-          <Table className='cart-content' size="sm">
+          <Table className='cart-content' size="sm" id="total">
             <thead>
               <tr>
                 <th>Cantidad</th>
@@ -173,9 +205,9 @@ const Header = ({ onSearch, parentPage,user, cart, deleteToCart, clearCart }) =>
                 <td>{cart.length}</td>
                 <td>{total}</td>
                 <td className='td-button'>
-                  <div className="cart-invoice-button" onClick={() => generateInvoice()}>
+                  {cart.length===0 && <div className="cart-invoice-button"   onClick={() => generateInvoice()}>
                     {'Comprar canciones'}
-                  </div>
+                  </div>}
                 </td>
               </tr>
             </tbody>
