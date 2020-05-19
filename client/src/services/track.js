@@ -25,8 +25,35 @@ export const getTrackListAll = () => {
     body:JSON.stringify({trackname,artistname,albumname,genrename,limit})
   })
   .then(res => res.json())
-    .then(res => {
-      return res;
+    .then(tracks => {
+      console.log(tracks);
+     
+      tracks.forEach((track,index) => {
+        let search = "";
+        search = track.trackname ;
+        search.replace(" ","%20");
+        fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${search}`, {
+          "method": "GET",
+          "headers": {
+            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+            "x-rapidapi-key": "3f20ab1067msh6c5cba2b353cccdp15dd84jsn71c026cff1c0"
+          }
+        })
+        .then(response => response.json()).then(songResult=>{
+          
+          if(songResult.data.length>0){
+            tracks[index]['deezer']=songResult.data[0]
+          }else{
+            tracks[index]['deezer']={}
+            console.log(track.trackname)
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+    
+    return tracks;
       
       
     });

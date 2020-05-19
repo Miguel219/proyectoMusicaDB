@@ -42,7 +42,58 @@
     background: whitesmoke;
 }
 
-.tracks-add-button:active {
+.td-button{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tracks-play-button {
+    background: blue;
+
+    
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.tracks-play-button:hover {
+    background: whitesmoke;
+}
+
+.tracks-play-button:active {
+    transform: scale(0.9);
+}
+
+.tracks-add-cart-button {
+    background: red;
+
+    
+    border: 1px solid #ccc;
+    color: black;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.tracks-add-cart-button:hover {
+    background: whitesmoke;
+}
+
+.tracks-add-cart-button:active {
     transform: scale(0.9);
 }
 

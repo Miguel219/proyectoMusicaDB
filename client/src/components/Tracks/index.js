@@ -38,18 +38,31 @@ const Tracks = ({ tracks, selectColumn, onClick,permissions}) => {
               <th>Género</th>
               <th>Artista</th>
               <th>Precio</th>
+              <th>Acciones</th>
+              
             </tr>
           </thead>
           <tbody>
             {tracks.map((track, id) => 
               (
-                <tr key={id} className={"table-light"} onClick={() => selectColumn(track)}>
-                  <th scope="row">{id+1}</th>
-                  <td>{track.trackname}</td>
-                  <td>{track.albumname}</td>
-                  <td>{track.genrename}</td>
-                  <td>{track.artistname}</td>
-                  <td>{track.unitprice}</td>
+                <tr key={id} className={"table-light"} >
+                  <th scope="row" onClick={() => selectColumn(track)}>{id+1} </th>
+                  <td onClick={() => selectColumn(track)}>{track.trackname} </td>
+                  <td onClick={() => selectColumn(track)}>{track.albumname}</td>
+                  <td onClick={() => selectColumn(track)}>{track.genrename}</td>
+                  <td onClick={() => selectColumn(track)}>{track.artistname}</td>
+                  <td onClick={() => selectColumn(track)}>{track.unitprice}</td>
+                  <td className='td-button'>
+                    <div className="tracks-play-button" onClick={() => window.open(track.deezer.preview, '_blank')}>
+                        <i className="fa fa-play fa-xs"></i>
+                    </div>
+                  </td>
+                  <td className='td-button'>
+                      <div className="tracks-add-cart-button" onClick={() => {}}>
+                        <i className="fa fa-plus fa-xs"></i>
+                      </div>
+                  </td>
+                  
                 </tr>
               ))
             }
@@ -68,6 +81,7 @@ export default connect(
   }),
   dispatch => ({
     selectColumn(track) {
+      
       dispatch(actionTracks.selectTrack(track));
       //Se carga el DorpDown de albums
       dispatch(actionAlbums.clearAlbumDropDown());

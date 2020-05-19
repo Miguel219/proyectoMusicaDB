@@ -113,6 +113,8 @@ CREATE TABLE Genre
 (
     GenreId SERIAL,
     Name VARCHAR(120),
+	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
+	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT PK_Genre PRIMARY KEY (GenreId)
 );
 
@@ -137,6 +139,8 @@ CREATE TABLE MediaType
 (
     MediaTypeId SERIAL,
     Name VARCHAR(120),
+	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
+	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT PK_MediaType PRIMARY KEY (MediaTypeId)
 );
 
@@ -179,6 +183,8 @@ CREATE TABLE Playlist
 (
     PlaylistId SERIAL,
     Name VARCHAR(120),
+	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
+	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT PK_Playlist PRIMARY KEY (PlaylistId)
 );
 
@@ -187,6 +193,8 @@ CREATE TABLE PlaylistTrack
 (
     PlaylistId INT NOT NULL,
     TrackId INT NOT NULL,
+	UserId  VARCHAR(120) DEFAULT 'adminMusic@gmail.com' ,
+	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT PK_PlaylistTrack PRIMARY KEY (PlaylistId, TrackId),
     FOREIGN KEY (PlaylistId) REFERENCES Playlist (PlaylistId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (TrackId) REFERENCES Track (TrackId) ON DELETE NO ACTION ON UPDATE NO ACTION

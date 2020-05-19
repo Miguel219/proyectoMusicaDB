@@ -9,6 +9,8 @@ import * as actions from '../../actions/loggedUser';
 import { withRouter } from "react-router-dom";
 import { history } from '../App';
 
+
+
 const Login = ({ onSubmit }) => {
   document.body.style.backgroundColor = 'white';
   
