@@ -49,11 +49,11 @@ export const getArtistAlbums = ({artistid}) => {
 };
 
 //add Artist
- export const addArtist = ({artistname}) => {
+ export const addArtist = ({artistname,userid}) => {
   return fetch('/api/artist/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistname})
+    body: JSON.stringify({artistname,userid})
   })
   .then(res => {
     return res.json();
@@ -73,11 +73,11 @@ export const getArtistAlbums = ({artistid}) => {
 };
 
 //update Artist
- export const updateArtist = ({artistid,artistname}) => {
+ export const updateArtist = ({artistid,artistname,userid}) => {
   return fetch('/api/artist/', {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistid,artistname})
+    body: JSON.stringify({artistid,artistname,userid})
   })
   .then(res => {
     return res.json();

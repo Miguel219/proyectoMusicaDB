@@ -49,11 +49,11 @@ export const getAlbumTracks = ({albumid}) => {
 };
 
 //add Album
- export const addAlbum = ({albumname,artistid}) => {
+ export const addAlbum = ({albumname,artistid,userid}) => {
   return fetch('/api/album/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({albumname,artistid})
+    body: JSON.stringify({albumname,artistid,userid})
   })
   .then(res => {
     return res.json();
@@ -61,11 +61,11 @@ export const getAlbumTracks = ({albumid}) => {
 };
 
 //update Album
-export const updateAlbum = ({albumid,albumname,artistid}) => {
+export const updateAlbum = ({albumid,albumname,artistid,userid}) => {
   return fetch('/api/album/', {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({albumid,albumname,artistid})
+    body: JSON.stringify({albumid,albumname,artistid,userid})
   })
   .then(res => {
     return res.json();

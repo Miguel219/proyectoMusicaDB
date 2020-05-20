@@ -5,12 +5,13 @@ import './styles.css';
 import logo from '../../../public/Images/music-note.png';
 import Usuarios from '../../../public/Images/Artistas.png';
 import Roles from '../../../public/Images/Roles.png';
+import Simulación from '../../../public/Images/Simulación.png';
 import Logoff from '../../../public/Images/Logoff.png';
 import * as actions from '../../actions/loggedUser';
 import * as selectors from '../../reducers';
 
-const sidebarOptions = ['Usuarios', 'Roles'];
-const optImg = [Usuarios, Roles];
+const sidebarOptions = ['Usuarios', 'Roles', 'Simulación'];
+const optImg = [Usuarios, Roles, Simulación];
 let logoffimg = Logoff;
 
 const SidebarAdmin = ({loggoff,permissions}) => {

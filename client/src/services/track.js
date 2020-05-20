@@ -120,7 +120,31 @@ export const updateTrackActive = ({trackid,isactive}) => {
   });
 
 };
+  
+//playbackTracks
+ export const playbackTracks = ({tracks,userid}) => {
+  return fetch('/api/track/playbackTracks', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({tracks,userid})
+  })
+  .then(res => {
+    return res.json();
+  });
 
+};
+
+//Simulate Tracks Invoice
+export const simulateInvoice = (simulation) => {
+  return fetch('/api/track/simulateInvoice', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(simulation)
+  })
+  .then(res => {
+    return res.json();
+  });
+};
 
 //Generate Tracks Invoice
 export const generateInvoice = ({cart, user, total}) => {
@@ -140,7 +164,9 @@ export default {
   updateTrack,
   updateTrackActive,
   addTrack,
+  simulateInvoice,
   generateInvoice,
   deleteTrack,
-  playbackTrack
+  playbackTrack,
+  playbackTracks
 }

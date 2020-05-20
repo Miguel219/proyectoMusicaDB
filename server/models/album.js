@@ -41,7 +41,7 @@ class Album {
 
    
   static insert (params, callback) {
-    db.query(`INSERT INTO album (title,artistid) VALUES ('${params.albumname}','${params.artistid}')`, (err, res) => {
+    db.query(`INSERT INTO album (title,artistid,userid) VALUES ('${params.albumname}','${params.artistid}','${params.userid}')`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -49,7 +49,7 @@ class Album {
   }
 
   static update (params, callback) {
-    db.query(`update album set title='${params.albumname}', artistid='${params.artistid}' where albumid='${params.albumid}';`, (err, res) => {
+    db.query(`update album set title='${params.albumname}', artistid='${params.artistid}', userid='${params.userid}' where albumid='${params.albumid}';`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

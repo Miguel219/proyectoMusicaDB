@@ -68,6 +68,16 @@ api.delete('/', (req, res) => {
   });
 });
 
+//Insert Invoice Track of a simulation
+api.post('/simulateInvoice', (req, res) => {
+  let params = req.body;
+  Track.simulateInvoice(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 //Insert Invoice Track
 api.post('/generateInvoice', (req, res) => {
   let params = req.body;
@@ -82,6 +92,16 @@ api.post('/generateInvoice', (req, res) => {
 api.post('/playbackTrack', (req, res) => {
   let params = req.body;
   Track.playbackTrack(params, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+//Playback tracks
+api.post('/playbackTracks', (req, res) => {
+  let params = req.body;
+  Track.playbackTracks(params, (err, result) => {
     if (err)
       return res.json(err);
     return res.json(result);

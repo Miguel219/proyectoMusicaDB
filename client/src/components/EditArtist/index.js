@@ -17,7 +17,7 @@ const artistModel = {
   artistname: "",
 };
 
-const EditArtist = ({ artist, artistAlbums, permissions, onSave, onDelete, selectColumn }) => {
+const EditArtist = ({ artist, artistAlbums, permissions, onSave, onDelete, selectColumn, user }) => {
   artist = {...artistModel, ...artist}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(artist.artistname);
@@ -49,6 +49,7 @@ const EditArtist = ({ artist, artistAlbums, permissions, onSave, onDelete, selec
                     onSave({
                       artistid: artist.artistid,
                       artistname: nameInput,
+                      userid: user.userid
                     })
                   }>
                     {'Crear'}
@@ -59,6 +60,7 @@ const EditArtist = ({ artist, artistAlbums, permissions, onSave, onDelete, selec
                     onSave({
                       artistid: artist.artistid,
                       artistname: nameInput,
+                      userid: user.userid
                     })
                   }>
                     {'Editar'}
@@ -109,6 +111,7 @@ export default connect(
     artist: selectors.getSelectedArtist(state),
     artistAlbums: selectors.getAlbums(state),
     permissions: selectors.getLoggedUser(state).permissions,
+    user: selectors.getLoggedUser(state),
   }),
   dispatch => ({
     onSave(artist) {

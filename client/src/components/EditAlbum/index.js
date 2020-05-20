@@ -23,7 +23,7 @@ const albumModel = {
   artistname: "",
 };
 
-const EditAlbum = ({ album, albumTracks, artistList, permissions, onSave, onDelete, selectColumn }) => {
+const EditAlbum = ({ album, albumTracks, artistList, permissions, onSave, onDelete, selectColumn, user }) => {
   album = {...albumModel, ...album}
   document.body.style.backgroundColor = '#434343';
   const [nameInput, changeNameInput] = useState(album.albumname);
@@ -70,6 +70,7 @@ const EditAlbum = ({ album, albumTracks, artistList, permissions, onSave, onDele
                       albumid: album.albumid,
                       albumname: nameInput,
                       artistid: artistDropDown,
+                      userid: user.userid
                     })
                   }>
                     {'Crear'}
@@ -81,6 +82,7 @@ const EditAlbum = ({ album, albumTracks, artistList, permissions, onSave, onDele
                       albumid: album.albumid,
                       albumname: nameInput,
                       artistid: artistDropDown,
+                      userid: user.userid
                     })
                   }>
                     {'Editar'}
@@ -132,6 +134,7 @@ export default connect(
     albumTracks: selectors.getTracks(state),
     artistList: selectors.getArtists(state),
     permissions: selectors.getLoggedUser(state).permissions,
+    user: selectors.getLoggedUser(state),
   }),
   dispatch => ({
     onSave(album) {
