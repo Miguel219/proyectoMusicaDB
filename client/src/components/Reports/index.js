@@ -386,6 +386,11 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                     ))
                   }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="right" colspan="3">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['weektotal'] || 0), 0)}</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['weektotaltracks'] || 0), 0)}</td>
+                    </tr>
+                </tfoot>
               </Table>
               </Fragment>
             );
@@ -448,6 +453,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                       </tr>
                       
                 </tbody>
+                
               </Table>
                 <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
                 <thead>
@@ -474,6 +480,11 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                     ))
                   }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="right" colspan="2">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['totalsold'] || 0), 0)}</td>
+                    </tr>
+                </tfoot>
               </Table>
               </Fragment>
             );
@@ -556,6 +567,11 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                     ))
                   }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="right" colspan="2">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['totalsold'] || 0), 0)}</td>
+                    </tr>
+                </tfoot>
               </Table>
               </Fragment>
             );
@@ -633,6 +649,11 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                     ))
                   }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="right" colspan="3">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td>
+                    </tr>
+                </tfoot>
               </Table>
               </Fragment>
             );
