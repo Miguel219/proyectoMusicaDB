@@ -53,7 +53,7 @@ export const getArtistAlbums = ({artistid}) => {
   return fetch('/api/artist/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistname})
+    body: JSON.stringify({artistname,userid})
   })
   .then(res => {
     return res.json();
@@ -77,7 +77,7 @@ export const getArtistAlbums = ({artistid}) => {
   return fetch('/api/artist/', {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({artistid,artistname})
+    body: JSON.stringify({artistid,artistname,userid})
   })
   .then(res => {
     return res.json();

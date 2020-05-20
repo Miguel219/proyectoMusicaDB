@@ -38,12 +38,13 @@ export const Simulation = () => {
       }
       userService.getUserListAll().then(res=> {
         const userList = res;
+        var simulation = [];
         if(userList.length===0){
           alert('No hay usuarios en la aplicación para realizar la simulación')
         }else{
           var success = 0;
           const NumberOfTracksForUser = parseInt(trackRandomList.length/userList.length);
-          userList.map((user,i)=> {
+          simulation = userList.map((user,i)=> {
             var tracksForUser = null;
             var total = 0;
             if((i + 1)!==userList.length){
@@ -57,14 +58,13 @@ export const Simulation = () => {
               parseFloat(track.unitprice);
               total = total + parseFloat(track.unitprice);
             });
-            trackService.generateInvoice({cart:tracksForUser,user:user,total:total}).then(res=> {
-              trackService.playbackTracks({tracks:tracksForUser,userid:user.userid}).then(res=> {
-                success = success + 1;
-                if(success === userList.length){
-                  alert('Se realizo con exito la simulación');
-                };
-              });
-            });
+            user.tracksForUser = tracksForUser;
+            user.total = total;
+            user.date = dateInput;
+            return user;
+          });
+          trackService.simulateInvoice(simulation).then(res=> {
+            alert('Se realizo con exito la simulación');
           });
         }
       }); 

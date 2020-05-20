@@ -134,6 +134,17 @@ export const updateTrackActive = ({trackid,isactive}) => {
 
 };
 
+//Simulate Tracks Invoice
+export const simulateInvoice = (simulation) => {
+  return fetch('/api/track/simulateInvoice', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(simulation)
+  })
+  .then(res => {
+    return res.json();
+  });
+};
 
 //Generate Tracks Invoice
 export const generateInvoice = ({cart, user, total}) => {
@@ -153,6 +164,7 @@ export default {
   updateTrack,
   updateTrackActive,
   addTrack,
+  simulateInvoice,
   generateInvoice,
   deleteTrack,
   playbackTrack,

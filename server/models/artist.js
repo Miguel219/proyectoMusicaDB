@@ -44,7 +44,7 @@ class Artist {
   }
 
   static update (params, callback) {
-    db.query(`update artist set name='${params.artistname}' userid='${params.userid}' where artistid='${params.artistid}';`, (err, res) => {
+    db.query(`update artist set name='${params.artistname}', userid='${params.userid}' where artistid='${params.artistid}';`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);

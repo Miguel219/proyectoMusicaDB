@@ -96,6 +96,32 @@ class Track {
     });
   }
 
+  static simulateInvoice (params, callback) {
+    params.map((simulation,i)=>{
+      db.query(`INSERT INTO invoice(userid, billingaddress, billingcity, billingstate, billingcountry, billingpostalcode, total, invoicedate)
+        VALUES ('${simulation.userid}', '${simulation.address}','${simulation.city}' , '${simulation.state}', '${simulation.country}', '${simulation.postalcode}', '${simulation.total}', '${simulation.date}')
+        RETURNING invoiceid`, (err, res) => {
+        if (err.error)
+          return callback(err);
+        simulation.tracksForUser.forEach(track => {
+          db.query(`INSERT INTO invoiceline(invoiceid, trackid, unitprice, quantity)
+            VALUES ('${res[0].invoiceid}', '${track.trackid}','${track.unitprice}' , 1);`, (err, res) => {
+            if (err.error)
+              return callback(err);
+          });
+          db.query(`INSERT INTO playback(
+            userid, trackid)
+            VALUES ('${simulation.userid}', '${track.trackid}');`, (err, res) => {
+            if (err.error)
+              return callback(err);
+          });
+        });
+        if((i+1)===params.length)
+          callback(res);
+      });
+    });
+  }
+
   static generateInvoice (params, callback) {
     db.query(`INSERT INTO invoice(userid, billingaddress, billingcity, billingstate, billingcountry, billingpostalcode, total)
       VALUES ('${params.user.userid}', '${params.user.address}','${params.user.city}' , '${params.user.state}', '${params.user.country}', '${params.user.postalcode}', '${params.total}')
