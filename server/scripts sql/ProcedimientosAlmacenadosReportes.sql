@@ -19,13 +19,25 @@ AS $$
 			USING HINT = 'La fecha start debe ser menos a la fecha end.';
 		END IF;
 		RETURN QUERY
-		select d.first_day_of_week as weekStart,d.last_day_of_week as weekEnd,sum(total) as weektotal,count(il.trackid) as weektotaltracks
+				(select d.first_day_of_week as weekStart,d.last_day_of_week as weekEnd,sum(total) as weektotal,count(il.trackid) as weektotaltracks
+		from invoice i 
+		inner join invoiceline il on il.invoiceid = i.invoiceid
+		inner join dates d on d.date_actual=DATE(i.invoicedate)
+		where i.invoicedate between dateStart and dateEnd
+		group by d.first_day_of_week,d.last_day_of_week)
+		
+		UNION
+		(SELECT d.first_day_of_week as weekStart,d.last_day_of_week as weekEnd,0 as weektotal,0 as weektotaltracks 
+		from dates d
+		where d.date_actual  between dateStart and dateEnd and 
+		d.first_day_of_week not in (select d.first_day_of_week as weekStart
 		from invoice i 
 		inner join invoiceline il on il.invoiceid = i.invoiceid
 		inner join dates d on d.date_actual=DATE(i.invoicedate)
 		where i.invoicedate between dateStart and dateEnd
 		group by d.first_day_of_week,d.last_day_of_week
-		order by sum(total) DESC;
+		order by sum(total) DESC))
+		order by weekStart;
 	END
 $$ LANGUAGE plpgsql;
 

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,9 +9,30 @@ import * as selectors from '../../reducers';
 import Header from '../Header';
 import * as actionsReport from '../../actions/reports';
 import reportService from '../../services/report'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
 
+//Funcion para generar reportes en pdf
+function generateInvoicePDF(reportType,reportTypeId) {
+  var doc = new jsPDF()
 
+  // // Simple data example
+  // var head = [['ID', 'Country', 'Rank', 'Capital']]
+  // var body = [
+  //   [1, 'Denmark', 7.526, 'Copenhagen'],
+  //   [2, 'Switzerland', 7.509, 'Bern'],
+  //   [3, 'Iceland', 7.501, 'Reykjavík'],
+  // ]
+  doc.setFontSize(18)
+  doc.text(`${reportType}`, 10, 10)
+  doc.autoTable({ html:  `#report${reportTypeId}` })
 
+  
+
+  doc.save(`${reportType}.pdf`)
+}
 
 //Función para exportar reportes a excel
 const exportExcelReport = (reportName,report) =>{
@@ -47,13 +68,14 @@ const exportExcelReport = (reportName,report) =>{
   elementCsv.click();
 }
 
-const renderSwitchReport = (reporttypeid,report) =>{
+const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStart,dateEnd,getReportResult,limit,setLimit,artist,setArtist,artistList) =>{
   console.log(report);
   console.log(reporttypeid);
   switch(reporttypeid) {
     case '1':
       return (
-        <Table className='reports-content' size="sm" hover bordered>
+        
+        <Table id={"report"+reporttypeid} className='reports-content' size="sm" hover bordered>
         <thead>
           <tr>
             <th>#</th>
@@ -78,7 +100,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
       );
       case '2':
         return (
-          <Table className='reports-content' size="sm" hover bordered>
+          <Table id={"report"+reporttypeid} className='reports-content' size="sm" hover bordered>
           <thead>
             <tr>
               <th>#</th>
@@ -103,7 +125,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
         );
         case '3':
           return (
-            <Table className='reports-content' size="sm" hover bordered>
+            <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
             <thead>
               <tr>
                 <th>#</th>
@@ -128,7 +150,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
           );
         case '4':
           return (
-            <Table className='reports-content' size="sm" hover bordered>
+            <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
             <thead>
               <tr>
                 <th>#</th>
@@ -155,7 +177,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
           );
         case '5':
           return (
-            <Table className='reports-content' size="sm" hover bordered>
+            <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
             <thead>
               <tr>
                 <th>#</th>
@@ -183,7 +205,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
           );
         case '6':
           return (
-            <Table className='reports-content' size="sm" hover bordered>
+            <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
             <thead>
               <tr>
                 <th>#</th>
@@ -210,7 +232,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
           );
           case '7':
             return (
-              <Table className='reports-content' size="sm" hover bordered>
+              <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
               <thead>
                 <tr>
                   <th>#</th>
@@ -236,7 +258,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
 
           case '8':
             return (
-              <Table className='reports-content' size="sm" hover bordered>
+              <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
               <thead>
                 <tr>
                   <th>#</th>
@@ -263,7 +285,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
             );
             case '9':
               return (
-                <Table className='reports-content' size="sm" hover bordered>
+                <Table id={"report"+reporttypeid} className='reports-content' size="sm" hover bordered>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -290,7 +312,54 @@ const renderSwitchReport = (reporttypeid,report) =>{
               );
             case '10':
               return (
-                <Table className='reports-content' size="sm" hover bordered>
+                <Fragment>
+                
+                
+               <Table className="edit-track-table" borderless>
+                <thead>
+                  <tr>
+                    
+                    
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+
+                      <tr>
+                      <td><DatePicker
+                      className="edit-track-input"
+                          selected={dateStart}
+                          onChange={setDateStart}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={60}
+                          timeCaption="Tiempo"
+                          dateFormat="yyyy-MM-dd h:mm aa"
+                          style={{margin:20}}
+                          
+                        /></td>
+                        
+                        <td><DatePicker
+                        className="edit-track-input"
+                          selected={dateEnd}
+                          onChange={setDateEnd}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={60}
+                          timeCaption="Tiempo"
+                          dateFormat="yyyy-MM-dd h:mm aa"
+                          
+                        /></td>
+                        <td><Button style={{margin:20,height:60}} disabled={dateStart>dateEnd} onClick={()=>getReportResult({reportType:10,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
+                      </tr>
+                      
+                </tbody>
+              </Table>
+                <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -318,10 +387,69 @@ const renderSwitchReport = (reporttypeid,report) =>{
                   }
                 </tbody>
               </Table>
+              </Fragment>
             );
             case '11':
               return (
-                <Table className='reports-content' size="sm" hover bordered>
+                <Fragment>
+                
+                
+               <Table className="edit-track-table" borderless>
+                <thead>
+                  <tr>
+                    
+                    
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+                    <th>Límite</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+
+                      <tr>
+                      
+                      <td><DatePicker
+                        className="edit-track-input"
+                          selected={dateStart}
+                          onChange={setDateStart}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={60}
+                          timeCaption="Tiempo"
+                          dateFormat="yyyy-MM-dd h:mm aa"
+                          style={{margin:20}}
+                          
+                        /></td>
+                        
+                        <td><DatePicker
+                        className="edit-track-input"
+                          selected={dateEnd}
+                          onChange={setDateEnd}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={60}
+                          timeCaption="Tiempo"
+                          dateFormat="yyyy-MM-dd h:mm aa"
+                          
+                        /></td>
+                        <td>
+                        <input className="edit-track-input"
+                            type="number"
+                            min='0'
+                            placeholder="Ingrese el límite"
+                            value={limit}
+                            onChange={e => setLimit(e.target.value)}
+                          />
+                        </td>
+                        <td><Button style={{margin:20,height:60}} disabled={dateStart>dateEnd || limit<=0} onClick={()=>getReportResult({reportType:11,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
+                      </tr>
+                      
+                </tbody>
+              </Table>
+                <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -347,10 +475,62 @@ const renderSwitchReport = (reporttypeid,report) =>{
                   }
                 </tbody>
               </Table>
+              </Fragment>
             );
             case '12':
+              
               return (
-                <Table className='reports-content' size="sm" hover bordered>
+                <Fragment>
+                
+                
+               <Table className="edit-track-table" borderless>
+                <thead>
+                  <tr>
+                    
+                    
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+                    
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+
+                      <tr>
+                      
+                      <td><DatePicker
+                        className="edit-track-input"
+                          selected={dateStart}
+                          onChange={setDateStart}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={60}
+                          timeCaption="Tiempo"
+                          dateFormat="yyyy-MM-dd h:mm aa"
+                          style={{margin:20}}
+                          
+                        /></td>
+                        
+                        <td><DatePicker
+                        className="edit-track-input"
+                          selected={dateEnd}
+                          onChange={setDateEnd}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={60}
+                          timeCaption="Tiempo"
+                          dateFormat="yyyy-MM-dd h:mm aa"
+                          
+                        /></td>
+                       
+                        <td><Button style={{margin:20,height:60}} disabled={dateStart>dateEnd } onClick={()=>getReportResult({reportType:11,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
+                      </tr>
+                      
+                </tbody>
+              </Table>
+                <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -377,10 +557,56 @@ const renderSwitchReport = (reporttypeid,report) =>{
                   }
                 </tbody>
               </Table>
+              </Fragment>
             );
             case '13':
               return (
-                <Table className='reports-content' size="sm" hover bordered>
+                <Fragment>
+                
+                
+               <Table className="edit-track-table" borderless>
+                <thead>
+                  <tr>
+                    
+                    
+                    <th>Artista</th>
+                    <th>Límite</th>
+    
+                
+                    
+                  </tr>
+                </thead>
+                <tbody>
+
+                      <tr>
+                      <td>
+                      <select value={artist} onChange={e => setArtist(e.target.value)} className="edit-album-select">
+                          <option value="DEFAULT" disabled hidden>
+                            {'Selecciona un artista'}
+                          </option>
+                          {artistList.map(art => (
+                          <option key={art.artistid} value={art.artistid}>
+                            {art.artistname}
+                          </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                      <input className="edit-track-input"
+                            type="number"
+                            min='0'
+                            placeholder="Ingrese el límite"
+                            value={limit}
+                            onChange={e => setLimit(e.target.value)}
+                          />
+                        </td>
+                       
+                        <td><Button style={{margin:20,height:60}} disabled={limit<=0} onClick={()=>getReportResult({reportType:13,params:{dateStart,dateEnd,limit,artistid:artist}})}>Generar Reporte</Button></td>
+                      </tr>
+                      
+                </tbody>
+              </Table>
+                <Table id={"report"+reporttypeid}  className='reports-content' size="sm" hover bordered>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -408,6 +634,7 @@ const renderSwitchReport = (reporttypeid,report) =>{
                   }
                 </tbody>
               </Table>
+              </Fragment>
             );
             
     default:
@@ -415,13 +642,17 @@ const renderSwitchReport = (reporttypeid,report) =>{
   }
 }
  
-const Reports = ({  onSelectReport,permissions,report,selectedReportId,getReportResult}) => {
+const Reports = ({  onSelectReport,permissions,report,selectedReportId,getReportResult,artistList}) => {
   //getReportResult({reportType:9})
   const [dropdownOpen, setOpen] = useState(false);
+  const [dateStart, setDateStart] = useState( new Date(Date.now() - 864e5));
+  const [dateEnd, setDateEnd] = useState( new Date(Date.now() + 864e5));
+  const [limit, setLimit] = useState(10);
+  const [artistSearch, setArtistSearch] = useState(1);
   const [dropdownName,changeDropdownName] = useState('Seleccionar reporte');
   const toggle = () => setOpen(!dropdownOpen);
   const changeDropdown = (newName,newValue) => {changeDropdownName(newName); onSelectReport({reportType:newValue});
-          if(newValue<=13){getReportResult({reportType:newValue})};}
+         getReportResult({reportType:newValue,params:{dateStart,dateEnd,limit,artistid:artistSearch}});}
   const Reports=["Reporte artistas con más álbumes publicados","Reporte géneros con más canciones","Reporte total de duración de cada playlist","Reporte canciones de mayor duración con la información de sus artistas","Reporte usuarios que han registrado más canciones","Reporte promedio de duración de canciones por género","Reporte cantidad de artistas diferentes por playlist","Reporte artistas con más diversidad de géneros musicales","Reporte cantidades de música","Reporte total de ventas por semana","Reporte artistas con mayores ventas","Reporte total de ventas por género","Reporte canciones más reproducidas de un artista"]
   return (
     <Fragment>
@@ -453,11 +684,14 @@ const Reports = ({  onSelectReport,permissions,report,selectedReportId,getReport
             </DropdownMenu>
           </ButtonDropdown>
           {report.length>0 && <div className="reports-buttons" hidden={!permissions.includes('Crear artista')}>
+                <div className="reports-add-button" onClick={() => generateInvoicePDF(Reports[selectedReportId-1],selectedReportId)}>
+                <i className="fa fa-file-pdf-o  fa-xs"></i>
+                </div>
                 <div className="reports-add-button" onClick={() => exportExcelReport(Reports[selectedReportId-1],report)}>
                 <i className="fa fa-file-excel-o fa-xs"></i>
                 </div>
           </div>}
-          {renderSwitchReport(selectedReportId,report)}
+          {renderSwitchReport(selectedReportId,report,setDateEnd,setDateStart,dateStart,dateEnd,getReportResult,limit,setLimit,artistSearch,setArtistSearch,artistList)}
 
         </div>
  
@@ -472,7 +706,8 @@ export default connect(
   state => ({
     report: selectors.getReport(state),
     permissions: selectors.getLoggedUser(state).permissions,
-    selectedReportId: selectors.getReportSelected(state)
+    selectedReportId: selectors.getReportSelected(state),
+    artistList: selectors.getArtists(state),
   }),
   dispatch => ({
 
