@@ -99,7 +99,7 @@ class Role {
 
   static getPermissions (params,callback) {
     db.query(`
-    select permissionid, name as permissionname from permission where permissionid>5`, (err, res) => {
+    select permissionid, name as permissionname from permission where permissionid>5 and permissionid<>29 and permissionid<>30`, (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
