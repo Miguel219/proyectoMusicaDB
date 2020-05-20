@@ -282,6 +282,8 @@ INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,27);
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,28);
 INSERT INTO Permission (Name) VALUES ('Ver Bitácora');
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,29);
+INSERT INTO Permission (Name) VALUES ('Simular ventas y reproducciones');
+INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,30);
 
 /*Se asignan los permisos a los dos roles iniciales*/
 INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (1,1);

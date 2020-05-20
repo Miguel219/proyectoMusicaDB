@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
 import { Table } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -6,10 +7,10 @@ import './styles.css';
 import Header from '../Header';
 import userService from '../../services/user';
 import trackService from '../../services/track';
-import user from '../../services/user';
+import * as selectors from '../../reducers';
 
 
-export const Simulation = () => {
+const Simulation = ({permissions}) => {
   const [trackNumberInput, changeTrackNumberInput] = useState('');
   const [dateInput, changeDateInput] = useState('');
   //Funcion para validar los campos
@@ -42,7 +43,6 @@ export const Simulation = () => {
         if(userList.length===0){
           alert('No hay usuarios en la aplicación para realizar la simulación')
         }else{
-          var success = 0;
           const NumberOfTracksForUser = parseInt(trackRandomList.length/userList.length);
           simulation = userList.map((user,i)=> {
             var tracksForUser = null;
@@ -78,7 +78,7 @@ export const Simulation = () => {
           {'Simulación:'}
         </div>
         <br/>
-        <Table className="simulation-table" borderless>
+        <Table hidden={!permissions.includes('Simular ventas y reproducciones')} className="simulation-table" borderless>
           <thead>
             <tr>
               <th>{'Cantidad de canciones:'}</th>
@@ -116,3 +116,10 @@ export const Simulation = () => {
     </Fragment>
   );
 } 
+
+export default connect(
+  state => ({
+    permissions: selectors.getLoggedUser(state).permissions,
+  }),
+  undefined,
+)(Simulation);
