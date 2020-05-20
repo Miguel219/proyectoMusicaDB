@@ -27,6 +27,7 @@ app.use('/api/permission', require('./api/permission'));
 app.use('/api/role', require('./api/role'));
 app.use('/api/user', require('./api/user'));
 app.use('/api/report', require('./api/report'));
+app.use('/api/logbook', require('./api/logbook'));
 
 
 //Listen al puerto
