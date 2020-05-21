@@ -2,6 +2,7 @@ import psycopg2
 from pymongo import MongoClient
 from decimal import Decimal
 import datetime
+from tabulate import tabulate
 
 #Funcion para conectarse a la base de datos postgres
 def connectDBPostgres():
@@ -87,8 +88,9 @@ def query1(connection, cursor, collection):
             "total": float(row[10])
         })
 
-        print(row, "\n")
-
+        
+    print(tabulate([['UserId', 'FirstName', 'LastName','Address', 'City','State', 'Country','PostalCode','InvoiceId','InvoiceDate','Total']],tablefmt="fancy_grid"))
+    print(tabulate(dataList,tablefmt="fancy_grid"))
     print('------------------------------\n')
 
     #Se guarda en mongodb
