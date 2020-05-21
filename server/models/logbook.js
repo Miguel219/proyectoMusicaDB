@@ -7,13 +7,13 @@ const db = require('../database');
 class LogBook {
 
     //  All Logs
-    static getAll(callback) {
-        db.query(`SELECT logId, LogType, UserId, ObjectType, ObjectId, DateModified FROM LogBook`, (err, res) => {
-            if(err.error)
-                return callback(err);
-            callback(res);
+    static getAllParams (params,callback) {
+        db.query(`SELECT * from LogBook`, (err, res) => {
+          if (err.error)
+            return callback(err);
+          callback(res);
         });
-    }
+      }
 }
 
 module.exports = LogBook;

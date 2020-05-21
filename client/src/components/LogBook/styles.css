@@ -15,6 +15,7 @@
 .logbook-title {
     display: flex;
     flex-direction: column;
+    
 }
 
 .logbook-buttons {
@@ -49,4 +50,6 @@
 .logbook-content {
     background: whitesmoke;
     font-size: 15px;
+    margin-top: 20px;
+   
 }
