@@ -3,12 +3,13 @@
 /* -------------------------------------------------------------------------- */
 
 //  get all Logs
-export const getAllLogsList = () => {
-    return fetch(`/api/logbook/`, {
-        method: 'get',
+export const getAllLogsList = ({params={}}) => {
+    return fetch(`/api/logbook/get`, {
+        method: 'post',
         headers: {
             'Content-Type': 'application/json',
-        }
+        },
+        body:JSON.stringify({params})
     })
     .then(res => res.json())
         .then(res => {

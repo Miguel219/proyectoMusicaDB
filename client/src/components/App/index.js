@@ -18,12 +18,14 @@ import EditAlbum from '../EditAlbum';
 import Users from '../Users';
 import EditUser from '../EditUser';
 import Roles from '../Roles';
+import LogBook from '../LogBook';
 import EditRole from '../EditRole';
 import Simulation from '../Simulation';
 import AssignPermission from '../AssignPermission';
 import logo from '../../../public/Images/music-note.png';
 import PrivateRoute from '../PrivateRouter'
 import PrivateRouteAdmin from '../PrivateRouterAdmin'
+import Bitácora from '../../../public/Images/Bitácora.png';
 
 
 export const  history = createHashHistory();
@@ -75,7 +77,7 @@ const App = ({ store }) => {
         <PrivateRouteAdmin path={'/editar/usuario'}  component={<EditUser />} store={store}/>
         <PrivateRouteAdmin path={'/editar/rol'}  component={<EditRole />} store={store}/>
         <PrivateRouteAdmin path={'/editar/permisos'}  component={<AssignPermission />} store={store}/>
-
+        
       </Route>
       
       <Route path='/admin'
@@ -90,6 +92,7 @@ const App = ({ store }) => {
         <PrivateRouteAdmin path={'/admin/usuarios'}  component={<Users />} store={store}/>
         <PrivateRouteAdmin path={'/admin/roles'}  component={<Roles />} store={store}/>
         <PrivateRouteAdmin path={'/admin/simulación'}  component={<Simulation />} store={store}/>
+        <PrivateRouteAdmin path={'/admin/bitácora'}  component={<LogBook />} store={store}/>
       </Route>
 
       

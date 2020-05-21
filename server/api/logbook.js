@@ -6,13 +6,14 @@ var LogBook = require('../models/logbook');
 
 var api = express.Router();
 
-//  Get all Logs
-api.get('/', (req, res) => {
-    LogBook.getAll((err, result) => {
-        if(err)
-            return res.json(err);
-        return res.json(result);
+//Get LogBook params
+api.post('/get', (req, res) => {
+    let params = req.body;
+    LogBook.getAllParams(params, (err, result) => {
+      if (err)
+        return res.json(err);
+      return res.json(result);
     });
-});
+  });
 
 module.exports = api;
