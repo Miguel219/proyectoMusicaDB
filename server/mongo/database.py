@@ -93,15 +93,22 @@ def query1(connection, cursor, collection):
     print('------------------------------\n')
 
     #Se guarda en mongodb
-    dataid = collection.insert_many(dataList)
-    print('\n---Id de los datos guardados---\n')
-    for iddocument in dataid.inserted_ids:
-        print(iddocument, "\n")
+    if(len(dataList)>0):
+        dataid = collection.insert_many(dataList)
+        print('\n---Id de los datos guardados---\n')
+        for iddocument in dataid.inserted_ids:
+            print(iddocument, "\n")
 
-    print('---------------------------------\n')
-    
-    #Mensaje de exito
-    print('\nSe lograron guardar todos los datos en la base de datos de mongodb!\n')
+        print('---------------------------------\n')
+        
+        #Mensaje de exito
+        print('\nSe lograron guardar todos los datos en la base de datos de mongodb!\n')
+    else:
+        
+        
+        #Mensaje de exito
+        print('\nNo hay ninguna venta en las fechas ingresadas.\n')
+
 
 #Funcion del query2
 def query2(connection, cursor, collection):
@@ -175,17 +182,21 @@ def query2(connection, cursor, collection):
     print('------------------------------\n')
 
     #Se guarda en mongodb
-    dataid = collection.insert_many(dataList)
-    print('\n---Id de los datos guardados---\n')
-    for iddocument in dataid.inserted_ids:
-        print(iddocument, "\n")
+    if(len(dataList)>0):
+        dataid = collection.insert_many(dataList)
+        print('\n---Id de los datos guardados---\n')
+        for iddocument in dataid.inserted_ids:
+            print(iddocument, "\n")
 
-    print('---------------------------------\n')
-    
-    #Mensaje de exito
-    print('\nSe lograron guardar todos los datos en la base de datos de mongodb!\n')
-
-
+        print('---------------------------------\n')
+        
+        #Mensaje de exito
+        print('\nSe lograron guardar todos los datos en la base de datos de mongodb!\n')
+    else:
+        
+        
+        #Mensaje de exito
+        print('\nNo hay ninguna venta en las fechas ingresadas.\n')
 
 #Se conecta a la base de datos de postgres
 dbConnectionPostgres = connectDBPostgres()
