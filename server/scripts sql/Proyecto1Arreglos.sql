@@ -206,6 +206,377 @@ CREATE TABLE PlaylistTrack
 );
 
 
+/*******************************************************************************
+  Create Playback
+********************************************************************************/
+DROP TABLE IF EXISTS Playback;
+
+CREATE TABLE Playback (
+	PlaybackId SERIAL,
+	UserId VARCHAR(120),
+	TrackId INTEGER,
+	Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT PK_Playback PRIMARY KEY (PlaybackId),
+	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (TrackId) REFERENCES Track (TrackId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+/*******************************************************************************
+  Ceate LogBook
+********************************************************************************/
+DROP TABLE IF EXISTS LogBook;
+--LogType insert, update, delete
+--ObjectType artist, album, playlist y track.
+CREATE TABLE LogBook (
+	LogId SERIAL,
+	LogType VARCHAR(30),
+	UserId VARCHAR(120) DEFAULT 'adminMusic@gmail.com',
+	ObjectType VARCHAR(30),
+	ObjectId INTEGER,
+	DateModified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT PK_LogBook PRIMARY KEY (LogId),
+	FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+/*******************************************************************************
+  Ceate trigger
+********************************************************************************/
+-- ARTIST TRIGGERS
+CREATE OR REPLACE FUNCTION log_changing_artist()
+  RETURNS trigger AS
+$$
+BEGIN
+  INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+  VALUES ('update', NEW.userId, 'artist', OLD.ArtistId);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS changing_artist ON Artist;
+
+CREATE TRIGGER changing_artist
+  BEFORE UPDATE
+  ON Artist
+  FOR EACH ROW
+  EXECUTE PROCEDURE log_changing_artist();
+
+CREATE OR REPLACE FUNCTION log_adding_artist()
+  RETURNS trigger AS
+$$
+BEGIN
+  INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+  VALUES ('insert', NEW.UserId, 'artist',  NEW.ArtistId);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS adding_artist ON Artist;
+
+CREATE TRIGGER adding_artist
+  BEFORE INSERT
+  ON Artist
+  FOR EACH ROW
+  EXECUTE PROCEDURE log_adding_artist();
+
+CREATE OR REPLACE FUNCTION log_removing_artist()
+  RETURNS trigger AS
+$$
+BEGIN
+  INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+  VALUES ('delete', OLD.userId, 'artist', OLD.ArtistId);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS removing_artist ON Artist;
+
+CREATE TRIGGER removing_artist
+  AFTER DELETE
+  ON Artist
+  FOR EACH ROW
+  EXECUTE PROCEDURE log_removing_artist();
+
+
+-- ALBUM TRIGGERS
+CREATE OR REPLACE FUNCTION log_changing_album()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+		VALUES ('update', NEW.userId, 'album', OLD.AlbumId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS changing_album ON Album;
+
+CREATE TRIGGER changing_album
+	BEFORE UPDATE
+	ON Album
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_changing_album();
+
+CREATE OR REPLACE FUNCTION log_adding_album()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+		VALUES ('insert', NEW.UserId, 'album', NEW.AlbumId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS adding_album ON Album;
+
+CREATE TRIGGER adding_album
+	AFTER INSERT
+	ON Album
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_adding_album();
+
+CREATE OR REPLACE FUNCTION log_removing_album()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+		VALUES ('delete', OLD.userId, 'album', OLD.AlbumId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS removing_album ON Album;
+
+CREATE TRIGGER removing_album
+AFTER DELETE
+ON Album
+FOR EACH ROW
+EXECUTE PROCEDURE log_removing_album();
+
+
+-- GENRE TRIGGERS
+CREATE OR REPLACE FUNCTION log_changing_genre()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+		VALUES ('update', 'genre', OLD.GenreId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS changing_genre ON Genre;
+
+CREATE TRIGGER changing_genre
+	BEFORE UPDATE
+	ON Genre
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_changing_genre();
+
+CREATE OR REPLACE FUNCTION log_adding_genre()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+		VALUES ('insert', 'genre', NEW.GenreId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS adding_genre ON Genre;
+
+CREATE TRIGGER adding_genre
+	BEFORE INSERT
+	ON Genre
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_adding_genre();
+
+CREATE OR REPLACE FUNCTION log_removing_genre()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+		VALUES ('delete', 'genre', OLD.GenreId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS removing_genre ON Genre;
+
+CREATE TRIGGER removing_genre
+	AFTER DELETE
+	ON Genre
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_removing_genre();
+
+
+-- MEDIATYPE TRIGGERS
+CREATE OR REPLACE FUNCTION log_changing_mediatype()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+    VALUES ('update', 'mediatype', OLD.MediaTypeId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS changing_mediatype ON MediaType;
+
+CREATE TRIGGER changing_mediatype
+	BEFORE UPDATE
+	ON MediaType
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_changing_mediatype();
+
+CREATE OR REPLACE FUNCTION log_adding_mediatype()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+    VALUES ('insert', 'mediatype', NEW.MediaTypeId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS adding_mediatype ON MediaType;
+
+CREATE TRIGGER adding_mediatype
+	BEFORE INSERT
+	ON MediaType
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_adding_mediatype();
+
+CREATE OR REPLACE FUNCTION log_removing_mediatype()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+    VALUES ('delete', 'mediatype', OLD.MediaTypeId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS removing_mediatype ON MediaType;
+
+CREATE TRIGGER removing_mediatype
+	AFTER DELETE
+	ON MediaType
+	FOR EACH ROW
+  EXECUTE PROCEDURE log_removing_mediatype();
+
+
+-- TRACK TRIGGERS
+CREATE OR REPLACE FUNCTION log_changing_track()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+		VALUES ('update', NEW.userId, 'track', OLD.TrackId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS changing_track ON Track;
+
+CREATE TRIGGER changing_track
+	AFTER UPDATE
+	ON Track
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_changing_track();
+
+CREATE OR REPLACE FUNCTION log_adding_track()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+		VALUES ('insert', NEW.UserId, 'track', NEW.TrackId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS adding_track ON Track;
+
+CREATE TRIGGER adding_track
+	BEFORE INSERT
+	ON Track
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_adding_track();
+
+CREATE OR REPLACE FUNCTION log_removing_track()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, UserId, ObjectType, ObjectId)
+		VALUES ('delete', OLD.userId, 'track', OLD.TrackId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS removing_track ON Track;
+
+CREATE TRIGGER removing_track
+	AFTER DELETE
+	ON Track
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_removing_track();
+
+
+-- PLAYLIST TRIGGERS
+CREATE OR REPLACE FUNCTION log_changing_playlist()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+		VALUES ('update', 'playlist', OLD.PlaylistId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS changing_playlist ON Playlist;
+
+CREATE TRIGGER changing_playlist
+	BEFORE UPDATE
+	ON Playlist
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_changing_playlist();
+
+CREATE OR REPLACE FUNCTION log_adding_playlist()
+	RETURNS trigger AS
+$$
+BEGIN
+		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+		VALUES ('insert', 'playlist', NEW.PlaylistId);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS adding_playlist ON Playlist;
+
+CREATE TRIGGER adding_playlist
+	BEFORE INSERT
+	ON Playlist
+	FOR EACH ROW
+	EXECUTE PROCEDURE log_adding_playlist();
+
+  CREATE OR REPLACE FUNCTION log_removing_playlist()
+  	RETURNS trigger AS
+  $$
+  BEGIN
+  		INSERT INTO LogBook (LogType, ObjectType, ObjectId)
+  		VALUES ('delete', 'playlist', OLD.PlaylistId);
+      RETURN NEW;
+  END;
+
+  $$ LANGUAGE plpgsql;
+
+  DROP TRIGGER IF EXISTS removing_playlist ON Playlist;
+
+  CREATE TRIGGER removing_playlist
+  	AFTER DELETE
+  	ON Playlist
+  	FOR EACH ROW
+  	EXECUTE PROCEDURE log_removing_playlist();
+	
 
 /*******************************************************************************
    Create Primary Key Unique Indexes
@@ -314,6 +685,22 @@ INSERT INTO RolesPermissions (RoleId,PermissionId) VALUES (2,24);
 
 /*Se crea el unico usuario con el rol de administrador*/
 INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (1,'Administrador','admin',NULL,'adminMusic@gmail.com','admin2020');
+/*Se crean usuarios ejemplo*/
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Alfonsa','Clemente',NULL,'AlfonsaC@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Joaquin','Cervera',NULL,'JoaquinC@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Maitane','Rodrigues',NULL,'MaitaneR@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Arancha','Salgado',NULL,'AranchaS@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Jose-Maria','Albert',NULL,'JoseMariaA@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Hamid','Flores',NULL,'HamidF@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Isaias','del Moral',NULL,'IsaiasdelM@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Cecilia','Almeida',NULL,'CeciliaA@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Igor','Molina',NULL,'IgorM@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Ibai','Marrero',NULL,'IbaiM@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Eliseo','Vidal',NULL,'EliseoV@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Presentacion','Vilar',NULL,'PresentacionV@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Mar','Espin',NULL,'MarE@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Victoria','Figueras',NULL,'VictoriaF@gmail.com','usuarioprueba');
+INSERT INTO Users(RoleId,Name,LastName,BirthDate,UserId,Password) VALUES (2,'Leandro','Palazon',NULL,'LeandroP@gmail.com','usuarioprueba');
 
 
 INSERT INTO Genre (Name) VALUES ('Rock');
