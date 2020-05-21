@@ -58,13 +58,13 @@ def query1(connection, cursor, collection):
         except:
             print('ERROR: Ingresa una fecha real\n')
 
-    query1 = f'''SELECT c.customerid as customerid, c.firstname as firstname, c.lastname as lastname,
-                  c.company as company, c.address as address, c.city as city, c.state as state, 
-                  c.country as country, c.postalcode as postalcode, c.phone as phone, c.fax as fax,
-                  c.email as email, i.invoiceid as invoiceid, i.invoicedate as invoicedate, i.total as total
+    query1 = f'''SELECT c.userid as userid, c.name as firstname, c.lastname as lastname,
+                  c.address as address, c.city as city, c.state as state, 
+                  c.country as country, c.postalcode as postalcode,
+                  i.invoiceid as invoiceid, i.invoicedate as invoicedate, i.total as total
                 FROM invoice i
-                INNER JOIN customer c
-                on c.customerid = i.customerid
+                INNER JOIN users c
+                on c.userid = i.userid
                 WHERE i.invoicedate between '{date}' and '{date2}' ;'''
     
     cursor.execute(query1)
@@ -74,21 +74,17 @@ def query1(connection, cursor, collection):
     print('\n---------Resultados-----------\n')
     for row in select:
         dataList.append({
-            "customerid": row[0],
+            "userid": row[0],
             "firstname": row[1],
             "lastname": row[2],
-            "company": row[3],
-            "address": row[4],
-            "city": row[5],
-            "state": row[6],
-            "country": row[7],
-            "postalcode": row[8],
-            "phone": row[9],
-            "fax": row[10],
-            "email": row[11],
-            "invoiceid": row[12],
-            "invoicedate": row[13],
-            "total": float(row[14])
+            "address": row[3],
+            "city": row[4],
+            "state": row[5],
+            "country": row[6],
+            "postalcode": row[7],
+            "invoiceid": row[8],
+            "invoicedate": row[9],
+            "total": float(row[10])
         })
 
         print(row, "\n")
