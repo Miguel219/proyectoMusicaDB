@@ -16,7 +16,7 @@ const Simulation = ({permissions}) => {
   //Funcion para validar los campos
   var validate = function () {
     if(trackNumberInput!=='' && dateInput!==''){
-      if(parseInt(trackNumberInput)>0)
+      if(parseInt(trackNumberInput)>0 && parseInt(trackNumberInput)<=1000 )
         return true;
     }else {
       return false;
@@ -91,6 +91,7 @@ const Simulation = ({permissions}) => {
                 <input className="simulation-input"
                   type="number"
                   min="1"
+                  max="1000"
                   placeholder="Ingresa la cantidad de canciones"
                   value={trackNumberInput}
                   onChange={e => changeTrackNumberInput(e.target.value)}

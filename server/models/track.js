@@ -110,8 +110,8 @@ class Track {
               return callback(err);
           });
           db.query(`INSERT INTO playback(
-            userid, trackid)
-            VALUES ('${simulation.userid}', '${track.trackid}');`, (err, res) => {
+            userid, trackid,date)
+            VALUES ('${simulation.userid}', '${track.trackid}','${simulation.date}');`, (err, res) => {
             if (err.error)
               return callback(err);
           });

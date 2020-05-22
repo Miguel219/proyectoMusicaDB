@@ -42,7 +42,7 @@ AS $$
 $$ LANGUAGE plpgsql;
 
 
-select * from totalSalesByWeek('2020-05-18','2020-05-20')
+select * from totalSalesByWeek('2020-05-05T18:00:00.000Z','2020-05-20');
 
 -- Los N artistas con las mayores ventas para un rango de fechas a ser ingresado por el
 --usuario. La cantidad de artistas N a mostrar también debe ser ingresada por el usuario
@@ -80,7 +80,7 @@ AS $$
 	END
 $$ LANGUAGE plpgsql;
 
-select * from artistSalesBetweenTwoDates(2,'2020-05-18','2020-05-20')
+select * from artistSalesBetweenTwoDates(2,'2020-05-18','2020-05-20');
 
 
 --Total de ventas por género para un rango de fechas a ser ingresado por el usuario
@@ -123,7 +123,7 @@ AS $$
 	END
 $$ LANGUAGE plpgsql;
 
-select * from genreSalesBetweenTwoDates('2020-05-19','2020-05-20')
+select * from genreSalesBetweenTwoDates('2020-05-19','2020-05-20');
 
 
 -- Las N canciones con más reproducciones para un artista a ser ingresado por el usuario
@@ -151,11 +151,12 @@ AS $$
 		inner join artist ar on a.artistid =ar.artistid
 		where ar.artistid=artistidsearch
 		group by t.trackid,ar.name
+		order by count(pb.trackid) DESC
 		limit limitTracks;
 	END
 $$ LANGUAGE plpgsql;
 		
-select * from artistTopTracksPlayback(10,1)
+select * from artistTopTracksPlayback(10,20);
 
 
 

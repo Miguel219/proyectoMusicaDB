@@ -142,7 +142,7 @@ def query2(connection, cursor, collection):
 								  	WHERE c3.userid = c.userid 
 									group by g2.genreid
 									order by count(t.trackid) DESC
-								  	limit 1)
+								  	limit 2)
 									group by g2.genreid
 									order by count(t.trackid) DESC
 								  	limit 1)
@@ -163,7 +163,7 @@ def query2(connection, cursor, collection):
                     INNER JOIN artist a on a.artistid = al.artistid
                     where lb.objecttype = 'track' and lb.logtype = 'insert' and g.name = '{row[3]}'
                     order by datemodified DESC
-					limit 1;'''
+					limit 3;'''
         cursor.execute(query2)
         connection.commit()
         select2 = cursor.fetchall()

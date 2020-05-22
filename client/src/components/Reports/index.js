@@ -8,7 +8,9 @@ import './styles.css';
 import * as selectors from '../../reducers';
 import Header from '../Header';
 import * as actionsReport from '../../actions/reports';
+import * as actionArtists from '../../actions/artists';
 import reportService from '../../services/report'
+import artistService from '../../services/artist'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import jsPDF from 'jspdf'
@@ -337,6 +339,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                           showTimeSelect
                           timeFormat="HH:mm"
                           timeIntervals={60}
+                          
                           timeCaption="Tiempo"
                           dateFormat="yyyy-MM-dd h:mm aa"
                           style={{margin:20}}
@@ -350,11 +353,14 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                           showTimeSelect
                           timeFormat="HH:mm"
                           timeIntervals={60}
+                          
+
+
                           timeCaption="Tiempo"
                           dateFormat="yyyy-MM-dd h:mm aa"
                           
                         /></td>
-                        <td><Button style={{margin:20,height:60}} disabled={dateStart>dateEnd} onClick={()=>getReportResult({reportType:10,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
+                        <td><Button style={{margin:20,height:60,background:'#FFB900'}} disabled={dateStart>dateEnd} onClick={()=>getReportResult({reportType:10,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
                       </tr>
                       
                 </tbody>
@@ -377,8 +383,8 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                     (
                       <tr key={id} className={"table-light"} >
                         <th scope="row">{id+1}</th>
-                        <td>{report.weekstart}</td>
-                        <td>{report.weekend}</td>
+                        <td>{(new Date( report.weekstart)).toLocaleString()}</td>
+                        <td>{(new Date( report.weekend)).toLocaleString()}</td>
                         <td>{report.weektotal}</td>
                         <td>{report.weektotaltracks}</td>
         
@@ -388,7 +394,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="right" colspan="3">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['weektotal'] || 0), 0)}</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['weektotaltracks'] || 0), 0)}</td>
+                        <td className="right" colSpan="3">Totales:</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['weektotal'] || 0), 0)}</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['weektotaltracks'] || 0), 0)}</td>
                     </tr>
                 </tfoot>
               </Table>
@@ -482,7 +488,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="right" colspan="2">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['totalsold'] || 0), 0)}</td>
+                        <td className="right" colSpan="2">Totales:</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['totalsold'] || 0), 0)}</td>
                     </tr>
                 </tfoot>
               </Table>
@@ -536,7 +542,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                           
                         /></td>
                        
-                        <td><Button style={{margin:20,height:60}} disabled={dateStart>dateEnd } onClick={()=>getReportResult({reportType:11,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
+                        <td><Button style={{margin:20,height:60}} disabled={dateStart>dateEnd } onClick={()=>getReportResult({reportType:12,params:{dateStart,dateEnd,limit}})}>Generar Reporte</Button></td>
                       </tr>
                       
                 </tbody>
@@ -569,7 +575,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="right" colspan="2">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['totalsold'] || 0), 0)}</td>
+                        <td className="right" colSpan="2">Totales:</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['totalsold'] || 0), 0)}</td>
                     </tr>
                 </tfoot>
               </Table>
@@ -651,7 +657,7 @@ const renderSwitchReport = (reporttypeid,report,setDateEnd,setDateStart,dateStar
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="right" colspan="3">Totales:</td><td class="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td>
+                        <td className="right" colSpan="3">Totales:</td><td className="right">{report.reduce((a, b) => a + parseFloat(b['trackcount'] || 0), 0)}</td>
                     </tr>
                 </tfoot>
               </Table>
@@ -733,9 +739,18 @@ export default connect(
   dispatch => ({
 
     onSelectReport({reportType}) {
+      if(reportType==13){
+          //Se carga el DorpDown de albums
+        dispatch(actionArtists.clearArtists());
+        artistService.getArtistListAll().then(res=> {
+          const artistDropDown = res;
+          artistDropDown.map(artist => dispatch(actionArtists.addArtist(artist)));
+        });
+      }
       dispatch(actionsReport.selectReportId(reportType))
     },
     getReportResult({reportType,params={limit:10,dateStart:(new Date('2020-05-19')),dateEnd:(new Date('2020-05-21')),artistid:1}}){
+      
       reportService.getReport({reportType,params}).then(
         report=>{dispatch(actionsReport.selectReport(report))}
       )
