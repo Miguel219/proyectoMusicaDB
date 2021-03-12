@@ -5,7 +5,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.4",
     "immutable": "^4.0.0-rc.12",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.3",
     "lodash": "^4.17.15",
     "pg": "^7.18.2",
